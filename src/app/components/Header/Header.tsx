@@ -4,10 +4,12 @@ import UserPanel from "../UserPanel";
 
 const Header = () => {
   return (
-    <header className="p-4 bg-amber-50 flex justify-between items-center">
-      <Logo />
-      <Navigation />
-      <UserPanel />
+    <header className=" bg-amber-50 py-4">
+      <div className="container flex justify-between items-center  mx-auto">
+        <Logo />
+        <Navigation />
+        <UserPanel />
+      </div>
     </header>
   );
 };

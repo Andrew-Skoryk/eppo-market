@@ -20,7 +20,7 @@ const UserPanel = () => {
         />
       </SignedIn>
 
-      <SignedOut>{<NavLink href="/">Log in</NavLink>}</SignedOut>
+      <SignedOut>{<NavLink href="/sign-in">Log in</NavLink>}</SignedOut>
     </div>
   );
 };
