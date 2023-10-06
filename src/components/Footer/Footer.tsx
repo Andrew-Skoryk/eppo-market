@@ -3,10 +3,12 @@ import NavLink from "../NavLink";
 
 const Footer = () => {
   return (
-    <footer className="bg-orange-400 text-white py-4">
-      <div className="container mx-auto flex justify-between items-center">
-          <Logo />
-          <p className="text-sm self-end">&copy; {new Date().getFullYear()} All rights reserved.</p>
+    <footer className="py-4 text-white bg-orange-400">
+      <div className="container relative flex items-center justify-between mx-auto max-w-7xl">
+        <Logo />
+        <p className="absolute self-end text-sm -translate-x-1/2 w-max inset-x-1/2">
+          &copy; {new Date().getFullYear()} All rights reserved.
+        </p>
         <nav>
           <ul className="flex space-x-4">
             <li>

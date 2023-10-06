@@ -1,13 +1,18 @@
 import { UserButton, SignedIn, SignedOut } from "@clerk/nextjs";
+import { ShoppingBasket } from "lucide-react";
 import NavLink from "../NavLink";
 
 const UserPanel = () => {
   return (
-    <div className="flex space-x-4 text-lime-700">
-      <NavLink href="/cart">🛒</NavLink>
-      <a href="/cart" className="hover:text-gray-300">
+    <div className="flex items-center space-x-4 text-lime-700">
+      <NavLink href="/cart">
+        <ShoppingBasket
+          size={35}
+          strokeWidth={2.3}
+          absoluteStrokeWidth={true}
+        />
         <span className="sr-only">Корзина</span>
-      </a>
+      </NavLink>
 
       <SignedIn>
         <UserButton

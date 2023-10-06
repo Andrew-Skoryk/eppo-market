@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type PropsWithChildren } from "react";
 import Link, { type LinkProps } from "next/link";
-import cn from "classnames";
+import { cn } from "../../lib/utils";
 
 type Props = LinkProps & {
   href: string;

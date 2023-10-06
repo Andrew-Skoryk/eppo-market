@@ -4,8 +4,8 @@ import UserPanel from "../UserPanel";
 
 const Header = () => {
   return (
-    <header className=" bg-amber-50 py-4">
-      <div className="container flex justify-between items-center  mx-auto">
+    <header className="fixed inset-x-0 top-0 py-4 bg-amber-50 h-fit">
+      <div className="container flex items-center justify-between h-full gap-2 mx-auto max-w-7xl">
         <Logo />
         <Navigation />
         <UserPanel />
