@@ -24,9 +24,13 @@ const NavLink = ({ href, children }: PropsWithChildren<Props>) => {
     setIsActive(linkPathname === activePathname);
   }, [href, path]);
 
+  const normalizedTitle =
+    typeof children === "string" ? children.toString() : "Корзина";
+
   return (
     <Link
       href={href}
+      title={normalizedTitle}
       className={cn(
         "rounded-xl py-2 px-4 font-semibold hover:bg-yellow-200 transition-colors duration-300 active:bg-yellow-500",
         {
