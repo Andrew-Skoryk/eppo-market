@@ -3,7 +3,7 @@ import NavLink from "../NavLink";
 const Navigation = () => {
   return (
     <nav>
-      <ul className="flex space-x-4 text-lime-700">
+      <ul className="flex space-x-4">
         <li>
           <NavLink href="/">Головна</NavLink>
         </li>

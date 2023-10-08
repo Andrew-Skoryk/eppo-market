@@ -9,7 +9,7 @@ function notFound() {
   return (
     <section className="flex justify-center gap-2 py-16 text-red-800">
       <XOctagon />
-      <h2 className="text-xl">Oops! Page not found...</h2>
+      <h2 className="text-xl">Ой! Здається, такої сторінки не існує...</h2>
     </section>
   );
 }

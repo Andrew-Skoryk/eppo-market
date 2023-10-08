@@ -1,10 +1,10 @@
 import { UserButton, SignedIn, SignedOut } from "@clerk/nextjs";
-import { ShoppingBasket } from "lucide-react";
+import { ShoppingBasket, User2 } from "lucide-react";
 import NavLink from "../NavLink";
 
 const UserPanel = () => {
   return (
-    <div className="flex items-center space-x-4 text-lime-700">
+    <div className="flex items-center space-x-4">
       <NavLink href="/cart">
         <ShoppingBasket
           size={35}
@@ -25,7 +25,7 @@ const UserPanel = () => {
         />
       </SignedIn>
 
-      <SignedOut>{<NavLink href="/sign-in">Log in</NavLink>}</SignedOut>
+      <SignedOut>{<NavLink href="/sign-in">{<User2 />}</NavLink>}</SignedOut>
     </div>
   );
 };

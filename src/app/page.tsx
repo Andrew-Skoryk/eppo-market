@@ -1,9 +1,12 @@
 // import Image from "next/image";
 
+import MinValueOrderComp from "../components/MinValueOrderComp";
+
 export default function Home() {
   return (
-    <main className="flex flex-col items-center h-full bg-slate-500">
+    <div className="flex flex-col items-center justify-center h-full">
+      <MinValueOrderComp />
       Тут Буде мейн
-    </main>
+    </div>
   );
 }

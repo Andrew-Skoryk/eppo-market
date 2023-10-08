@@ -10,7 +10,7 @@ const Logo = () => {
         alt="Eppo market Logo"
         className="w-16 h-16 sm:h-12 sm:w-12"
       />
-      <p className="hidden text-sm font-medium text-zinc-700 md:block">Eppo</p>
+      <p className="hidden text-sm font-medium md:block text-stone-700">Eppo</p>
     </Link>
   );
 };

@@ -5,6 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { cn } from "../lib/utils";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { ukUA } from "@clerk/localizations";
 
 const inter = Inter({ subsets: ["latin", "cyrillic"] });
 
@@ -19,14 +20,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
-      <html
-        lang="uk"
-        className={cn("antialiased text-slate-900", inter.className)}
-      >
-        <body className="flex flex-col min-h-screen pt-24 antialiased bg-slate-50">
+    <ClerkProvider localization={ukUA}>
+      <html lang="uk" className={cn("antialiased", inter.className)}>
+        <body className="flex flex-col min-h-screen pt-20 antialiased bg-slate-50">
           <Header />
-          <div className="container h-full mx-auto max-w-7xl">{children}</div>
+          <main className="container flex-grow mx-auto max-w-7xl flex flex-col items-center p-4">
+            {children}
+          </main>
           <Footer />
         </body>
       </html>
