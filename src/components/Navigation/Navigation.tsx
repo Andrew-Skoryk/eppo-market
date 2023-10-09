@@ -11,7 +11,13 @@ const Navigation = () => {
           <NavLink href="/products">Товари</NavLink>
         </li>
         <li>
-          <NavLink href="/contact">Контакти</NavLink>
+          <NavLink href={"/about"}>Про нас</NavLink>
+        </li>
+        <li>
+          <NavLink href={"/delivery"}>Доставка/Оплата</NavLink>
+        </li>
+        <li>
+          <NavLink href="/contacts">Контакти</NavLink>
         </li>
       </ul>
     </nav>
