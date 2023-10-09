@@ -7,7 +7,7 @@ export const categories = [
   {
     name: "ЮВЕЛІРНА БІЖУТЕРІЯ XP (ЗОЛОТО 18K)",
     imgSrc: Gold,
-    link: "/category/electronics",
+    link: "/category/gold",
     imgPosition: "",
   },
   {
