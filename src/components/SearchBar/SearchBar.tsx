@@ -31,7 +31,7 @@ const SearchBar = () => {
 
         <button
           type="submit"
-          className="p-2 border rounded-r-md bg-amber-400 text-white w-min border-amber-500 hover:bg-amber-500 active:bg-amber-600"
+          className="p-2 border rounded-r-md bg-amber-400 text-white w-min border-amber-500 hover:bg-amber-500 active:bg-amber-600 transition-colors duration-300"
         >
           <Search />
         </button>
