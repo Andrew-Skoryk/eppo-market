@@ -1,8 +1,8 @@
-import StandardInfoBlock from "@/components/UI/StandardInfoBlock";
+import StandardInfoBlock from "../../components/UI/StandardInfoBlock";
 import Headings from "../../components/UI/Headings";
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Mail, Phone } from "lucide-react";
+import { Clock2, Clock4, Hourglass } from "lucide-react";
+import ContactsInfoBlock from "../../components/ContactsInfoBlock";
 
 export const metadata: Metadata = {
   title: "Контакти - Eppo",
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 function ContactsPage() {
   return (
-    <section className="p-2">
+    <section className="p-2 flex flex-col gap-8">
       <Headings level={1}>Контакти</Headings>
       <article>
         <address className="not-italic">
@@ -21,42 +21,47 @@ function ContactsPage() {
           <p>м. Івано-Франківськ</p>
           <StandardInfoBlock>
             <Headings level={2}>Наші контакти</Headings>
-            <p className="flex gap-1">
-              <Phone />
-              <Link href="tel:+380682128618">Kyivstar: +380682128618</Link>
-            </p>
-            <p className="flex gap-1">
-              <Phone />
-              <Link href="tel:+380931275947">Life: +380931275947</Link>
-            </p>
-            <p className="flex gap-1">
-              <Phone />
-              <Link href="tel:+380507237597">MTC: +380507237597</Link>
-            </p>
-            <p className="flex gap-1">
-              <Mail />
-              e-mail:{" "}
-              <Link href="mailto:eppo.market@gmail.com" className="underline">
-                eppo.market@gmail.com
-              </Link>
-            </p>
+            <ContactsInfoBlock href="tel:+380682128618">
+              Kyivstar: +38(068) 212-86-18
+            </ContactsInfoBlock>
+            <ContactsInfoBlock href="tel:+380931275947">
+              Life: +38(093) 127-59-47
+            </ContactsInfoBlock>
+            <ContactsInfoBlock href="tel:+380507237597">
+              Vodafone: +38(050) 723-75-97
+            </ContactsInfoBlock>
+            <ContactsInfoBlock href="mailto:eppo.market@gmail.com">
+              e-mail: eppo.market@gmail.com
+            </ContactsInfoBlock>
           </StandardInfoBlock>
           <StandardInfoBlock>
             <Headings level={2}>Графік роботи</Headings>
-            <p>Пн-Пт: 9:00-16:00</p>
-            <p>Субота: 9:00-14:00</p>
-            <p>Неділя: вихідний</p>
+            <p className="flex gap-1 items-center">
+              <Clock4 size={19} />
+              Пн-Пт: 9:00 - 16:00
+            </p>
+            <p className="flex gap-1 items-center">
+              <Clock2 size={19} />
+              Субота: 9:00 - 14:00
+            </p>
+            <p className="flex gap-1 items-center">
+              <Hourglass size={19} />
+              Неділя: вихідний
+            </p>
           </StandardInfoBlock>
         </address>
       </article>
-      <article className="mt-8 md:mt-12">
+
+      <article>
         <StandardInfoBlock>
           <Headings level={2}>Як нас знайти</Headings>
           <p className="mt-4">
             Наш магазин розташований у місті Івано-Франківськ, але ви завжди
             можете зателефонувати нам або надіслати електронний лист, якщо у вас
-            є питання або потреба в додатковій інформації. Ми завжди раді
-            допомогти вам у виборі найкращих прикрас та аксесуарів.
+            є питання.
+            <br />
+            Ми завжди раді допомогти Вам у виборі найкращих прикрас та
+            аксесуарів!
           </p>
         </StandardInfoBlock>
       </article>

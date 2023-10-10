@@ -1,6 +1,7 @@
-import StandardInfoBlock from "@/components/UI/StandardInfoBlock";
+import StandardInfoBlock from "../../components/UI/StandardInfoBlock";
 import Headings from "../../components/UI/Headings";
 import type { Metadata } from "next";
+import { CreditCard, Wallet } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Інформація про доставку та оплату",
@@ -10,9 +11,9 @@ export const metadata: Metadata = {
 
 function DeliveryPage() {
   return (
-    <section className="p-2">
+    <section className="p-2 text-justify md:space-y-12 space-y-8">
       <Headings level={1}>Доставка та Оплата</Headings>
-      <article className="space-y-8 text-justify">
+      <article>
         <StandardInfoBlock>
           <Headings level={2}>Нова пошта</Headings>
           <p>
@@ -33,15 +34,26 @@ function DeliveryPage() {
             і т.д.).
           </p>
         </StandardInfoBlock>
+      </article>
+
+      <article className="md:space-y-8 space-y-6">
+        <Headings level={2}>Оплата​</Headings>
         <StandardInfoBlock>
-          <Headings level={2}>Оплата​</Headings>
-          <Headings level={3}>На картку ПриватБанку​</Headings>
+          <Headings level={3}>
+            <CreditCard />
+            На картку ПриватБанку
+          </Headings>
           <p>
             Клієнт сплачує повну вартість замовлення БЕЗ комісії за послуги
             банку (1% від суми замовлення). Реквізити, для оплати, клієнт
             отримує в SMS повідомленні після оформлення замовлення.
           </p>
-          <Headings level={3}>Накладений платіж​</Headings>
+        </StandardInfoBlock>
+        <StandardInfoBlock>
+          <Headings level={3}>
+            <Wallet />
+            Накладений платіж
+          </Headings>
           <p>
             У вас є можливість оплатити посилку, після того як Ви отримаєте її і
             переконаєтесь в тому, що ваше замовлення сформовано вірно, а весь

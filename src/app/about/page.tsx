@@ -12,7 +12,7 @@ function AboutPage() {
   return (
     <section className="p-2">
       <Headings level={1}>Про нас</Headings>
-      <article className="space-y-8 text-justify">
+      <article className="md:space-y-12 text-justify space-y-8">
         <Headings level={2}>Eppo</Headings>
         <StandardInfoBlock>
           <p>
