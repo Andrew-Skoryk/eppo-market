@@ -9,8 +9,10 @@ function ProductsList() {
       {addedProducts.map(product => (
         <ProductCard
           key={product.id}
+          id={product.id}
           imgSrc={product.imgSrc}
           price={product.price}
+          category={product.category}
           subcategory={product.subcategory}
           article={product.article}
         />

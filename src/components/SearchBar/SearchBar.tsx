@@ -17,7 +17,7 @@ const SearchBar = () => {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FormValues> = data => {
-      router.push(`/search/${data.query}`);
+    router.push(`/search/${data.query}`);
   };
 
   return (

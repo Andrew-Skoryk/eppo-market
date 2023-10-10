@@ -3,10 +3,14 @@ import Image from "next/image";
 import { useForm, Controller } from "react-hook-form";
 import { StaticImageData } from "next/image";
 import { ShoppingBasket } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { addItem } from "../../../redux/slices/cartSlice";
 
 type ProductCardProps = {
+  id: string;
   imgSrc: StaticImageData;
   price: number;
+  category: string;
   subcategory: string;
   article: string;
 };
@@ -16,16 +20,30 @@ interface IFormInput {
 }
 
 const ProductCard = ({
+  id,
   imgSrc,
   price,
+  category,
   subcategory,
   article,
 }: ProductCardProps) => {
   const { control, handleSubmit } = useForm<IFormInput>();
+  const dispatch = useDispatch();
 
   const onSubmit = (data: { quantity: number }) => {
-    alert(`Added ${data.quantity} of item ${article} to the cart!`);
-    // Implement add to cart functionality here
+    dispatch(
+      addItem({
+        item: {
+          id: id,
+          imgSrc: imgSrc,
+          price: price,
+          category: category,
+          subcategory: subcategory,
+          article: article,
+        },
+        quantity: data.quantity,
+      }),
+    );
   };
 
   return (
