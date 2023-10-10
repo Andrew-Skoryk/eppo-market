@@ -17,7 +17,12 @@ function ContactsPage() {
       <article>
         <address className="not-italic">
           <Headings level={2}>Адреса магазину</Headings>
-          <p>Інтернет-магазин</p>
+          <p>
+            Інтернет-магазин{" "}
+            <span className="text-amber-700 font-semibold lg:text-lg">
+              Eppo
+            </span>
+          </p>
           <p>м. Івано-Франківськ</p>
           <StandardInfoBlock>
             <Headings level={2}>Наші контакти</Headings>

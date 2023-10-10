@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { useForm, Controller } from "react-hook-form";
 import { StaticImageData } from "next/image";
+import { ShoppingBasket } from "lucide-react";
 
 type ProductCardProps = {
   imgSrc: StaticImageData;
@@ -35,7 +36,7 @@ const ProductCard = ({
           alt={article}
           layout="fill"
           objectFit="cover"
-          className="rounded-md"
+          className="rounded-md hover:scale-110 duration-300 transition-transform"
         />
       </div>
       <h2 className="text-lg font-semibold mb-2">{subcategory}</h2>
@@ -44,7 +45,7 @@ const ProductCard = ({
 
       <div className="flex items-center mb-4">
         <label htmlFor="quantity" className="mr-2">
-          Quantity:
+          Кількість:
         </label>
         <Controller
           name="quantity"
@@ -62,9 +63,10 @@ const ProductCard = ({
       </div>
       <button
         type="submit"
-        className="w-full p-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+        className="w-full p-2 bg-amber-400 rounded-md hover:bg-amber-500 active:bg-amber-600 transition-colors duration-300 text-lime-800 font-semibold flex gap-3 justify-center"
       >
-        Add to Cart
+        Додати до
+        <ShoppingBasket />
       </button>
     </form>
   );
