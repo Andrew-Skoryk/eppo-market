@@ -13,7 +13,7 @@ function CategoryBlock({ name, imgSrc, link, imgPosition }: CategoryProps) {
     <Link
       href={link}
       title={name}
-      className="group p-3 border border-gray-300 rounded-md hover:bg-gray-100 flex flex-col text-center"
+      className="group p-3 border border-gray-300 rounded-md hover:bg-gray-100 flex flex-col text-center duration-300 transition-colors"
     >
       <div className="w-full relative pb-full mb-4">
         <Image

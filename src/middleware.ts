@@ -1,4 +1,4 @@
-import { authMiddleware, redirectToSignIn } from "@clerk/nextjs";
+import { authMiddleware } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 export default authMiddleware({
@@ -11,10 +11,6 @@ export default authMiddleware({
 
     if(isAdminRoute && (!auth.userId || !adminUserIds.includes(auth.userId))) {
       return NextResponse.redirect("http://localhost:3000/404");
-    }
-
-    if (!auth.userId && !auth.isPublicRoute) {
-      return redirectToSignIn({ returnBackUrl: req.url });
     }
   }
 });

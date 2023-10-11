@@ -69,11 +69,17 @@ const ProductCard = ({
           name="quantity"
           control={control}
           defaultValue={1}
+          rules={{
+            required: "Будь ласка, введіть кількість",
+            min: { value: 1, message: "Мінімальна кількість - 1" },
+            max: { value: 999, message: "Максимальна кількість - 999" },
+          }}
           render={({ field }) => (
             <input
               {...field}
               type="number"
               min="1"
+              max="999"
               className="w-20 p-2 border rounded-md"
             />
           )}
