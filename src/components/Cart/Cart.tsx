@@ -10,11 +10,12 @@ import { loadCartItems } from "../../../redux/slices/cartSlice";
 import { AppDispatch } from "../../../redux/store";
 import ProductCardInCart from "../ProductCardInCart";
 import Headings from "../UI/Headings";
+import { getMoneyFormat } from "@/lib/utils";
 
 function Cart() {
   const dispatch: AppDispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
-  const totalPrice = useSelector(selectCartTotalPrice);
+  const totalPrice = getMoneyFormat(useSelector(selectCartTotalPrice));
 
   useEffect(() => {
     dispatch(loadCartItems());

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import Image from "next/image";
 import { updateQuantity, removeItem } from "../../../redux/slices/cartSlice";
 import { useForm, Controller } from "react-hook-form";
 import { CartItem } from "@/types/CartItem";
 import { useSpring, animated } from "react-spring";
+import { getMoneyFormat } from "@/lib/utils";
 
 type ProductCardInCartProps = {
   item: CartItem;
@@ -19,21 +20,23 @@ const ProductCardInCart: React.FC<ProductCardInCartProps> = ({ item }) => {
   const [isUpdating, setIsUpdating] = useState(false);
   const dispatch = useDispatch();
   const { control, handleSubmit } = useForm<IFormInput>();
-  const [prevTotalPrice, setPrevTotalPrice] = useState(
-    item.price * item.quantity,
-  );
-
+  const prevTotalPriceRef = useRef(item.price * item.quantity);
   const totalPrice = item.price * item.quantity;
   const fade = useSpring({ opacity: isRemoving ? 0 : 1 });
 
   useEffect(() => {
-    setPrevTotalPrice(totalPrice);
+    prevTotalPriceRef.current = totalPrice;
   }, [totalPrice]);
 
   const priceAnimation = useSpring({
     number: totalPrice,
-    from: { number: prevTotalPrice },
+    from: { number: prevTotalPriceRef.current },
     reset: true,
+    config: {
+      tension: 170,
+      friction: 26,
+      precision: 0.01,
+    },
   });
 
   const handleRemoveItem = () => {
@@ -106,7 +109,7 @@ const ProductCardInCart: React.FC<ProductCardInCartProps> = ({ item }) => {
       </div>
 
       <animated.div className="text-lg font-semibold w-24 text-center">
-        {priceAnimation.number.to(n => n)}
+        {priceAnimation.number.to(n => getMoneyFormat(n))}
       </animated.div>
     </animated.div>
   );
