@@ -5,8 +5,8 @@ import { StaticImageData } from "next/image";
 import { ShoppingBasket } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { addItem } from "../../../redux/slices/cartSlice";
-import { useSpring, animated } from "react-spring";
 import { getMoneyFormat } from "@/lib/utils";
+import AnimatedAddedBlock from "../AnimatedAddedBlock";
 
 interface Product {
   id: string;
@@ -32,10 +32,6 @@ const ProductCard: React.FC<Product> = ({
   const dispatch = useDispatch();
   const { control, handleSubmit, reset } = useForm<FormInput>();
   const [isAdded, setIsAdded] = useState(false);
-  const fade = useSpring({
-    opacity: isAdded ? 1 : 0,
-    from: { opacity: 0 },
-  });
 
   const onSubmit = (data: FormInput) => {
     dispatch(
@@ -100,24 +96,8 @@ const ProductCard: React.FC<Product> = ({
         Додати до
         <ShoppingBasket />
       </button>
-      <animated.div
-        style={{
-          ...fade,
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translateX(-50%)",
-          background: "rgba(0, 255, 0, 0.9)",
-          transitionDuration: "150ms",
-          transitionProperty: "all",
-          borderRadius: "8px",
-          padding: "20px",
-          visibility: isAdded ? "visible" : "hidden",
-          zIndex: 1,
-        }}
-      >
-        Додано до кошика!
-      </animated.div>
+
+      <AnimatedAddedBlock isAdded={isAdded} />
     </form>
   );
 };
