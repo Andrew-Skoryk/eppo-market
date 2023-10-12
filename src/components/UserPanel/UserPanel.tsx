@@ -12,7 +12,7 @@ import { getMoneyFormat } from "@/lib/utils";
 
 const UserPanel = () => {
   const dispatch: AppDispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch(loadCartItems());
   }, [dispatch]);

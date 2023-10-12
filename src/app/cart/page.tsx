@@ -9,12 +9,10 @@ export const metadata: Metadata = {
 
 function CartPage() {
   return (
-    <section className="flex flex-col gap-4 items-center">
+    <section className="flex flex-col items-center gap-4">
       <Headings level={1}>Кошик</Headings>
 
       <Cart />
-
-
     </section>
   );
 }

@@ -1,66 +1,73 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { useForm, Controller } from "react-hook-form";
 import { StaticImageData } from "next/image";
 import { ShoppingBasket } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { addItem } from "../../../redux/slices/cartSlice";
+import { useSpring, animated } from "react-spring";
+import { getMoneyFormat } from "@/lib/utils";
 
-type ProductCardProps = {
+interface Product {
   id: string;
   imgSrc: StaticImageData;
   price: number;
   category: string;
   subcategory: string;
   article: string;
-};
+}
 
-interface IFormInput {
+interface FormInput {
   quantity: number;
 }
 
-const ProductCard = ({
+const ProductCard: React.FC<Product> = ({
   id,
   imgSrc,
   price,
   category,
   subcategory,
   article,
-}: ProductCardProps) => {
-  const { control, handleSubmit } = useForm<IFormInput>();
+}) => {
   const dispatch = useDispatch();
+  const { control, handleSubmit, reset } = useForm<FormInput>();
+  const [isAdded, setIsAdded] = useState(false);
+  const fade = useSpring({
+    opacity: isAdded ? 1 : 0,
+    from: { opacity: 0 },
+  });
 
-  const onSubmit = (data: { quantity: number }) => {
+  const onSubmit = (data: FormInput) => {
     dispatch(
       addItem({
-        item: {
-          id: id,
-          imgSrc: imgSrc,
-          price: price,
-          category: category,
-          subcategory: subcategory,
-          article: article,
-        },
+        item: { id, imgSrc, price, category, subcategory, article },
         quantity: data.quantity,
       }),
     );
+    setIsAdded(true);
+    setTimeout(() => setIsAdded(false), 1500);
+    reset({ quantity: 1 });
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="p-4 border rounded-md">
-      <div className="mb-4 relative h-64 w-full">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="relative p-2 transition-colors duration-300 border rounded-md shadow-lg hover:bg-slate-200"
+    >
+      <div className="relative w-full h-56 mb-4">
         <Image
           src={imgSrc}
           alt={article}
-          layout="fill"
-          objectFit="cover"
-          className="rounded-md hover:scale-110 duration-300 transition-transform"
+          loading="lazy"
+          className="object-cover w-full h-full transition-transform duration-300 rounded-md cursor-pointer hover:scale-110"
         />
       </div>
-      <h2 className="text-lg font-semibold mb-2">{subcategory}</h2>
-      <p className="text-gray-600 mb-4">Art.: {article}</p>
-      <p className="text-xl font-bold mb-4">${price}</p>
 
+      <h2 className="mb-2 text-lg font-bold text-gray-900">{subcategory}</h2>
+      <p className="mb-4 text-sm text-gray-600">Art.: {article}</p>
+      <p className="mb-4 text-xl font-semibold text-amber-600">
+        {getMoneyFormat(price)}
+      </p>
       <div className="flex items-center mb-4">
         <label htmlFor="quantity" className="mr-2">
           Кількість:
@@ -87,13 +94,32 @@ const ProductCard = ({
       </div>
       <button
         type="submit"
-        className="w-full p-2 bg-amber-400 rounded-md hover:bg-amber-500 active:bg-amber-600 transition-colors duration-300 text-lime-800 font-semibold flex gap-3 justify-center"
+        className="flex justify-center w-full gap-3 p-2 font-semibold transition-all duration-300 rounded-md bg-amber-400 hover:bg-amber-500 active:bg-amber-600 text-lime-800 disabled:pointer-events-none disabled:opacity-50"
+        disabled={isAdded}
       >
         Додати до
         <ShoppingBasket />
       </button>
+      <animated.div
+        style={{
+          ...fade,
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          background: "rgba(0, 255, 0, 0.9)",
+          transitionDuration: "150ms",
+          transitionProperty: "all",
+          borderRadius: "8px",
+          padding: "20px",
+          visibility: isAdded ? "visible" : "hidden",
+          zIndex: 1,
+        }}
+      >
+        Додано до кошика!
+      </animated.div>
     </form>
   );
 };
 
-export default ProductCard;
+export default React.memo(ProductCard);

@@ -27,7 +27,7 @@ export default function RootLayout({
         <html lang="uk" className={cn("antialiased", inter.className)}>
           <body className="flex flex-col min-h-screen pt-20 antialiased bg-slate-50">
             <Header />
-            <main className="container flex-grow mx-auto max-w-7xl flex flex-col items-center p-4">
+            <main className="container flex flex-col items-center flex-grow p-4 mx-auto max-w-7xl">
               {children}
             </main>
             <Footer />

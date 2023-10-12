@@ -5,7 +5,7 @@ import { products } from "./products";
 function ProductsList() {
   const addedProducts = [...products, ...products, ...products];
   return (
-    <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+    <div className="grid grid-cols-3 gap-4 md:grid-cols-4 lg:grid-cols-6">
       {addedProducts.map(product => (
         <ProductCard
           key={product.id}
@@ -19,6 +19,6 @@ function ProductsList() {
       ))}
     </div>
   );
-};
+}
 
 export default ProductsList;

@@ -53,17 +53,18 @@ const ProductCardInCart: React.FC<ProductCardInCartProps> = ({ item }) => {
   return (
     <animated.div
       style={fade}
-      className="hover:bg-gray-200 border p-4 m-2 flex items-center space-x-4 duration-300 transition-colors justify-between bg-gray-100"
+      className="flex items-center justify-between p-4 m-2 space-x-4 transition-colors duration-300 bg-gray-100 border rounded-md shadow-lg hover:bg-gray-200"
     >
-      <div className="flex-grow flex items-center space-x-4">
+      <div className="flex items-center flex-grow space-x-4">
         <Image
           src={item.imgSrc}
           alt={item.article}
-          className="w-20 h-20 object-cover hover:scale-150 duration-300 transition-transform"
+          loading="lazy"
+          className="object-cover w-20 h-20 transition-transform duration-300 rounded-md hover:scale-150"
         />
         <div>
-          <h2 className="font-semibold text-lg">{item.article}</h2>
-          <p className="text-gray-500">${item.price}</p>
+          <h2 className="text-lg font-semibold">{item.article}</h2>
+          <p className="text-gray-500">{getMoneyFormat(item.price)}</p>
         </div>
       </div>
 
@@ -102,13 +103,13 @@ const ProductCardInCart: React.FC<ProductCardInCartProps> = ({ item }) => {
         </form>
         <button
           onClick={handleRemoveItem}
-          className="bg-red-500 p-2 text-white rounded hover:bg-red-600 focus:outline-none focus:border-red-700 focus:ring focus:ring-red-200"
+          className="p-2 text-white bg-red-500 rounded hover:bg-red-600 focus:outline-none focus:border-red-700 focus:ring focus:ring-red-200"
         >
           Видалити
         </button>
       </div>
 
-      <animated.div className="text-lg font-semibold w-24 text-center">
+      <animated.div className="w-24 text-lg font-semibold text-center">
         {priceAnimation.number.to(n => getMoneyFormat(n))}
       </animated.div>
     </animated.div>

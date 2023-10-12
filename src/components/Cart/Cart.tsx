@@ -39,11 +39,11 @@ function Cart() {
       </div>
 
       <p>
-        Загальна сума: {totalPrice}гривень та кількість позицій товарів:{" "}
+        Загальна сума: {totalPrice} та кількість позицій товарів:{" "}
         {cartItems.length}
       </p>
 
-      <button className="p-2 border rounded-md bg-amber-400 text-lime-800 border-amber-500 hover:bg-amber-500 active:bg-amber-600 transition-colors duration-300">
+      <button className="p-2 transition-colors duration-300 border rounded-md bg-amber-400 text-lime-800 border-amber-500 hover:bg-amber-500 active:bg-amber-600">
         Оформити замовлення
       </button>
     </section>
