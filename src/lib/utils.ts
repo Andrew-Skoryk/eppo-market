@@ -10,5 +10,6 @@ export function getMoneyFormat(input: number) {
     style: 'currency',
     currency: 'UAH',
     maximumFractionDigits: 0,
+    currencyDisplay: "symbol",
   }).format(input);
 }
