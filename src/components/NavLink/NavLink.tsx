@@ -24,8 +24,9 @@ const NavLink = ({ href, children }: PropsWithChildren<Props>) => {
     setIsActive(linkPathname === activePathname);
   }, [href, path]);
 
+  const whatUserPanel = href === "/sign-in" ? "Профіль" : "Корзина";
   const normalizedTitle =
-    typeof children === "string" ? children.toString() : "Корзина";
+    typeof children === "string" ? children.toString() : whatUserPanel;
 
   return (
     <Link

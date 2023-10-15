@@ -44,10 +44,12 @@ const UserPanel = () => {
             elements: { userButtonAvatarBox: "h-12 w-12" },
           }}
         />
+        <span className="sr-only">Профіль</span>
       </SignedIn>
 
       <SignedOut>
         {<NavLink href="/sign-in">{<User2 size={30} />}</NavLink>}
+        <span className="sr-only">Профіль</span>
       </SignedOut>
     </div>
   );

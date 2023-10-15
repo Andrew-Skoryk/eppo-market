@@ -1,4 +1,4 @@
-import MinValueOrderComp from "../components/MinValueOrderComp";
+import MinValueOrderBlock from "../components/MinValueOrderComp";
 import MainCategoriesBlock from "../components/MainCategoriesBlock";
 import type { Metadata } from "next";
 
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center h-full">
-      <MinValueOrderComp />
+      <MinValueOrderBlock />
       <MainCategoriesBlock />
     </div>
   );

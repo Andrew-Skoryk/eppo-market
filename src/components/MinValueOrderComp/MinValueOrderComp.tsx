@@ -1,11 +1,11 @@
 import { MINIMUM_ORDER_AMOUNT } from "../../config";
 
-const MinValueOrderComp = () => {
+const MinValueOrderBlock = () => {
   return (
-    <p className="text-lg text-orange-600 bg-amber-50 p-2">
+    <p className="p-2 text-lg text-orange-600 bg-amber-50">
       Зверніть увагу: мінімальна сума замовлення {MINIMUM_ORDER_AMOUNT}грн.
     </p>
   );
 };
 
-export default MinValueOrderComp;
+export default MinValueOrderBlock;

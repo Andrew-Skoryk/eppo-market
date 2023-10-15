@@ -14,13 +14,13 @@ export const categories = [
     name: "ЮВЕЛІРНА БІЖУТЕРІЯ XP (СРІБЛО)",
     imgSrc: Everything,
     link: "/category/silver",
-    imgPosition: "top",
+    imgPosition: "object-bottom",
   },
   {
     name: "XUPING SWAROVSKI",
     imgSrc: Swarowski,
     link: "/category/swarowski",
-    imgPosition: "left",
+    imgPosition: "object-left",
   },
   {
     name: "СИМВОЛІКА УКРАЇНИ",
