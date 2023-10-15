@@ -14,7 +14,7 @@ function CategoryBlock({ name, imgSrc, link, imgPosition }: CategoryProps) {
     <Link
       href={link}
       title={name}
-      className="flex flex-col p-3 text-center transition-colors duration-300 border rounded-md shadow-lg border-gray-3000 group hover:bg-gray-100"
+      className="flex flex-col gap-3 p-3 text-center transition-colors duration-300 border rounded-md shadow-lg border-gray-3000 group hover:bg-gray-100"
     >
       <div className="relative w-full h-60 mb-42">
         <Image
