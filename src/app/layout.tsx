@@ -25,9 +25,9 @@ export default function RootLayout({
     <ClerkProvider localization={ukUA}>
       <ReduxProvider>
         <html lang="uk" className={cn("antialiased", inter.className)}>
-          <body className="flex flex-col min-h-screen pt-20 antialiased bg-slate-50">
+          <body className="flex flex-col min-h-screen antialiased bg-slate-50">
             <Header />
-            <main className="container flex flex-col items-center flex-grow p-4 mx-auto max-w-7xl">
+            <main className="container flex-grow p-4 py-20 mx-auto max-w-7xl">
               {children}
             </main>
             <Footer />

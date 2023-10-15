@@ -10,13 +10,13 @@ export const metadata: Metadata = {
 
 function AboutPage() {
   return (
-    <section className="p-2">
+    <section className="p-2 space-y-8 text-justify md:space-y-12">
       <Headings level={1}>Про нас</Headings>
-      <article className="md:space-y-12 text-justify space-y-8">
-        <Headings level={2}>Eppo</Headings>
+      <article className="space-y-8 md:space-y-12">
         <StandardInfoBlock>
+          <Headings level={2}>Eppo</Headings>
           <p>
-            <span className="text-amber-700 font-semibold lg:text-lg">
+            <span className="font-semibold text-amber-700 lg:text-lg">
               Eppo{" "}
             </span>
             - це оптовий інтернет-магазин, який доставить Вам щастя від
@@ -56,7 +56,7 @@ function AboutPage() {
             довжині і т.п. поверненню не підлягає.
           </p>
         </StandardInfoBlock>
-        <p className="italic text-center p-4">
+        <p className="p-4 italic text-center">
           Якщо у Вас залишилися питання, ми з радістю на них відповімо!
         </p>
       </article>
