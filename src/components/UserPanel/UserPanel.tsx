@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { loadCartItems } from "../../../redux/slices/cartSlice";
 import { AppDispatch } from "../../../redux/store";
 import { getMoneyFormat } from "@/lib/utils";
+import { clerkAppearance } from "@/styles/clerk";
 
 const UserPanel = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -41,6 +42,7 @@ const UserPanel = () => {
           userProfileUrl="/profile"
           afterSignOutUrl="/"
           appearance={{
+            ...clerkAppearance,
             elements: { userButtonAvatarBox: "h-12 w-12" },
           }}
         />
