@@ -8,14 +8,19 @@ import {
 } from "../../../redux/selectors/cartSelectors";
 import { loadCartItems } from "../../../redux/slices/cartSlice";
 import { AppDispatch } from "../../../redux/store";
+import { getMoneyFormat } from "@/lib/utils";
 import ProductCardInCart from "../ProductCardInCart";
 import Headings from "../UI/Headings";
-import { getMoneyFormat } from "@/lib/utils";
+import Button from "../UI/Buttons";
+import { MINIMUM_ORDER_AMOUNT } from "../../config";
+import MinValueOrderBlock from "../MinValueOrderComp/MinValueOrderComp";
 
 function Cart() {
   const dispatch: AppDispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
-  const totalPrice = getMoneyFormat(useSelector(selectCartTotalPrice));
+  const totalPrice = useSelector(selectCartTotalPrice);
+
+  const isEnoughPrice = MINIMUM_ORDER_AMOUNT <= totalPrice;
 
   useEffect(() => {
     dispatch(loadCartItems());
@@ -29,6 +34,7 @@ function Cart() {
       </section>
     );
   }
+  console.log(isEnoughPrice);
 
   return (
     <section className="flex flex-col items-center gap-8">
@@ -38,14 +44,14 @@ function Cart() {
         ))}
       </div>
 
-      <p>
-        Загальна сума: {totalPrice} та кількість позицій товарів:{" "}
-        {cartItems.length}
-      </p>
+      <div className="p-1.5 bg-amber-100 rounded-md text-lg flex justify-between w-full text-center shadow-lg">
+        <p>До сплати:</p>
+        <p className="text-2xl">{getMoneyFormat(totalPrice)}</p>
+      </div>
 
-      <button className="p-2 transition-colors duration-300 border rounded-md bg-amber-400 text-lime-800 border-amber-500 hover:bg-amber-500 active:bg-amber-600">
-        Оформити замовлення
-      </button>
+      {!isEnoughPrice && <MinValueOrderBlock />}
+
+      <Button isDisabled={!isEnoughPrice}>Оформити замовлення</Button>
     </section>
   );
 }
