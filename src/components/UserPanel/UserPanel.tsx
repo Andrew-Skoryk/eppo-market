@@ -1,13 +1,20 @@
 "use client";
 
-import { UserButton, SignedIn, SignedOut } from "@clerk/nextjs";
-import { ShoppingBasket, User2 } from "lucide-react";
-import NavLink from "../NavLink";
-import { useDispatch, useSelector } from "react-redux";
-import { selectCartTotalPrice } from "../../../redux/selectors/cartSelectors";
+import {
+  UserButton,
+  SignedIn,
+  SignedOut,
+  ClerkLoading,
+  ClerkLoaded,
+} from "@clerk/nextjs";
 import { useEffect } from "react";
-import { loadCartItems } from "../../../redux/slices/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { ShoppingBasket, User2 } from "lucide-react";
+import { Spinner } from "@nextui-org/spinner";
+import NavLink from "../NavLink";
 import { AppDispatch } from "../../../redux/store";
+import { loadCartItems } from "../../../redux/slices/cartSlice";
+import { selectCartTotalPrice } from "../../../redux/selectors/cartSelectors";
 import { getMoneyFormat } from "@/lib/utils";
 import { clerkAppearance } from "@/styles/clerk";
 
@@ -21,7 +28,7 @@ const UserPanel = () => {
   const totalPrice = getMoneyFormat(useSelector(selectCartTotalPrice));
 
   return (
-    <div className="flex items-center space-x-4">
+    <div className="flex items-center space-x-4 min-w-[152px]">
       <NavLink href="/cart">
         <div className="flex flex-col items-center w-14">
           <ShoppingBasket
@@ -36,23 +43,29 @@ const UserPanel = () => {
         </div>
       </NavLink>
 
-      <SignedIn>
-        <UserButton
-          userProfileMode="navigation"
-          userProfileUrl="/profile"
-          afterSignOutUrl="/"
-          appearance={{
-            ...clerkAppearance,
-            elements: { userButtonAvatarBox: "h-12 w-12" },
-          }}
-        />
-        <span className="sr-only">Профіль</span>
-      </SignedIn>
+      <ClerkLoading key="loading">
+        <Spinner className="" size="lg" />
+      </ClerkLoading>
 
-      <SignedOut>
-        {<NavLink href="/sign-in">{<User2 size={30} />}</NavLink>}
-        <span className="sr-only">Профіль</span>
-      </SignedOut>
+      <ClerkLoaded key="loaded">
+        <SignedIn>
+          <UserButton
+            userProfileMode="navigation"
+            userProfileUrl="/profile"
+            afterSignOutUrl="/"
+            appearance={{
+              ...clerkAppearance,
+              elements: { userButtonAvatarBox: "h-12 w-12" },
+            }}
+          />
+          <span className="sr-only">Профіль</span>
+        </SignedIn>
+
+        <SignedOut>
+          {<NavLink href="/sign-in">{<User2 size={30} />}</NavLink>}
+          <span className="sr-only">Профіль</span>
+        </SignedOut>
+      </ClerkLoaded>
     </div>
   );
 };
