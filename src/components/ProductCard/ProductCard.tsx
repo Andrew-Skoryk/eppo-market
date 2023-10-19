@@ -50,9 +50,9 @@ const ProductCard: React.FC<Product> = ({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="relative p-2 transition-colors duration-300 border rounded-md shadow-lg hover:bg-slate-200"
+      className="p-2 text-center transition-colors duration-300 border rounded-md shadow-lg hover:bg-slate-200"
     >
-      <div className="relative w-full h-56 mb-4">
+      <div className="w-full h-56 mb-4">
         <Image
           src={imgSrc}
           alt={article}
