@@ -5,13 +5,13 @@ import Gold2 from "../../../public/img/Gold2.webp";
 
 export const categories = [
   {
-    name: "ЮВЕЛІРНА БІЖУТЕРІЯ XP (ЗОЛОТО 18K)",
+    name: "XUPING ЗОЛОТО (18K)",
     imgSrc: Gold,
     link: "/category/gold",
     imgPosition: "",
   },
   {
-    name: "ЮВЕЛІРНА БІЖУТЕРІЯ XP (СРІБЛО)",
+    name: "XUPING СРІБЛО",
     imgSrc: Everything,
     link: "/category/silver",
     imgPosition: "object-bottom",

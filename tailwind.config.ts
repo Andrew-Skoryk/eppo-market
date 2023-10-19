@@ -25,6 +25,7 @@ const config: Config = {
       spacing: {
         'full': '100%',
       },
+      colors: {primary: "#F5A524"},
     },
   },
   darkMode: "class",

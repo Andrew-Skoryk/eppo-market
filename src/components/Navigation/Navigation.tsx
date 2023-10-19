@@ -1,20 +1,21 @@
 import NavLink from "../NavLink";
+import NavDropDownLinks from "../NavDropDownLinks";
 
-const Navigation = () => {
+function Navigation() {
   return (
     <nav>
-      <ul className="flex space-x-4">
+      <ul className="flex space-x-4 items-center">
         <li>
           <NavLink href="/">Головна</NavLink>
         </li>
         <li>
-          <NavLink href="/category">Товари</NavLink>
+          <NavDropDownLinks />
         </li>
         <li>
-          <NavLink href={"/about"}>Про нас</NavLink>
+          <NavLink href="/about">Про нас</NavLink>
         </li>
         <li>
-          <NavLink href={"/delivery"}>Доставка/Оплата</NavLink>
+          <NavLink href="/delivery">Доставка/Оплата</NavLink>
         </li>
         <li>
           <NavLink href="/contacts">Контакти</NavLink>
@@ -22,6 +23,6 @@ const Navigation = () => {
       </ul>
     </nav>
   );
-};
+}
 
 export default Navigation;

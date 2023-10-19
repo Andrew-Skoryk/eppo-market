@@ -5,6 +5,7 @@ type headingLevels = 1 | 2 | 3 | 4 | 5 | 6;
 type Props = {
   level: headingLevels;
   children: React.ReactNode;
+  className?: string;
 };
 
 const headingStyles: Record<headingLevels, string> = {
@@ -16,10 +17,10 @@ const headingStyles: Record<headingLevels, string> = {
   6: "text-base font-medium mb-2",
 };
 
-function Headings({ level, children }: Props) {
+function Headings({ level, children, className }: Props) {
   const Tag = `h${level}` as keyof JSX.IntrinsicElements;
 
-  return <Tag className={cn(headingStyles[level])}>{children}</Tag>;
+  return <Tag className={cn(headingStyles[level], className)}>{children}</Tag>;
 }
 
 export default Headings;

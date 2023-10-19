@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type PropsWithChildren } from "react";
 import Link, { type LinkProps } from "next/link";
+
 import { cn } from "../../lib/utils";
 
 type Props = LinkProps & {
@@ -17,9 +18,7 @@ const NavLink = ({ href, children }: PropsWithChildren<Props>) => {
     const linkPathname = new URL(href, location.href).pathname;
     let activePathname = "";
 
-    if (path) {
-      activePathname = new URL(path, location.href).pathname;
-    }
+    activePathname = new URL(path, location.href).pathname;
 
     setIsActive(linkPathname === activePathname);
   }, [href, path]);
