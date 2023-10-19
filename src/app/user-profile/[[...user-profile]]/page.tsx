@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "Ця сторінка містить інтерфейс керування особистим профілем",
 };
 
-async function Profile() {
+function Profile() {
   return (
     <section className="flex flex-col gap-4">
       <UserProfile

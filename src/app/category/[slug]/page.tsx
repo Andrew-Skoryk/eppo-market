@@ -1,16 +1,15 @@
-"use client";
+import GetProductsList from "../../../components/GetProductsList";
+import type { Metadata } from "next";
 
-import ProductsList from "@/components/ProductsList";
-import { useParams } from "next/navigation";
+export const metadata: Metadata = {
+  title: "Список товарів - Eppo",
+  description: "Ця сторінка містить cписок товарів на eppo.com.ua",
+};
 
 function CategoryPage() {
-  const params = useParams();
-
   return (
-    <section className="text-center p-4">
-      Тут буде результат вашого пошуку по{" "}
-      <span className="font-semibold text-blue-700">{params.slug}</span>
-      <ProductsList />
+    <section className="flex flex-col p-4 items-center space-y-4">
+      Тут буде результат вашого пошуку по <GetProductsList />
     </section>
   );
 }
