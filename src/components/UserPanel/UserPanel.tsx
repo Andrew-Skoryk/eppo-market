@@ -51,7 +51,7 @@ const UserPanel = () => {
         <SignedIn>
           <UserButton
             userProfileMode="navigation"
-            userProfileUrl="/profile"
+            userProfileUrl="/user-profile"
             afterSignOutUrl="/"
             appearance={{
               ...clerkAppearance,

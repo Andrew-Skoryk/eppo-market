@@ -10,7 +10,11 @@ export const metadata: Metadata = {
 async function Profile() {
   return (
     <section className="flex flex-col gap-4">
-      <UserProfile appearance={clerkAppearance} />
+      <UserProfile
+        path="/user-profile"
+        routing="path"
+        appearance={clerkAppearance}
+      />
       <button>Відкрити історію замовлень</button>
     </section>
   );
