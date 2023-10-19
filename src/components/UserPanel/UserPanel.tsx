@@ -14,9 +14,13 @@ import { Spinner } from "@nextui-org/spinner";
 import NavLink from "../NavLink";
 import { AppDispatch } from "../../../redux/store";
 import { loadCartItems } from "../../../redux/slices/cartSlice";
-import { selectCartTotalPrice } from "../../../redux/selectors/cartSelectors";
+import {
+  selectCartItems,
+  selectCartTotalPrice,
+} from "../../../redux/selectors/cartSelectors";
 import { getMoneyFormat } from "@/lib/utils";
 import { clerkAppearance } from "@/styles/clerk";
+import { Badge } from "@nextui-org/badge";
 
 const UserPanel = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -26,16 +30,26 @@ const UserPanel = () => {
   }, [dispatch]);
 
   const totalPrice = getMoneyFormat(useSelector(selectCartTotalPrice));
+  const totalItemsInCart = useSelector(selectCartItems).length;
 
   return (
     <div className="flex items-center space-x-4 min-w-[152px]">
       <NavLink href="/cart">
         <div className="flex flex-col items-center w-14">
-          <ShoppingBasket
-            size={30}
-            strokeWidth={2}
-            absoluteStrokeWidth={true}
-          />
+          <Badge
+            content={totalItemsInCart}
+            color="primary"
+            size="sm"
+            shape="rectangle"
+            isInvisible={!totalItemsInCart}
+            disableOutline
+          >
+            <ShoppingBasket
+              size={30}
+              strokeWidth={2}
+              absoluteStrokeWidth={true}
+            />
+          </Badge>
           <span className="sr-only">Корзина</span>
           <span className="text-sm bg-amber-200 rounded-md py-0.5 px-1">
             {totalPrice}
