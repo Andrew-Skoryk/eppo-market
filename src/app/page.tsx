@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center h-full">
+    <div className="flex flex-col items-center justify-center h-full space-y-8">
       <MinValueOrderBlock />
       <MainCategoriesBlock />
     </div>

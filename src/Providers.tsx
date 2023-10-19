@@ -7,11 +7,11 @@ import store from "../redux/store";
 
 function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      <Provider store={store}>
-        <NextUIProvider>{children}</NextUIProvider>
-      </Provider>
-    </>
+    <Provider store={store}>
+      <NextUIProvider className="flex-grow flex flex-col">
+        {children}
+      </NextUIProvider>
+    </Provider>
   );
 }
 
