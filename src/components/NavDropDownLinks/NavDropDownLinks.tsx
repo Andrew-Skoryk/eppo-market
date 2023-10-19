@@ -7,6 +7,7 @@ import {
   DropdownItem,
 } from "@nextui-org/dropdown";
 import { Button } from "@nextui-org/button";
+import { Divider } from "@nextui-org/divider";
 import { useRouter, usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
@@ -52,9 +53,18 @@ function NavDropDownLinks() {
           base: "transition-color",
         }}
       >
-        <DropdownItem key="gold">Xuping Золото</DropdownItem>
-        <DropdownItem key="silver">Xuping Срібло</DropdownItem>
-        <DropdownItem key="swarovski">Xuping Swarovski</DropdownItem>
+        <DropdownItem key="gold">
+          Xuping Золото
+          <Divider className="mt-2" />
+        </DropdownItem>
+        <DropdownItem key="silver">
+          Xuping Срібло
+          <Divider className="mt-2" />
+        </DropdownItem>
+        <DropdownItem key="swarovski">
+          Xuping Swarovski
+          <Divider className="mt-2" />
+        </DropdownItem>
         <DropdownItem key="ukraine-symbols">Символіка України</DropdownItem>
       </DropdownMenu>
     </Dropdown>
