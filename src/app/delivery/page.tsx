@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 function DeliveryPage() {
   return (
-    <section className="p-2 text-justify md:space-y-12 space-y-8">
+    <section className="p-2 space-y-8 text-justify md:space-y-12">
       <Headings level={1}>Доставка та Оплата</Headings>
       <article>
         <StandardInfoBlock>
@@ -36,10 +36,10 @@ function DeliveryPage() {
         </StandardInfoBlock>
       </article>
 
-      <article className="md:space-y-8 space-y-6">
+      <article className="space-y-6 md:space-y-8">
         <Headings level={2}>Оплата​</Headings>
         <StandardInfoBlock>
-          <Headings level={3}>
+          <Headings level={3} className="flex items-center gap-2">
             <CreditCard />
             На картку ПриватБанку
           </Headings>
@@ -50,7 +50,7 @@ function DeliveryPage() {
           </p>
         </StandardInfoBlock>
         <StandardInfoBlock>
-          <Headings level={3}>
+          <Headings level={3} className="flex items-center gap-2">
             <Wallet />
             Накладений платіж
           </Headings>
