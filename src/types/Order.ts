@@ -4,6 +4,6 @@ export type Order = {
   itemsId: string[],
   totalSum: number,
   userName: string,
-  date: Date,
+  date: string,
   status: "new" | "done",
 };
