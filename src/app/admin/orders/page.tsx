@@ -1,5 +1,7 @@
+import OrdersTable from "@/components/OrdersTable/OrdersTable";
+
 function AdminOrders() {
-  return <>Тут будуть всі Замовлення</>;
+  return <OrdersTable />;
 }
 
 export default AdminOrders;
