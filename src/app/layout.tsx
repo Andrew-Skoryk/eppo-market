@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Lora } from "next/font/google";
+import { Bitter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ukUA } from "@clerk/localizations";
 
@@ -9,7 +9,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Providers from "../Providers";
 
-const lora = Lora({ subsets: ["latin", "cyrillic"] });
+const bitter = Bitter({ subsets: ["latin", "cyrillic"] });
 
 export const metadata: Metadata = {
   title: "Eppo",
@@ -23,7 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider localization={ukUA}>
-      <html lang="uk" className={cn("antialiased", lora.className)}>
+      <html lang="uk" className={cn("antialiased", bitter.className)}>
         <body className="antialiased bg-slate-50 min-h-screen flex flex-col">
           <Providers>
             <Header />
