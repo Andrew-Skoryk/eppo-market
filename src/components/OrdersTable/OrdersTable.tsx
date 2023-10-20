@@ -14,6 +14,7 @@ import { ordersTest } from "./ordersTest";
 import { useRouter } from "next/navigation";
 import { Order } from "@/types/Order";
 import { getMoneyFormat } from "@/lib/utils";
+import { statusColorMap } from "@/styles/statusColorMap";
 
 const columns = [
   {
@@ -21,27 +22,26 @@ const columns = [
     label: "НОМЕР",
   },
   {
-    key: "userName",
-    label: "ІМ'Я",
+    key: "status",
+    label: "СТАТУС",
   },
   {
-    key: "date",
-    label: "ДАТА",
+    key: "userName",
+    label: "ІМ'Я",
   },
   {
     key: "totalSum",
     label: "СУМА",
   },
   {
-    key: "status",
-    label: "СТАТУС",
+    key: "address",
+    label: "МІСТО",
+  },
+  {
+    key: "date",
+    label: "ДАТА",
   },
 ];
-
-const statusColorMap = {
-  done: "success",
-  new: "warning",
-} as const;
 
 function OrdersTable() {
   const router = useRouter();
@@ -57,19 +57,30 @@ function OrdersTable() {
       case "totalSum":
         return getMoneyFormat(+cellValue);
 
+      case "address":
+        return order.address.city;
+
       case "status":
         return (
           <Chip
             className="capitalize"
             color={statusColorMap[order.status]}
-            variant="flat"
+            variant="shadow"
           >
             {order.status}
           </Chip>
         );
 
       default:
-        return cellValue;
+        if (typeof cellValue === "string" || typeof cellValue === "number") {
+          return cellValue;
+        } else {
+          console.error(
+            `Invalid cell value for column ${columnKey}:`,
+            cellValue,
+          );
+          return null;
+        }
     }
   }, []);
 
