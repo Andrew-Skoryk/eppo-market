@@ -10,7 +10,7 @@ export default authMiddleware({
     const isAdminRoute = req.nextUrl.pathname.startsWith("/admin");
 
     if(isAdminRoute && (!auth.userId || !adminUserIds.includes(auth.userId))) {
-      return NextResponse.redirect("http://localhost:3000/404");
+      return NextResponse.redirect("https://eppo-market.vercel.app/404");
     }
   }
 });
