@@ -51,7 +51,12 @@ function Cart() {
 
       {!isEnoughPrice && <MinValueOrderBlock />}
 
-      <Button isDisabled={!isEnoughPrice}>Оформити замовлення</Button>
+      <Button
+        isDisabled={!isEnoughPrice}
+        className="text-lg py-6 font-semibold"
+      >
+        Оформити замовлення
+      </Button>
     </section>
   );
 }
