@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import Image from "next/image";
-import { updateQuantity, removeItem } from "../../../redux/slices/cartSlice";
+import { updateQuantity, removeItem } from "../../redux/slices/cartSlice";
 import { useForm, Controller } from "react-hook-form";
 import { CartItem } from "@/types/CartItem";
 import { useSpring, animated } from "react-spring";

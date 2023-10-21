@@ -12,12 +12,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { ShoppingBasket, User2 } from "lucide-react";
 import { Spinner } from "@nextui-org/spinner";
 import NavLink from "../NavLink";
-import { AppDispatch } from "../../../redux/store";
-import { loadCartItems } from "../../../redux/slices/cartSlice";
+import { AppDispatch } from "../../redux/store";
+import { loadCartItems } from "../../redux/slices/cartSlice";
 import {
   selectCartItems,
   selectCartTotalPrice,
-} from "../../../redux/selectors/cartSelectors";
+} from "../../redux/selectors/cartSelectors";
 import { getMoneyFormat } from "@/lib/utils";
 import { clerkAppearance } from "@/styles/clerk";
 import { Badge } from "@nextui-org/badge";

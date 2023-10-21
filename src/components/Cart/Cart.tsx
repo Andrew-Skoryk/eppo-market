@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   selectCartItems,
   selectCartTotalPrice,
-} from "../../../redux/selectors/cartSelectors";
-import { loadCartItems } from "../../../redux/slices/cartSlice";
-import { AppDispatch } from "../../../redux/store";
+} from "../../redux/selectors/cartSelectors";
+import { loadCartItems } from "../../redux/slices/cartSlice";
+import { AppDispatch } from "../../redux/store";
 import { getMoneyFormat } from "@/lib/utils";
 import ProductCardInCart from "../ProductCardInCart";
 import Headings from "../UI/Headings";

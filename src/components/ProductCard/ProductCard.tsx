@@ -6,7 +6,7 @@ import { useForm, Controller } from "react-hook-form";
 import { StaticImageData } from "next/image";
 import { ShoppingBasket } from "lucide-react";
 import { useDispatch } from "react-redux";
-import { addItem } from "../../../redux/slices/cartSlice";
+import { addItem } from "../../redux/slices/cartSlice";
 import { getMoneyFormat } from "@/lib/utils";
 import AnimatedAddedBlock from "../AnimatedAddedBlock";
 
