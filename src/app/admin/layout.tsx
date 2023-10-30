@@ -17,7 +17,7 @@ const AdminPanel = ({ children }: Props) => {
         </aside>
 
         <div className="col-span-4">
-          <section className="flex-grow p-4">{children}</section>
+          <section className="flex-grow p-4 text-center">{children}</section>
         </div>
       </div>
     </>

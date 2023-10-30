@@ -9,9 +9,12 @@ export const metadata: Metadata = {
 
 function AdminPage() {
   return (
-    <Headings level={3}>
-      Доброго дня! Будь ласка, оберіть в Панелі керувань пункт який Вас цікавить
-    </Headings>
+    <div className="">
+      <Headings level={3}>
+        Доброго дня! Будь ласка, оберіть в Панелі керування пункт який Вас
+        цікавить
+      </Headings>
+    </div>
   );
 }
 
