@@ -1,3 +1,4 @@
+import { Pagination } from "@nextui-org/react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,7 +7,19 @@ export const metadata: Metadata = {
 };
 
 function AdminProducts() {
-  return <div>Тут будуть налаштування товарів</div>;
+  return (
+    <section className="flex flex-col items-center space-y-4">
+      
+      <Pagination
+        total={10}
+        initialPage={1}
+        showControls
+        variant="faded"
+        size="lg"
+        showShadow
+      />
+    </section>
+  );
 }
 
 export default AdminProducts;
