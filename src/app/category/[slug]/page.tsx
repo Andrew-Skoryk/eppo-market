@@ -6,10 +6,10 @@ export const metadata: Metadata = {
   description: "Ця сторінка містить cписок товарів на eppo.com.ua",
 };
 
-function CategoryPage() {
+function CategoryPage({ params }: { params: { slug: string } }) {
   return (
     <section className="flex flex-col p-4 items-center space-y-4">
-      Тут буде результат вашого пошуку по <GetProductsList />
+      Тут буде результат вашого пошуку по <GetProductsList params={params.slug} />
     </section>
   );
 }

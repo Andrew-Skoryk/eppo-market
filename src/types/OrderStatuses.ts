@@ -1,1 +1,1 @@
-export type OrderStatuses = "new" | "done";
+export type OrderStatuses = "new" | "done" | "inProgress";

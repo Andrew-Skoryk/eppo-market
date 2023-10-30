@@ -43,7 +43,7 @@ export const ordersTest: Order[] = [
     totalSum: 14060,
     userName: "Світала ЗовсімНеЦікава",
     date: "10/10/2023",
-    status: "new",
+    status: "inProgress",
     address: {
       name: "Андрій Скорик",
       city: "Львів",
@@ -60,7 +60,7 @@ export const ordersTest: Order[] = [
     totalSum: 2860,
     userName: "Антон Тестернюк",
     date: "03/10/2023",
-    status: "done",
+    status: "inProgress",
     address: {
       name: "Андрій Скорик",
       city: "Харків",

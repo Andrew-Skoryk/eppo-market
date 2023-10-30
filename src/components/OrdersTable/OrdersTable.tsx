@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { Order } from "@/types/Order";
 import { getMoneyFormat } from "@/lib/utils";
 import { statusColorMap } from "@/styles/statusColorMap";
+import { OrderStatusesEnum } from "@/types/OrderStatusesEnum";
 
 const columns = [
   {
@@ -67,7 +68,7 @@ function OrdersTable() {
             color={statusColorMap[order.status]}
             variant="shadow"
           >
-            {order.status}
+            {OrderStatusesEnum[order.status]}
           </Chip>
         );
 

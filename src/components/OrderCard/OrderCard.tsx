@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   Card,
@@ -12,12 +14,13 @@ import { Order } from "@/types/Order";
 import { getMoneyFormat } from "@/lib/utils";
 import { statusColorMap } from "@/styles/statusColorMap";
 import { OrderStatuses } from "@/types/OrderStatuses";
+import { OrderStatusesEnum } from "@/types/OrderStatusesEnum";
 
 type Props = {
   order: Order;
 };
 
-const statuses: OrderStatuses[] = ["new", "done"];
+const statuses: OrderStatuses[] = ["new","inProgress", "done"];
 
 const OrderCard = ({ order }: Props) => {
   const [value, setValue] = React.useState<OrderStatuses>(order.status);
@@ -61,30 +64,22 @@ const OrderCard = ({ order }: Props) => {
                 variant="shadow"
                 key={value}
               >
-                {value}
+                {OrderStatusesEnum[value]}
               </Chip>
             ));
           }}
         >
-          <SelectItem key="new" textValue="new">
-            <Chip
-              className="capitalize "
-              color={statusColorMap.new}
-              variant="shadow"
-            >
-              new
-            </Chip>
-          </SelectItem>
-
-          <SelectItem key="done" textValue="done">
-            <Chip
-              className="capitalize"
-              color={statusColorMap.done}
-              variant="shadow"
-            >
-              done
-            </Chip>
-          </SelectItem>
+          {statuses.map(item => (
+            <SelectItem key={item} textValue={OrderStatusesEnum[item]}>
+              <Chip
+                className="capitalize "
+                color={statusColorMap[item]}
+                variant="shadow"
+              >
+                {OrderStatusesEnum[item]}
+              </Chip>
+            </SelectItem>
+          ))}
         </Select>
       </CardHeader>
       <CardBody className="p-4 bg-white">

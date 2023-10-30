@@ -1,15 +1,11 @@
-"use client";
-
-import { useParams } from "next/navigation";
+import { Pagination } from "@nextui-org/pagination";
 import ProductsList from "../ProductsList";
-import { Pagination } from "@nextui-org/react";
 
-function GetProductsList() {
-  const params = useParams();
+function GetProductsList({ params }: { params: string }) {
 
   return (
     <>
-      <span className="font-semibold text-blue-700">{params.slug}</span>
+      <span className="font-semibold text-blue-700">{params}</span>
       <ProductsList />
       <Pagination
         total={10}

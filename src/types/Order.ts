@@ -1,4 +1,5 @@
 import { Address } from "./Address";
+import { OrderStatuses } from "./OrderStatuses";
 
 export type Order = {
   id: number,
@@ -8,6 +9,6 @@ export type Order = {
   totalSum: number,
   userName: string,
   date: string,
-  status: "new" | "done",
-  address: Address
+  status: OrderStatuses,
+  address: Address,
 };
