@@ -20,7 +20,7 @@ type Props = {
   order: Order;
 };
 
-const statuses: OrderStatuses[] = ["new","inProgress", "done"];
+const statuses: OrderStatuses[] = ["new", "inProgress", "done"];
 
 const OrderCard = ({ order }: Props) => {
   const [value, setValue] = React.useState<OrderStatuses>(order.status);
@@ -57,7 +57,7 @@ const OrderCard = ({ order }: Props) => {
           className="flex flex-col max-w-xs"
           variant="underlined"
           renderValue={items => {
-            return items.map(_item => (
+            return items.map(_ => (
               <Chip
                 className="capitalize"
                 color={statusColorMap[value]}
@@ -82,6 +82,7 @@ const OrderCard = ({ order }: Props) => {
           ))}
         </Select>
       </CardHeader>
+
       <CardBody className="p-4 bg-white">
         <p className="mb-2">Замовник: {order.userName}</p>
         <p className="mb-2">Дата: {order.date}</p>
@@ -102,6 +103,7 @@ const OrderCard = ({ order }: Props) => {
           ))}
         </ul>
       </CardBody>
+
       <CardFooter className="flex justify-between p-4 bg-gray-100">
         <p className="font-semibold text-gray-700">Загальна сума:</p>
         <p className="pr-4 text-lg font-semibold">
