@@ -25,9 +25,9 @@ function CategoryBlock({ name, imgSrc, link, imgPosition }: CategoryProps) {
         />
       </div>
 
-      <h3 className="font-semibold transition-colors duration-300 group-hover:text-amber-600 group-active:text-amber-700">
+      <h2 className="font-semibold transition-colors duration-300 group-hover:text-amber-600 group-active:text-amber-700">
         {name}
-      </h3>
+      </h2>
     </Link>
   );
 }

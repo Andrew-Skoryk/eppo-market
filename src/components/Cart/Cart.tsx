@@ -11,7 +11,7 @@ import { AppDispatch } from "../../redux/store";
 import { getMoneyFormat } from "@/lib/utils";
 import ProductCardInCart from "../ProductCardInCart";
 import Headings from "../UI/Headings";
-import Button from "../UI/Buttons";
+import ButtonLink from "../UI/ButtonLink";
 import { MINIMUM_ORDER_AMOUNT } from "../../config";
 import MinValueOrderBlock from "../MinValueOrderComp/MinValueOrderComp";
 
@@ -51,12 +51,13 @@ function Cart() {
 
       {!isEnoughPrice && <MinValueOrderBlock />}
 
-      <Button
+      <ButtonLink
+        href="/checkout"
         isDisabled={!isEnoughPrice}
-        className="text-lg py-6 font-semibold"
+        className="py-6 text-lg font-semibold"
       >
         Оформити замовлення
-      </Button>
+      </ButtonLink>
     </section>
   );
 }

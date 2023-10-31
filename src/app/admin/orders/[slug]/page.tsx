@@ -1,6 +1,6 @@
 import { ordersTest } from "@/components/OrdersTable/ordersTest";
 import OrderCard from "@/components/OrderCard";
-import Buttons from "@/components/UI/Buttons";
+import ButtonLink from "@/components/UI/ButtonLink";
 
 function OrderAdminDetailsPage({ params }: { params: { slug: string } }) {
   const askedOrder = ordersTest.find(order => order.id === +params.slug);
@@ -17,9 +17,9 @@ function OrderAdminDetailsPage({ params }: { params: { slug: string } }) {
 
   return (
     <section className="flex flex-col space-y-4">
-      <Buttons className="self-end py-6 text-lg font-semibold">
+      <ButtonLink className="self-end py-6 text-lg font-semibold">
         Роздрукувати Замовлення
-      </Buttons>
+      </ButtonLink>
 
       <OrderCard order={askedOrder} />
     </section>

@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <ClerkProvider localization={ukUA}>
       <html lang="uk" className={cn("antialiased", bitter.className)}>
-        <body className="antialiased bg-slate-50 min-h-screen flex flex-col">
+        <body className="flex flex-col min-h-screen antialiased bg-slate-50">
           <Providers>
             <Header />
             <main className="container flex-grow py-20 mx-auto max-w-7xl">

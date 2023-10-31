@@ -10,9 +10,9 @@ type Props = {
 
 const headingStyles: Record<headingLevels, string> = {
   1: "text-4xl font-bold mb-6 text-center",
-  2: "text-3xl font-semibold mb-4 text-center",
-  3: "text-2xl font-semibold mb-3",
-  4: "text-xl font-medium mb-2",
+  2: "text-2xl font-semibold mb-4 text-center",
+  3: "text-xl font-semibold mb-3",
+  4: "text-lg font-medium mb-2",
   5: "text-lg font-medium mb-2",
   6: "text-base font-medium mb-2",
 };
@@ -20,7 +20,11 @@ const headingStyles: Record<headingLevels, string> = {
 function Headings({ level, children, className }: Props) {
   const Tag = `h${level}` as keyof JSX.IntrinsicElements;
 
-  return <Tag className={cn(headingStyles[level], className)}>{children}</Tag>;
+  return (
+    <Tag className={cn(headingStyles[level], className)}>
+      {children}
+    </Tag>
+  );
 }
 
 export default Headings;
