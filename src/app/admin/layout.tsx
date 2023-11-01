@@ -11,8 +11,11 @@ const AdminPanel = ({ children }: Props) => {
       <Headings level={1}>Admin Panel</Headings>
 
       <div className="grid grid-cols-5 gap-4">
-        <aside className="col-span-1 p-4 bg-white">
-          <Headings level={3}>Панель керування</Headings>
+        <aside className="col-span-1 p-4 bg-white rounded">
+          <Headings level={2} className="text-justify">
+            Панель керування
+          </Headings>
+
           <AdminNavigation />
         </aside>
 

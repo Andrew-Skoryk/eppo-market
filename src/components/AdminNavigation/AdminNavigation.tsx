@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 const navigationItems = [
   { path: "/admin/products", label: "Товари" },
   { path: "/admin/orders", label: "Замовлення" },
+  { path: "/admin/category", label: "Керування категоріями" },
   { path: "/admin/settings", label: "Налаштування" },
 ];
 
@@ -22,7 +23,7 @@ const AdminNavigation = () => {
           return (
             <li
               key={path}
-              className={cn("p-1.5 rounded-md hover:text-amber-600", {
+              className={cn("rounded-md hover:text-amber-600", {
                 "font-bold bg-slate-200": isActive,
               })}
             >

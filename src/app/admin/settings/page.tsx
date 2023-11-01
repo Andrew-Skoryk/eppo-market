@@ -1,7 +1,7 @@
 import Headings from "../../../components/UI/Headings";
 // import MinOrderAmountEditor from "../../../components/MinOrderAmountEditor";
 import type { Metadata } from "next";
-("");
+
 export const metadata: Metadata = {
   title: "Загальні налаштування - Eppo",
   description:

@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Product {
+  id            String      @id @default(uuid())
+  price         Float
+  photo         String
+  category      Category    @relation(fields: [categoryId], references: [id])
+  categoryId    String
+  subcategory   Subcategory @relation(fields: [subcategoryId], references: [id])
+  subcategoryId String
+  sizes         String
+
+  @@index([categoryId])
+  @@index([subcategoryId])
+}
+
+model Category {
+  id       String    @id @default(uuid())
+  name     String
+  products Product[]
+}
+
+model Subcategory {
+  id       String    @id @default(uuid())
+  name     String
+  products Product[]
+}
+
+model Address {
+  id         String  @id @default(uuid())
+  userId     String
+  phone      String
+  firstName  String
+  secondName String
+  postOffice Int
+  city       String
+  orders     Order[]
+}
+
+model Order {
+  id             String          @id @default(uuid())
+  useId          String
+  phone          String
+  firstName      String
+  secondName     String
+  typeOfDelivery typesOfDelivery
+  status         OrderStatusesDB
+  addressId      String
+  address        Address         @relation(fields: [addressId], references: [id])
+  orderItems     OrderItem[]
+  createdAt      DateTime        @default(now())
+
+  @@index([addressId])
+}
+
+model OrderItem {
+  orderId   String
+  productId String
+  quantity  Int
+  Order     Order  @relation(fields: [orderId], references: [id])
+
+  @@id([orderId, productId])
+  @@index([orderId])
+}
+
+enum OrderStatusesDB {
+  new
+  inProgress
+  done
+}
+
+enum typesOfDelivery {
+  creditCard
+  cashOnDelivery
+}
