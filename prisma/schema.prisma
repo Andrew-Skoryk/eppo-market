@@ -9,29 +9,22 @@ datasource db {
 }
 
 model Product {
-  id            String      @id @default(uuid())
-  price         Float
-  photo         String
-  category      Category    @relation(fields: [categoryId], references: [id])
-  categoryId    String
-  subcategory   Subcategory @relation(fields: [subcategoryId], references: [id])
-  subcategoryId String
-  sizes         String
-
-  @@index([categoryId])
-  @@index([subcategoryId])
+  id          String @id @default(uuid())
+  price       Float
+  photo       String
+  category    String
+  subcategory String
+  sizes       String
 }
 
 model Category {
-  id       String    @id @default(uuid())
-  name     String
-  products Product[]
+  id   String @id @default(uuid())
+  name String
 }
 
 model Subcategory {
-  id       String    @id @default(uuid())
-  name     String
-  products Product[]
+  id   String @id @default(uuid())
+  name String
 }
 
 model Address {
