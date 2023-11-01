@@ -1,24 +1,36 @@
 "use client";
 
-import { FC, useState, ChangeEvent } from "react";
+import { FC, useState, ChangeEvent, useMemo } from "react";
 import {
   Input,
   CheckboxGroup,
   Checkbox,
-  Spacer,
   Select,
   SelectItem,
 } from "@nextui-org/react";
+
 import Headings from "../UI/Headings";
 import ButtonLink from "../UI/ButtonLink";
+import { categories } from "@/configs/categories";
+import { subcategories } from "@/configs/subcategories";
+import ImageUploader from "../ImageUploader/ImageUploader";
 
 const CreateProductForm: FC = () => {
-  const [subcategory, setSubcategory] = useState<string>("");
+  const [_category, setCategory] = useState("");
+  const [subcategory, setSubcategory] = useState("");
   const [sizes, setSizes] = useState<string[]>([]);
+
+  const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const value = event.target.value;
+
+    setCategory(value);
+  };
 
   const handleSubcategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
+
     setSubcategory(value);
+
     if (value === "ring") {
       setSizes([]);
     }
@@ -32,37 +44,69 @@ const CreateProductForm: FC = () => {
     }
   };
 
+  const selectedSubcategory = useMemo(
+    () => subcategories.find(sc => sc.name === subcategory),
+    [subcategory],
+  );
+
   return (
-    <div className="p-4 space-y-5">
-      <Input label="Price" type="number" placeholder="Enter product price" />
-      <Spacer y={1} />
-      <Input label="Photo URL" placeholder="Enter product photo URL" />
-      <Spacer y={1} />
+    <div className="flex flex-col p-4 space-y-12">
+      <div className="flex items-center gap-2">
+        {selectedSubcategory && (
+          <p className="p-2 -mr-2 font-semibold rounded-md bg-zinc-100">
+            {selectedSubcategory.code}
+          </p>
+        )}
+        <Input
+          type="number"
+          placeholder="Введіть артикул товару"
+          className="max-w-xs"
+        />
+      </div>
+
+      <Input
+        label="Ціна"
+        type="number"
+        placeholder="Вкажіть ціну товару"
+        className="max-w-xs"
+      />
+
+      <ImageUploader />
 
       <div className="flex gap-40 pr-12">
-        <Select placeholder="Категорію" onChange={handleSubcategoryChange}>
-          <SelectItem value="ring" key="ring">
-            Ring
-          </SelectItem>
-          <SelectItem value="necklace" key="necklace">
-            Necklace
-          </SelectItem>
+        <Select
+          placeholder="Оберіть Категорію"
+          onChange={handleCategoryChange}
+          aria-label="Оберіть Категорію"
+        >
+          {categories.map(category => (
+            <SelectItem
+              value={category.name}
+              key={category.name}
+              aria-label={category.name}
+            >
+              {category.name}
+            </SelectItem>
+          ))}
         </Select>
 
         <Select
-          placeholder="Оберіть підкатегорію"
+          placeholder="Оберіть Підкатегорію"
           onChange={handleSubcategoryChange}
+          aria-label="Оберіть Підкатегорію"
         >
-          <SelectItem value="ring" key="ring">
-            Ring
-          </SelectItem>
-          <SelectItem value="necklace" key="necklace">
-            Necklace
-          </SelectItem>
+          {subcategories.map(subcategory => (
+            <SelectItem
+              value={subcategory.name}
+              key={subcategory.name}
+              aria-label={subcategory.name}
+            >
+              {subcategory.name}
+            </SelectItem>
+          ))}
         </Select>
       </div>
 
-      <Spacer y={1} />
       {subcategory === "ring" && (
         <div>
           <Headings level={3}>Оберіть розміри колець:</Headings>
@@ -76,9 +120,8 @@ const CreateProductForm: FC = () => {
           </CheckboxGroup>
         </div>
       )}
-      <Spacer y={1} />
 
-      <ButtonLink>Зберегти</ButtonLink>
+      <ButtonLink className="self-center w-fit">Зберегти</ButtonLink>
     </div>
   );
 };

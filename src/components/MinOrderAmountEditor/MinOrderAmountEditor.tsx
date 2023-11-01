@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useForm } from "react-hook-form";
-import { MINIMUM_ORDER_AMOUNT } from "../../config";
+import { MINIMUM_ORDER_AMOUNT } from "../../configs/config";
 import Headings from "../UI/Headings";
 import { Button } from "@nextui-org/react";
 

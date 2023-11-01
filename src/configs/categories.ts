@@ -1,7 +1,7 @@
-import Everything from "../../../public/img/Everything.webp";
-import Swarowski from "../../../public/img/Swarowski.webp";
-import Gold from "../../../public/img/Gold.webp";
-import Gold2 from "../../../public/img/Gold2.webp";
+import Everything from "../../public/img/Everything.webp";
+import Swarowski from "../../public/img/Swarowski.webp";
+import Gold from "../../public/img/Gold.webp";
+import Gold2 from "../../public/img/Gold2.webp";
 
 export const categories = [
   {

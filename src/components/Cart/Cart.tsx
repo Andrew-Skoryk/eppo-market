@@ -12,7 +12,7 @@ import { getMoneyFormat } from "@/lib/utils";
 import ProductCardInCart from "../ProductCardInCart";
 import Headings from "../UI/Headings";
 import ButtonLink from "../UI/ButtonLink";
-import { MINIMUM_ORDER_AMOUNT } from "../../config";
+import { MINIMUM_ORDER_AMOUNT } from "../../configs/config";
 import MinValueOrderBlock from "../MinValueOrderComp/MinValueOrderComp";
 
 function Cart() {

@@ -1,6 +1,6 @@
 import CategoryBlock from "../CategoryBlock/";
 import Headings from "../UI/Headings";
-import { categories } from "./categories";
+import { categories } from "../../configs/categories";
 
 const MainCategoriesBlock: React.FC = () => {
   return (

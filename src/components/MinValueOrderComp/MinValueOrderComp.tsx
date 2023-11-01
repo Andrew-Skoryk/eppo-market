@@ -1,4 +1,4 @@
-import { MINIMUM_ORDER_AMOUNT } from "../../config";
+import { MINIMUM_ORDER_AMOUNT } from "../../configs/config";
 
 const MinValueOrderBlock = () => {
   return (
