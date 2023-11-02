@@ -6,11 +6,13 @@ type Props = {
   className?: string;
   isDisabled?: boolean;
   href?: string;
+  type?: "button" | "submit" | "reset" | undefined;
 };
 
-function ButtonLink({ children, className, isDisabled, href }: Props) {
+function ButtonLink({ children, className, isDisabled, href, type }: Props) {
   return (
     <Button
+      type={type}
       href={href}
       as={Link}
       isDisabled={isDisabled}

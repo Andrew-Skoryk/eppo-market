@@ -1,6 +1,5 @@
 "use client";
 
-import { FC, useState, ChangeEvent, useMemo } from "react";
 import {
   Input,
   CheckboxGroup,
@@ -8,122 +7,180 @@ import {
   Select,
   SelectItem,
 } from "@nextui-org/react";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+import { clientProduct } from "@/types/clietProduct";
+import { useCreateProduct } from "@/hooks/useCreateProduct";
 
 import Headings from "../UI/Headings";
 import ButtonLink from "../UI/ButtonLink";
-import { categories } from "@/configs/categories";
-import { subcategories } from "@/configs/subcategories";
 import ImageUploader from "../ImageUploader/ImageUploader";
 
-const CreateProductForm: FC = () => {
-  const [_category, setCategory] = useState("");
-  const [subcategory, setSubcategory] = useState("");
-  const [sizes, setSizes] = useState<string[]>([]);
+import { categories } from "@/configs/categories";
+import { subcategories } from "@/configs/subcategories";
 
-  const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value;
+const productSchema = z.object({
+  article: z.string().max(191, "Артикул занадто довгий!"),
+  price: z.number().min(0, "Ціна не може бути від'ємною!"),
+  photo: z.string(),
+  category: z.string(),
+  subcategory: z.string(),
+  sizes: z.string(),
+});
 
-    setCategory(value);
-  };
+function CreateProductForm() {
+  const { handleSubmit, control, setValue, watch, formState } =
+    useForm<clientProduct>({
+      resolver: zodResolver(productSchema),
+      defaultValues: {
+        article: "",
+        price: 0,
+        photo: "",
+        category: "",
+        subcategory: "",
+        sizes: "",
+      },
+    });
 
-  const handleSubcategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value;
+  const { errors } = formState;
 
-    setSubcategory(value);
+  const createProductMutation = useCreateProduct();
+  const subcategory = watch("subcategory");
 
-    if (value === "ring") {
-      setSizes([]);
+  const onSubmit: SubmitHandler<clientProduct> = async data => {
+    try {
+      await createProductMutation.mutateAsync(data);
+      alert("Товар успішно додано!");
+    } catch (error) {
+      alert("Помилка при додаванні товару. Будь ласка, спробуйте ще раз.");
     }
   };
-
-  const handleSizeChange = (
-    valueOrEvent: string[] | React.FormEvent<HTMLDivElement>,
-  ) => {
-    if (Array.isArray(valueOrEvent)) {
-      setSizes(valueOrEvent);
-    }
-  };
-
-  const selectedSubcategory = useMemo(
-    () => subcategories.find(sc => sc.name === subcategory),
-    [subcategory],
-  );
 
   return (
-    <div className="flex flex-col p-4 space-y-12">
-      <div className="flex items-center gap-2">
-        {selectedSubcategory && (
-          <p className="p-2 -mr-2 font-semibold rounded-md bg-zinc-100">
-            {selectedSubcategory.code}
-          </p>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col p-4 space-y-12"
+    >
+      <Controller
+        name="article"
+        control={control}
+        render={({ field }) => (
+          <>
+            <Input
+              {...field}
+              value={String(field.value)}
+              label="Артикул"
+              labelPlacement="outside"
+              placeholder="Введіть артикул товару"
+              className="max-w-xs"
+            />
+            {errors.article && (
+              <p className="text-red-500">{errors.article.message}</p>
+            )}
+          </>
         )}
-        <Input
-          type="number"
-          placeholder="Введіть артикул товару"
-          className="max-w-xs"
-        />
-      </div>
+      />
 
-      <Input
-        label="Ціна"
-        type="number"
-        placeholder="Вкажіть ціну товару"
-        className="max-w-xs"
+      <Controller
+        name="price"
+        control={control}
+        render={({ field }) => (
+          <>
+            <Input
+              {...field}
+              value={field.value === 0 ? "" : String(field.value)}
+              label="Ціна"
+              placeholder="Вкажіть ціну товару"
+              className="max-w-xs"
+            />
+            {errors.price && (
+              <p className="text-red-500">{errors.price.message}</p>
+            )}
+          </>
+        )}
       />
 
       <ImageUploader />
 
       <div className="flex gap-40 pr-12">
-        <Select
-          placeholder="Оберіть Категорію"
-          onChange={handleCategoryChange}
-          aria-label="Оберіть Категорію"
-        >
-          {categories.map(category => (
-            <SelectItem
-              value={category.name}
-              key={category.name}
-              aria-label={category.name}
+        <Controller
+          name="category"
+          control={control}
+          render={({ field }) => (
+            <Select
+              {...field}
+              placeholder="Оберіть Категорію"
+              aria-label="Оберіть Категорію"
             >
-              {category.name}
-            </SelectItem>
-          ))}
-        </Select>
+              {categories.map(category => (
+                <SelectItem
+                  value={category.name}
+                  key={category.name}
+                  aria-label={category.name}
+                >
+                  {category.name}
+                </SelectItem>
+              ))}
+            </Select>
+          )}
+        />
 
-        <Select
-          placeholder="Оберіть Підкатегорію"
-          onChange={handleSubcategoryChange}
-          aria-label="Оберіть Підкатегорію"
-        >
-          {subcategories.map(subcategory => (
-            <SelectItem
-              value={subcategory.name}
-              key={subcategory.name}
-              aria-label={subcategory.name}
+        <Controller
+          name="subcategory"
+          control={control}
+          render={({ field }) => (
+            <Select
+              {...field}
+              placeholder="Оберіть Підкатегорію"
+              aria-label="Оберіть Підкатегорію"
             >
-              {subcategory.name}
-            </SelectItem>
-          ))}
-        </Select>
+              {subcategories.map(subcategory => (
+                <SelectItem
+                  value={subcategory.name}
+                  key={subcategory.name}
+                  aria-label={subcategory.name}
+                >
+                  {subcategory.name}
+                </SelectItem>
+              ))}
+            </Select>
+          )}
+        />
       </div>
 
       {subcategory === "ring" && (
         <div>
           <Headings level={3}>Оберіть розміри колець:</Headings>
 
-          <CheckboxGroup value={sizes} onChange={handleSizeChange}>
-            {Array.from({ length: 14 }, (_, idx) => idx + 12).map(size => (
-              <Checkbox key={size} value={size.toString()}>
-                {size}
-              </Checkbox>
-            ))}
-          </CheckboxGroup>
+          <Controller
+            name="sizes"
+            control={control}
+            render={({ field }) => (
+              <CheckboxGroup
+                {...field}
+                value={field.value.split(",")}
+                onChange={value => {
+                  if (Array.isArray(value)) {
+                    setValue("sizes", value.join(","));
+                  }
+                }}
+              >
+                {Array.from({ length: 14 }, (_, idx) => idx + 12).map(size => (
+                  <Checkbox key={size} value={size.toString()}>
+                    {size}
+                  </Checkbox>
+                ))}
+              </CheckboxGroup>
+            )}
+          />
         </div>
       )}
 
-      <ButtonLink className="self-center w-fit">Зберегти</ButtonLink>
-    </div>
+      <ButtonLink type="submit" className="self-center w-fit">Зберегти</ButtonLink>
+    </form>
   );
-};
+}
 
 export default CreateProductForm;

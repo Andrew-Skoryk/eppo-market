@@ -12,7 +12,7 @@ function ImageUploader() {
   const mutation = useMutation((file: File) => {
     const formData = new FormData();
     formData.append("data", file);
-    return axios.post("/api/uploader", formData);
+    return axios.post("/api/post-photo", formData);
   });
 
   const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
