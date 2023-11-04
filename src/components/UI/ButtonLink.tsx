@@ -12,7 +12,7 @@ type Props = {
 function ButtonLink({ children, className, isDisabled, href, type }: Props) {
   return (
     <Button
-      type={type}
+      type={type || "button"}
       href={href}
       as={Link}
       isDisabled={isDisabled}

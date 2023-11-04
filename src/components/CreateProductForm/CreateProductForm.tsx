@@ -6,6 +6,7 @@ import {
   Checkbox,
   Select,
   SelectItem,
+  Button
 } from "@nextui-org/react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,7 +16,6 @@ import { clientProduct } from "@/types/clietProduct";
 import { useCreateProduct } from "@/hooks/useCreateProduct";
 
 import Headings from "../UI/Headings";
-import ButtonLink from "../UI/ButtonLink";
 import ImageUploader from "../ImageUploader/ImageUploader";
 
 import { categories } from "@/configs/categories";
@@ -43,10 +43,10 @@ function CreateProductForm() {
         sizes: "",
       },
     });
+  const createProductMutation = useCreateProduct();
 
   const { errors } = formState;
 
-  const createProductMutation = useCreateProduct();
   const subcategory = watch("subcategory");
 
   const onSubmit: SubmitHandler<clientProduct> = async data => {
@@ -178,7 +178,7 @@ function CreateProductForm() {
         </div>
       )}
 
-      <ButtonLink type="submit" className="self-center w-fit">Зберегти</ButtonLink>
+      <Button type="submit" className="self-center w-fit">Зберегти</Button>
     </form>
   );
 }

@@ -1,31 +1,34 @@
-"use client";
-
 import { ChangeEvent, useState } from "react";
-import { Image } from "@nextui-org/image";
+import { AdvancedImage } from "@cloudinary/react";
+import { Cloudinary } from "@cloudinary/url-gen";
 import { useMutation } from "react-query";
 import axios from "axios";
 
+const cld = new Cloudinary({
+  cloud: {
+    cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+  },
+});
+
 function ImageUploader() {
-  const [image, setImage] = useState<string | null>(null);
+  const [imagePublicId, setImagePublicId] = useState(null);
   const [error, setError] = useState("");
 
   const mutation = useMutation((file: File) => {
     const formData = new FormData();
-    formData.append("data", file);
-    return axios.post("/api/post-photo", formData);
+    formData.append("file", file);
+
+    return axios.post("/api/photo", formData);
   });
 
   const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
 
+    if (file) {
       try {
         const response = await mutation.mutateAsync(file);
+
+        setImagePublicId(response.data.public_id);
         console.log("Image uploaded:", response.data.url);
         setError("");
       } catch (error) {
@@ -39,16 +42,7 @@ function ImageUploader() {
   return (
     <div className="self-start space-y-3">
       {error && <p className="text-red-500">{error}</p>}
-      {image && (
-        <Image
-          src={image}
-          alt="Uploaded preview"
-          width={200}
-          height={200}
-          radius="md"
-          placeholder="blur"
-        />
-      )}
+      {imagePublicId && <AdvancedImage cldImg={cld.image(imagePublicId)} />}
       <input type="file" onChange={handleImageChange} />
     </div>
   );
