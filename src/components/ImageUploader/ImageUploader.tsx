@@ -1,18 +1,11 @@
 import { ChangeEvent, useState } from "react";
-import { AdvancedImage } from "@cloudinary/react";
-import { Cloudinary } from "@cloudinary/url-gen";
+import { Image, Button } from "@nextui-org/react";
 import { useMutation } from "react-query";
 import axios from "axios";
 
-const cld = new Cloudinary({
-  cloud: {
-    cloudName: process.env.CLOUDINARY_CLOUD_NAME,
-  },
-});
-
 function ImageUploader() {
-  const [imagePublicId, setImagePublicId] = useState(null);
-  const [error, setError] = useState("");
+  const [imageSrc, setImageSrc] = useState("");
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const mutation = useMutation((file: File) => {
     const formData = new FormData();
@@ -21,29 +14,35 @@ function ImageUploader() {
     return axios.post("/api/photo", formData);
   });
 
-  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
     if (file) {
-      try {
-        const response = await mutation.mutateAsync(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImageSrc(reader.result as string);
+      };
+      reader.readAsDataURL(file);
 
-        setImagePublicId(response.data.public_id);
-        console.log("Image uploaded:", response.data.url);
-        setError("");
-      } catch (error) {
-        setError(
-          "Помилка завантаження зображення. Будь ласка, спробуйте ще раз.",
-        );
-      }
+      setSelectedFile(file);
     }
   };
 
   return (
     <div className="self-start space-y-3">
-      {error && <p className="text-red-500">{error}</p>}
-      {imagePublicId && <AdvancedImage cldImg={cld.image(imagePublicId)} />}
+      {imageSrc && (
+        <Image src={imageSrc} alt="Image preview" width={400} height={200} />
+      )}
       <input type="file" onChange={handleImageChange} />
+      <Button
+        onClick={() => {
+          if (selectedFile) {
+            mutation.mutateAsync(selectedFile);
+          }
+        }}
+      >
+        Зберегти
+      </Button>
     </div>
   );
 }
