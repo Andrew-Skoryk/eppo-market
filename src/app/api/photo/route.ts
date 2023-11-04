@@ -1,28 +1,38 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import {v2 as cloudinary} from 'cloudinary';
+import { NextRequest, NextResponse } from 'next/server';
+import { v2 as cloudinary } from 'cloudinary';
 
-cloudinary.config({ 
+cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
-  const fileStr = req.body.data;
-  console.log(fileStr);
+export async function POST(req: NextRequest) {
+  const formData = await req.formData();
+  const file = formData.get('file');
+
+  if (!file || typeof file === 'string') {
+    return new NextResponse(null, { status: 400 });
+  }
 
   try {
-  const uploadResponse = await cloudinary.uploader.upload(fileStr,
-  //   {
-  // upload_preset: 'YOUR_UPLOAD_PRESET', 
-  //   }
-  );
-    res.status(200).json({
-      public_id: uploadResponse.public_id,
-      url: uploadResponse.url
+    const buffer = await file.arrayBuffer();
+    const base64String = Buffer.from(buffer).toString('base64');
+    const fileBase64 = `data:${file.type};base64,${base64String}`;
+
+    const cloudinaryResponse = await cloudinary.uploader.upload(fileBase64);
+
+    return new NextResponse(JSON.stringify({
+      public_id: cloudinaryResponse.public_id,
+      url: cloudinaryResponse.url
+    }), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
   } catch (error) {
     console.error('Error uploading image:', error);
-    res.status(500);
+    return new NextResponse(null, { status: 500 });
   }
-};
+}
