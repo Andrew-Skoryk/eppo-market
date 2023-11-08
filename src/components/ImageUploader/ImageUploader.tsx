@@ -1,18 +1,12 @@
 import { ChangeEvent, useState } from "react";
-import { Image, Button } from "@nextui-org/react";
-import { useMutation } from "react-query";
-import axios from "axios";
+import { Image } from "@nextui-org/image";
 
-function ImageUploader() {
+type Props = {
+  onFileSelect: (file: File) => void;
+};
+
+function ImageUploader({ onFileSelect }: Props) {
   const [imageSrc, setImageSrc] = useState("");
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
-  const mutation = useMutation((file: File) => {
-    const formData = new FormData();
-    formData.append("file", file);
-
-    return axios.post("/api/photo", formData);
-  });
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -24,7 +18,7 @@ function ImageUploader() {
       };
       reader.readAsDataURL(file);
 
-      setSelectedFile(file);
+      onFileSelect(file);
     }
   };
 
@@ -33,16 +27,10 @@ function ImageUploader() {
       {imageSrc && (
         <Image src={imageSrc} alt="Image preview" width={400} height={200} />
       )}
-      <input type="file" onChange={handleImageChange} />
-      <Button
-        onClick={() => {
-          if (selectedFile) {
-            mutation.mutateAsync(selectedFile);
-          }
-        }}
-      >
-        Зберегти
-      </Button>
+      <input
+        type="file"
+        onChange={handleImageChange}
+      />
     </div>
   );
 }

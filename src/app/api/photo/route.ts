@@ -20,7 +20,17 @@ export async function POST(req: NextRequest) {
     const base64String = Buffer.from(buffer).toString('base64');
     const fileBase64 = `data:${file.type};base64,${base64String}`;
 
-    const cloudinaryResponse = await cloudinary.uploader.upload(fileBase64);
+    const cloudinaryResponse = await cloudinary
+      .uploader
+      .upload(fileBase64, {
+        public_id: file.name,
+        use_filename: true,
+        folder: "products",
+        unique_filename: false,
+        width: 1000,
+        crop: "scale",
+        format: "webp",
+      },);
 
     return new NextResponse(JSON.stringify({
       public_id: cloudinaryResponse.public_id,
