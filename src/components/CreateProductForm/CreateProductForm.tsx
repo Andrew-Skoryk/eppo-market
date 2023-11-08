@@ -213,8 +213,11 @@ function CreateProductForm() {
         </div>
       )}
 
-      <Button type="submit" className="self-center w-fit">
-        Зберегти
+      <Button
+        type="submit"
+        className="self-center duration-300 border bg-amber-400 text-lime-800 border-amber-500 hover:bg-amber-500"
+      >
+        Додати товар
       </Button>
     </form>
   );
