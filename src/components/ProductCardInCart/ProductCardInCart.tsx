@@ -78,7 +78,7 @@ function ProductCardInCart({ item }: Props) {
       <div className="flex items-center flex-grow space-x-4">
         <Image
           title={item.article}
-          src={item.imgSrc}
+          src={item.photo}
           alt={item.article}
           loading="lazy"
           className="object-cover w-20 h-20 transition-transform duration-300 rounded-md hover:scale-150 cursor-pointer"

@@ -1,14 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
 import { useForm, Controller } from "react-hook-form";
-import { ShoppingBasket } from "lucide-react";
+
 import { useDispatch } from "react-redux";
 import { addItem } from "../../redux/slices/cartSlice";
 import { getMoneyFormat } from "@/lib/utils";
-import AnimatedAddedBlock from "../AnimatedAddedBlock";
 import { Product } from "@prisma/client";
+
+import Image from "next/image";
+import { ShoppingBasket } from "lucide-react";
+import AnimatedAddedBlock from "../AnimatedAddedBlock";
 
 interface FormInput {
   quantity: number;
@@ -42,7 +44,7 @@ function ProductCard({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="p-2 text-center transition-colors duration-300 border rounded-md shadow-lg hover:bg-slate-200"
+      className="text-center transition-colors duration-300 border rounded-md shadow-lg hover:bg-slate-200"
     >
       <div className="w-full h-56 mb-4">
         <Image
@@ -51,7 +53,7 @@ function ProductCard({
           width={500}
           height={300}
           loading="lazy"
-          className="object-cover w-full h-full transition-transform duration-300 rounded-md cursor-pointer hover:scale-110"
+          className="object-cover w-full h-full transition-transform duration-300 rounded-md cursor-pointer hover:scale-125"
         />
       </div>
 
