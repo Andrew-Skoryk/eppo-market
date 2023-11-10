@@ -4,7 +4,6 @@ import { clientProduct } from '@/types/clietProduct';
 
 export function useCreateProduct() {
   return useMutation((productData: clientProduct) => {
-    console.log("PRODUCT: ", productData);
     return axios.post("/api/product", productData);
   });
 }

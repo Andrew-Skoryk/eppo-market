@@ -1,5 +1,5 @@
 import { CartItem } from '@/types/CartItem';
-import { testProduct } from '@/types/testProduct';
+import { Product } from '@prisma/client';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface CartState {
@@ -30,7 +30,7 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addItem: (state, action: PayloadAction<{ item: testProduct, quantity: number }>) => {
+    addItem: (state, action: PayloadAction<{ item: Product, quantity: number }>) => {
       const existingItem = state.items.find(i => i.id === action.payload.item.id);
 
       if (existingItem) {

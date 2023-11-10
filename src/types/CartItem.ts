@@ -1,5 +1,5 @@
-import { testProduct } from "./testProduct";
+import { Product } from "@prisma/client";
 
-export interface CartItem extends testProduct {
+export interface CartItem extends Product {
   quantity: number;
 }

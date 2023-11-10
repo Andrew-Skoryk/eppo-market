@@ -3,34 +3,26 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { useForm, Controller } from "react-hook-form";
-import { StaticImageData } from "next/image";
 import { ShoppingBasket } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { addItem } from "../../redux/slices/cartSlice";
 import { getMoneyFormat } from "@/lib/utils";
 import AnimatedAddedBlock from "../AnimatedAddedBlock";
-
-interface Product {
-  id: string;
-  imgSrc: StaticImageData;
-  price: number;
-  category: string;
-  subcategory: string;
-  article: string;
-}
+import { Product } from "@prisma/client";
 
 interface FormInput {
   quantity: number;
 }
 
-const ProductCard: React.FC<Product> = ({
+function ProductCard({
   id,
-  imgSrc,
+  photo,
   price,
   category,
   subcategory,
   article,
-}) => {
+  sizes,
+}: Product) {
   const dispatch = useDispatch();
   const { control, handleSubmit, reset } = useForm<FormInput>();
   const [isAdded, setIsAdded] = useState(false);
@@ -38,7 +30,7 @@ const ProductCard: React.FC<Product> = ({
   const onSubmit = (data: FormInput) => {
     dispatch(
       addItem({
-        item: { id, imgSrc, price, category, subcategory, article },
+        item: { id, photo, price, category, subcategory, article, sizes },
         quantity: data.quantity,
       }),
     );
@@ -54,8 +46,10 @@ const ProductCard: React.FC<Product> = ({
     >
       <div className="w-full h-56 mb-4">
         <Image
-          src={imgSrc}
+          src={photo}
           alt={article}
+          width={500}
+          height={300}
           loading="lazy"
           className="object-cover w-full h-full transition-transform duration-300 rounded-md cursor-pointer hover:scale-110"
         />
@@ -102,6 +96,6 @@ const ProductCard: React.FC<Product> = ({
       <AnimatedAddedBlock isAdded={isAdded} />
     </form>
   );
-};
+}
 
 export default React.memo(ProductCard);

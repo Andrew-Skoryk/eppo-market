@@ -17,6 +17,8 @@ function AdminProducts() {
         Додати новий товар
       </ButtonLink>
 
+      
+
       <Pagination
         total={10}
         initialPage={1}
