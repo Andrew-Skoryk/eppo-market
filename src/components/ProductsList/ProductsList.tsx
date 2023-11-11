@@ -12,13 +12,13 @@ function ProductsList() {
     error,
   } = useQuery<Product[]>("products", () =>
     axios.get("/api/products").then(res => res.data.products),
-    );
-  
+  );
+
   if (isLoading) return <div>Loading...</div>;
   if (error || !products) return <div>An error has occurred</div>;
 
   return (
-    <div className="grid grid-cols-3 gap-4 md:grid-cols-4 lg:grid-cols-6">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
       {products.map(product => (
         <ProductCard
           key={product.id}

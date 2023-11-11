@@ -80,8 +80,10 @@ function ProductCardInCart({ item }: Props) {
           title={item.article}
           src={item.photo}
           alt={item.article}
+          width={500}
+          height={300}
           loading="lazy"
-          className="object-cover w-20 h-20 transition-transform duration-300 rounded-md hover:scale-150 cursor-pointer"
+          className="object-cover w-20 h-20 transition-transform duration-300 rounded-md cursor-pointer hover:scale-150"
         />
         <div>
           <h2 title="Артикул" className="text-lg font-semibold">
