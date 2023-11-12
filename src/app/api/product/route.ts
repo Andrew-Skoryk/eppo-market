@@ -14,3 +14,19 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error }, {status: 500})
   }
 }
+
+export async function DELETE(req: NextRequest) {
+  const id = await req.json();
+
+  try {
+    await db.product.delete({
+      where: {
+        id
+      }
+    });
+
+    return NextResponse.json({ status: 204 });
+  } catch (error) {
+    return NextResponse.json({ error }, {status: 500})
+  }
+}

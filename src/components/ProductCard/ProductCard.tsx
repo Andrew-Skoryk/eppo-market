@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import Image from "next/image";
 
 import { useDispatch } from "react-redux";
 import { addItem } from "../../redux/slices/cartSlice";
@@ -10,7 +9,7 @@ import { getMoneyFormat } from "@/lib/utils";
 import { Product } from "@prisma/client";
 
 import toast, { Toaster } from "react-hot-toast";
-import { Select, SelectItem } from "@nextui-org/react";
+import { Select, SelectItem, Image as NextUIImage } from "@nextui-org/react";
 
 import {
   Button,
@@ -58,16 +57,16 @@ function ProductCard({
   };
 
   return (
-    <Card className="relative border border-amber-400">
+    <Card className="relative border-2 border-amber-400">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <CardHeader className="p-0">
-          <Image
+        <CardHeader className="p-0 border-b border-amber-400">
+          <NextUIImage
             src={photo}
             alt={article}
-            width={500}
-            height={300}
             loading="lazy"
-            className="z-10 duration-300 cursor-pointer hover:scale-125"
+            isBlurred={false}
+            isZoomed={true}
+            radius="none"
           />
         </CardHeader>
 

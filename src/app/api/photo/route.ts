@@ -27,6 +27,7 @@ export async function POST(req: NextRequest) {
         use_filename: true,
         folder: "products",
         unique_filename: false,
+        height: 1000,
         width: 1000,
         crop: "scale",
         format: "webp",
