@@ -34,7 +34,6 @@ function Cart() {
       </section>
     );
   }
-  console.log(isEnoughPrice);
 
   return (
     <section className="flex flex-col items-center gap-8">

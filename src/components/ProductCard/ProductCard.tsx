@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { memo, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 
 import { useDispatch } from "react-redux";
@@ -22,6 +22,7 @@ import { ShoppingBasket } from "lucide-react";
 
 interface FormInput {
   quantity: number;
+  size: number;
 }
 
 function ProductCard({
@@ -41,12 +42,21 @@ function ProductCard({
 
   const onSubmit = (data: FormInput) => {
     try {
-      dispatch(
-        addItem({
-          item: { id, photo, price, category, subcategory, article, sizes },
-          quantity: data.quantity,
-        }),
-      );
+      const newItem = {
+        id,
+        photo,
+        price,
+        category,
+        subcategory,
+        article,
+        sizes,
+        cartSizes: sizes
+          ? [{ size: data.size, quantity: data.quantity }]
+          : undefined,
+        quantity: sizes ? undefined : data.quantity,
+      };
+
+      dispatch(addItem(newItem));
       setIsAdded(true);
       toast.success("Товар успішно додано!");
       setTimeout(() => setIsAdded(false), 750);
@@ -81,21 +91,25 @@ function ProductCard({
           </p>
 
           {sizeOptions.length > 0 && (
-            <div>
-              <Select
-                placeholder="Виберіть розмір"
-                required
-                variant="faded"
-                label="Розмір"
-                radius="none"
-              >
-                {sizeOptions.map(size => (
-                  <SelectItem key={size} value={size} className="text-center">
-                    {size}
-                  </SelectItem>
-                ))}
-              </Select>
-            </div>
+            <Controller
+              name="size"
+              control={control}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  defaultValue={sizeOptions[0]}
+                  variant="faded"
+                  label="Розмір"
+                  radius="none"
+                >
+                  {sizeOptions.map(size => (
+                    <SelectItem key={size} value={size} className="text-center">
+                      {size}
+                    </SelectItem>
+                  ))}
+                </Select>
+              )}
+            />
           )}
 
           <div className="pb-2 pl-2 bg-slate-100">
@@ -142,4 +156,4 @@ function ProductCard({
   );
 }
 
-export default React.memo(ProductCard);
+export default memo(ProductCard);

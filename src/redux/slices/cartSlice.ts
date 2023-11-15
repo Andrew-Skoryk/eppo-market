@@ -1,5 +1,4 @@
 import { CartItem } from '@/types/CartItem';
-import { Product } from '@prisma/client';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface CartState {
@@ -30,29 +29,77 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addItem: (state, action: PayloadAction<{ item: Product, quantity: number }>) => {
-      const existingItem = state.items.find(i => i.id === action.payload.item.id);
+  addItem: (state, action: PayloadAction<CartItem>) => {
+    const { id, photo, price, category, subcategory, article, sizes, cartSizes, quantity } = action.payload;
+    const existingItem = state.items.find(i => i.id === id);
 
-      if (existingItem) {
-        existingItem.quantity = +action.payload.quantity + +existingItem.quantity;
-      } else {
-        state.items.push({...action.payload.item, quantity: action.payload.quantity});
+
+    if (existingItem) {
+      if (cartSizes) {
+        cartSizes.forEach(cartSize => {
+          const existingSizeDetail = existingItem.cartSizes?.find(detail => detail.size === cartSize.size);
+          if (existingSizeDetail) {
+            existingSizeDetail.quantity = Number(existingSizeDetail.quantity) + Number(cartSize.quantity);
+          } else {
+            if (!existingItem.cartSizes) existingItem.cartSizes = [];
+            existingItem.cartSizes.push(cartSize);
+          }
+        });
+      } else if (quantity) {
+        existingItem.quantity = Number(existingItem.quantity || 0) + Number(quantity);
       }
+    } else {
+      state.items.push({
+        id,
+        photo,
+        price,
+        category,
+        subcategory,
+        article,
+        sizes,
+        cartSizes: cartSizes || [],
+        quantity: quantity || 0,
+      });
+    }
 
-      localStorage.setItem('cartItems', JSON.stringify(state.items));
-    },
+    localStorage.setItem('cartItems', JSON.stringify(state.items));
+  },
+
     removeItem: (state, action: PayloadAction<string>) => {
       state.items = state.items.filter(item => item.id !== action.payload);
       localStorage.setItem('cartItems', JSON.stringify(state.items));
     },
-    updateQuantity: (state, action: PayloadAction<{ id: string; quantity: number }>) => {
-      const item = state.items.find(i => i.id === action.payload.id);
+
+    removeSizeFromItem: (state, action: PayloadAction<{ id: string; size: number }>) => {
+      const { id, size } = action.payload;
+      const item = state.items.find(i => i.id === id);
+
+      if (item && item.cartSizes) {
+        item.cartSizes = item.cartSizes.filter(detail => detail.size !== size);
+      }
+
+      localStorage.setItem('cartItems', JSON.stringify(state.items));
+    },
+
+    updateQuantity: (state, action: PayloadAction<{ id: string; quantity: number; size?: number }>) => {
+      const { id, quantity, size } = action.payload;
+      const item = state.items.find(i => i.id === id);
+
       if (item) {
-        item.quantity = action.payload.quantity;
+        if (size !== undefined && item.cartSizes) {
+          item.cartSizes = item.cartSizes.map(detail =>
+            +detail.size === size ? { ...detail, quantity: quantity } : detail
+          );
+          
+        } else {
+          item.quantity = quantity;
+        }
+
         localStorage.setItem('cartItems', JSON.stringify(state.items));
       }
     },
   },
+
   extraReducers: (builder) => {
     builder.addCase(loadCartItems.fulfilled, (state, action) => {
       state.items = action.payload;
@@ -63,6 +110,6 @@ const cartSlice = createSlice({
   }
 });
 
-export const { addItem, removeItem, updateQuantity } = cartSlice.actions;
+export const { addItem, removeItem, updateQuantity, removeSizeFromItem } = cartSlice.actions;
 
 export default cartSlice.reducer;
