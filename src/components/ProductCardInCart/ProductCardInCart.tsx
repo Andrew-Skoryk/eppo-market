@@ -1,9 +1,7 @@
 import { memo, useCallback, useMemo, useRef, useState } from "react";
 import debounce from "lodash/debounce";
-import Image from "next/image";
-import toast, { Toaster } from "react-hot-toast";
 
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import {
   updateQuantity,
@@ -11,17 +9,18 @@ import {
   removeSizeFromItem,
 } from "../../redux/slices/cartSlice";
 import { getMoneyFormat } from "@/lib/utils";
-
 import { CartItem } from "@/types/CartItem";
+
 import { useSpring, animated } from "react-spring";
-import { Button } from "@nextui-org/react";
+import { Button, Image as NextUIImage } from "@nextui-org/react";
 import { Trash2, X } from "lucide-react";
+import QuantityController from "../QuantityController";
 
 type Props = {
   item: CartItem;
 };
 
-interface IFormInput {
+interface FormInput {
   [key: string]: number;
 }
 
@@ -29,7 +28,7 @@ function ProductCardInCart({ item }: Props) {
   const [isRemoving, setIsRemoving] = useState(false);
   const dispatch = useDispatch();
   const fade = useSpring({ opacity: isRemoving ? 0 : 1 });
-  const { control, handleSubmit, setValue } = useForm<IFormInput>();
+  const { control, handleSubmit, setValue } = useForm<FormInput>();
 
   const calculateTotalPrice = () => {
     if (item.cartSizes && item.cartSizes.length > 0) {
@@ -75,7 +74,7 @@ function ProductCardInCart({ item }: Props) {
     [dispatch, handleRemoveItem, item.cartSizes?.length, item.id],
   );
 
-  const onSubmit = (data: IFormInput) => {
+  const onSubmit = (data: FormInput) => {
     Object.entries(data).forEach(([key, quantity]) => {
       if (key === "quantity_general") {
         // Для товарів без розміру
@@ -99,16 +98,17 @@ function ProductCardInCart({ item }: Props) {
   );
 
   const handleQuantityChange = useCallback(
-    (size: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      const newQuantity = +e.target.value;
+    (size: string, value: string) => {
+      if (value === "") return;
 
-      // Валідація значення
+      const newQuantity = parseInt(value, 10);
+
       if (newQuantity < 1 || newQuantity > 999) {
-        toast.error("Неправильна кількість: вкажіть число від 1 до 999");
         return;
       }
 
       setValue(`quantity_${size}`, newQuantity);
+
       const sizeValue =
         size !== "quantity_general" ? parseInt(size, 10) : undefined;
       debouncedUpdateQuantity(item.id, sizeValue, newQuantity);
@@ -119,22 +119,25 @@ function ProductCardInCart({ item }: Props) {
   return (
     <animated.div
       style={fade}
-      className="flex items-center justify-between p-4 m-2 space-x-4 transition-colors duration-300 bg-gray-100 border rounded-md shadow-lg hover:bg-gray-200"
+      className="flex items-center justify-between p-4 m-2 space-x-6 transition-colors bg-gray-100 border rounded-md shadow-lg hover:bg-gray-200"
     >
       <div className="flex items-center flex-grow space-x-4">
-        <Image
+        <NextUIImage
           title={item.article}
           src={item.photo}
           alt={item.article}
-          width={500}
-          height={300}
+          width={130}
           loading="lazy"
-          className="object-cover w-20 h-20 transition-transform duration-300 rounded-md cursor-pointer hover:scale-150"
+          isBlurred={false}
+          isZoomed={true}
+          radius="none"
+          className="z-0"
         />
+
         <div>
-          <h2 title="Артикул" className="text-lg font-semibold">
+          <h3 title="Артикул" className="text-lg font-semibold">
             {item.article}
-          </h2>
+          </h3>
 
           <p title="Ціна за одиницю" className="text-gray-500">
             {getMoneyFormat(item.price)}
@@ -142,75 +145,51 @@ function ProductCardInCart({ item }: Props) {
         </div>
       </div>
 
-      <div className="flex items-center space-x-2">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        title="Кількість"
+        onBlur={handleSubmit(onSubmit)}
+        className="flex items-center space-x-2"
+      >
         {!isRing ? (
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex items-center space-x-2"
-            title={"Кількість"}
-          >
-            <Controller
-              name="quantity"
-              control={control}
-              defaultValue={item.quantity}
-              render={({ field }) => (
-                <input
-                  {...field}
-                  onChange={e => {
-                    field.onChange(e);
-                    handleQuantityChange("quantity_general")(e);
-                  }}
-                  type="number"
-                  min={1}
-                  required
-                  className="w-16 p-1 border rounded-md"
-                />
-              )}
-            />
-          </form>
+          <QuantityController<FormInput>
+            control={control}
+            name="quantity"
+            defaultValue={item.quantity}
+            onChange={newValue =>
+              handleQuantityChange("quantity_general", newValue)
+            }
+          />
         ) : (
           <div>
             {item.cartSizes!.map(cartSize => (
               <div
                 key={cartSize.size}
-                className="flex items-center justify-between gap-2"
+                className="flex items-center gap-2 justify-between w-full"
               >
                 <p>
                   Розмір: <span className="font-medium">{cartSize.size}</span>
                 </p>
 
-                <form
-                  onSubmit={handleSubmit(data => onSubmit(data))}
-                  className="flex items-center gap-1"
-                >
-                  <Controller
-                    name={`quantity_${cartSize.size}`}
+                <div className="space-x-1.5 items-center flex">
+                  <QuantityController<FormInput>
                     control={control}
+                    name={`quantity_${cartSize.size}`}
                     defaultValue={cartSize.quantity}
-                    render={({ field }) => (
-                      <input
-                        {...field}
-                        onChange={e => {
-                          field.onChange(e);
-                          handleQuantityChange(cartSize.size.toString())(e);
-                        }}
-                        type="number"
-                        min={1}
-                        max={999}
-                        required
-                        className="w-16 p-1 border rounded-md"
-                      />
-                    )}
+                    onChange={newValue =>
+                      handleQuantityChange(cartSize.size.toString(), newValue)
+                    }
                   />
 
                   <button
+                    type="button"
                     onClick={() => handleRemoveSize(cartSize.size)}
                     title="Видалити"
-                    className="bg-red-300 rounded-md hover:bg-red-400"
+                    className="bg-red-300 rounded-md hover:bg-red-400 transition-colors"
                   >
                     <X size={20} />
                   </button>
-                </form>
+                </div>
               </div>
             ))}
           </div>
@@ -228,12 +207,11 @@ function ProductCardInCart({ item }: Props) {
           title="Видалити"
           isIconOnly
           size="sm"
-          className="bg-red-300 hover:bg-red-400"
+          className="bg-red-300 hover:bg-red-400 transition-colors"
         >
           <Trash2 />
         </Button>
-      </div>
-      <Toaster />
+      </form>
     </animated.div>
   );
 }

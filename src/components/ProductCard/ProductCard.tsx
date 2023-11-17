@@ -18,7 +18,8 @@ import {
   CardFooter,
   CardHeader,
 } from "@nextui-org/react";
-import { ShoppingBasket } from "lucide-react";
+import { FormInput, ShoppingBasket } from "lucide-react";
+import QuantityController from "../QuantityController";
 
 interface FormInput {
   quantity: number;
@@ -77,6 +78,7 @@ function ProductCard({
             isBlurred={false}
             isZoomed={true}
             radius="none"
+            className="z-0"
           />
         </CardHeader>
 
@@ -114,25 +116,8 @@ function ProductCard({
 
           <div className="pb-2 pl-2 bg-slate-100">
             <label htmlFor="quantity">Кількість:</label>
-            <Controller
-              name="quantity"
-              control={control}
-              defaultValue={1}
-              rules={{
-                required: "Будь ласка, введіть кількість",
-                min: { value: 1, message: "Мінімальна кількість - 1" },
-                max: { value: 999, message: "Максимальна кількість - 999" },
-              }}
-              render={({ field }) => (
-                <input
-                  {...field}
-                  type="number"
-                  min="1"
-                  max="999"
-                  className="w-20 p-2 border rounded-md"
-                />
-              )}
-            />
+
+            <QuantityController<FormInput> control={control} name={"quantity"} />
           </div>
         </CardBody>
 
