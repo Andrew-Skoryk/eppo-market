@@ -16,7 +16,6 @@ function ProductsList() {
   );
 
   const errorMessage = error as AxiosError;
-  console.log(error);
 
   if (isLoading) return <Spinner label="Завантаження..." size="lg" />;
   if (errorMessage || !products) return <div>{errorMessage.message}</div>;
