@@ -2,7 +2,7 @@
 
 import { useQuery } from "react-query";
 import ProductCard from "../ProductCard";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { Product } from "@prisma/client";
 import { Spinner } from "@nextui-org/spinner";
 
@@ -15,8 +15,11 @@ function ProductsList() {
     axios.get("/api/products").then(res => res.data.products),
   );
 
+  const errorMessage = error as AxiosError;
+  console.log(error);
+
   if (isLoading) return <Spinner label="Завантаження..." size="lg" />;
-  if (error || !products) return <div>An error has occurred</div>;
+  if (errorMessage || !products) return <div>{errorMessage.message}</div>;
 
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">

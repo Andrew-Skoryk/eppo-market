@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
   selectCartItems,
   selectCartTotalPrice,
@@ -9,11 +10,12 @@ import {
 import { loadCartItems } from "../../redux/slices/cartSlice";
 import { AppDispatch } from "../../redux/store";
 import { getMoneyFormat } from "@/lib/utils";
+import { MINIMUM_ORDER_AMOUNT } from "../../configs/config";
+
 import ProductCardInCart from "../ProductCardInCart";
+import MinValueOrderBlock from "../MinValueOrderComp/MinValueOrderComp";
 import Headings from "../UI/Headings";
 import ButtonLink from "../UI/ButtonLink";
-import { MINIMUM_ORDER_AMOUNT } from "../../configs/config";
-import MinValueOrderBlock from "../MinValueOrderComp/MinValueOrderComp";
 
 function Cart() {
   const dispatch: AppDispatch = useDispatch();
