@@ -9,7 +9,12 @@ import { getMoneyFormat } from "@/lib/utils";
 import { Product } from "@prisma/client";
 
 import toast, { Toaster } from "react-hot-toast";
-import { Select, SelectItem, Image as NextUIImage } from "@nextui-org/react";
+import {
+  Select,
+  SelectItem,
+  Image as NextUIImage,
+  Tooltip,
+} from "@nextui-org/react";
 
 import {
   Button,
@@ -96,20 +101,31 @@ function ProductCard({
             <Controller
               name="size"
               control={control}
-              render={({ field }) => (
-                <Select
-                  {...field}
-                  defaultValue={sizeOptions[0]}
-                  variant="faded"
-                  label="Розмір"
-                  radius="none"
+              rules={{
+                required: "Будь ласка, оберіть розмір",
+              }}
+              render={({ field, fieldState: { error } }) => (
+                <Tooltip
+                  content={error?.message}
+                  isOpen={!!error}
+                  placement="top-start"
+                  color="danger"
                 >
-                  {sizeOptions.map(size => (
-                    <SelectItem key={size} value={size} className="text-center">
-                      {size}
-                    </SelectItem>
-                  ))}
-                </Select>
+                  <Select
+                    {...field}
+                    id={`size-select-${id}`}
+                    variant="faded"
+                    label="Розмір"
+                    radius="none"
+                    isInvalid={!!error}
+                  >
+                    {sizeOptions.map(size => (
+                      <SelectItem key={size} value={size}>
+                        {size}
+                      </SelectItem>
+                    ))}
+                  </Select>
+                </Tooltip>
               )}
             />
           )}
@@ -117,7 +133,7 @@ function ProductCard({
           <div className="pb-2 pl-2 bg-slate-100">
             <label htmlFor="quantity">Кількість:</label>
 
-            <QuantityController<FormInput> control={control} name={"quantity"} />
+            <QuantityController<FormInput> control={control} name="quantity" />
           </div>
         </CardBody>
 

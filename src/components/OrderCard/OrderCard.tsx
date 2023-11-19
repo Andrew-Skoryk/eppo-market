@@ -26,7 +26,6 @@ const OrderCard = ({ order }: Props) => {
   const [value, setValue] = React.useState<OrderStatuses>(order.status);
 
   const handleSelectionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(e);
     setValue(e.target.value as OrderStatuses);
   };
 

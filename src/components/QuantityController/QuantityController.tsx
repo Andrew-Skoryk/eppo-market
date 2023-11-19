@@ -35,7 +35,7 @@ function QuantityController<T extends FieldValues>({
         min: { value: min, message: `Мінімальна кількість ${min}` },
         max: { value: max, message: `Максимальна кількість ${max}` },
       }}
-      render={({ field, fieldState: { error }, }) => (
+      render={({ field, fieldState: { error } }) => (
         <Tooltip
           content={error?.message}
           isOpen={!!error}
@@ -45,6 +45,7 @@ function QuantityController<T extends FieldValues>({
         >
           <input
             {...field}
+            name={name}
             type="number"
             onChange={e => {
               field.onChange(e.target.value);

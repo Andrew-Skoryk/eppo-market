@@ -43,7 +43,6 @@ export async function POST(req: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Error uploading image:', error);
     return new NextResponse(null, { status: 500 });
   }
 }

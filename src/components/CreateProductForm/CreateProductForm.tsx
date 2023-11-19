@@ -37,6 +37,7 @@ const productSchema = z.object({
 
 function CreateProductForm() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const createProductMutation = useCreateProduct();
   const { handleSubmit, control, setValue, watch, formState } =
     useForm<clientProduct>({
       resolver: zodResolver(productSchema),
@@ -49,7 +50,6 @@ function CreateProductForm() {
         sizes: "",
       },
     });
-  const createProductMutation = useCreateProduct();
 
   const { errors } = formState;
 
@@ -74,7 +74,6 @@ function CreateProductForm() {
       }
 
       data.photo = photoUrl;
-      console.log(photoUrl);
 
       await createProductMutation.mutateAsync(data);
       alert("Товар успішно додано!");
@@ -198,7 +197,8 @@ function CreateProductForm() {
                 value={field.value.split(",")}
                 onChange={value => {
                   if (Array.isArray(value)) {
-                    setValue("sizes", value.join(","));
+                    const filteredValues = value.filter(v => v !== "");
+                    setValue("sizes", filteredValues.join(","));
                   }
                 }}
               >

@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    console.log("Hi first");
     const products = await db.product.findMany({
     select: {
       id: true,
@@ -16,12 +15,8 @@ export async function GET() {
     }
     });
 
-        console.log("Hi second");
-
-
     return NextResponse.json({ products }, { status: 200 })
   } catch (error) {
-    console.log(error);
     return NextResponse.json({ error }, {status: 500})
   }
 }
