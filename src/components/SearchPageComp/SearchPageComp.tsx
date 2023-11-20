@@ -1,12 +1,15 @@
-"use client";
+import type { Metadata } from "next";
 
-import { useParams } from "next/navigation";
+export const metadata: Metadata = {
+  title: "Пошук товарів - Eppo",
+  description:
+    "Сторінка відображення результатів пошуку товарів інтернет-магазину eppo.com.ua",
+};
 
-function SearchPageComp() {
-  const params = useParams();
+function SearchPageComp({ params }: { params: string }) {
   return (
     <>
-      <span className="font-semibold text-blue-700">{params.slug}</span>
+      <span className="font-semibold text-blue-700">{params}</span>
     </>
   );
 }

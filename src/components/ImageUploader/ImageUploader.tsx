@@ -27,10 +27,7 @@ function ImageUploader({ onFileSelect }: Props) {
       {imageSrc && (
         <Image src={imageSrc} alt="Image preview" width={400} height={200} />
       )}
-      <input
-        type="file"
-        onChange={handleImageChange}
-      />
+      <input type="file" onChange={handleImageChange} />
     </div>
   );
 }

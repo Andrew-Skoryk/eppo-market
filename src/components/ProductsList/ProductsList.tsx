@@ -1,25 +1,11 @@
-"use client";
-
-import { useQuery } from "react-query";
-import ProductCard from "../ProductCard";
-import axios, { AxiosError } from "axios";
 import { Product } from "@prisma/client";
-import { Spinner } from "@nextui-org/spinner";
+import ProductCard from "../ProductCard";
 
-function ProductsList() {
-  const {
-    data: products,
-    isLoading,
-    error,
-  } = useQuery<Product[]>("products", () =>
-    axios.get("/api/products").then(res => res.data.products),
-  );
+type Props = {
+  products: Product[];
+}
 
-  const errorMessage = error as AxiosError;
-
-  if (isLoading) return <Spinner label="Завантаження..." size="lg" />;
-  if (errorMessage || !products) return <div>{errorMessage.message}</div>;
-
+function ProductsList({ products }: Props) {
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
       {products.map(product => (

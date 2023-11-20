@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Налаштування товарів - Eppo",
-  description: "Сторінка для управління товарами інтрент-магазину eppo.com.ua",
+  description: "Сторінка для управління товарами інтернет-магазину eppo.com.ua",
 };
 
 function AdminProducts() {

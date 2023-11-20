@@ -18,7 +18,7 @@ import {
   Button,
 } from "@nextui-org/react";
 import Headings from "../UI/Headings";
-import ImageUploader from "../ImageUploader/ImageUploader";
+import ImageUploader from "../ImageUploader";
 
 import { categories } from "@/configs/categories";
 import { subcategories } from "@/configs/subcategories";
