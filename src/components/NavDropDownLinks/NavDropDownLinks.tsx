@@ -17,7 +17,7 @@ function NavDropDownLinks() {
   const path = usePathname();
 
   const handleAction = (key: React.Key) => {
-    router.push(`/category/${key}`);
+    router.push(`/category/${key}/earrings`);
   };
 
   const isActive = path.slice(0, 9) === "/category";

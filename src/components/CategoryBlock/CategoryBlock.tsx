@@ -12,7 +12,7 @@ type CategoryProps = {
 function CategoryBlock({ name, imgSrc, maping, imgPosition }: CategoryProps) {
   return (
     <Link
-      href={"category/" + maping}
+      href={`category/${maping}/earrings`}
       title={name}
       className="flex flex-col gap-3 p-3 text-center transition-colors duration-300 border rounded-md shadow-lg border-gray-3000 group hover:bg-gray-100"
     >

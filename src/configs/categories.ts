@@ -19,7 +19,7 @@ export const categories = [
   {
     name: "XUPING SWAROVSKI",
     imgSrc: Swarowski,
-    maping: "swarowski",
+    maping: "swarovski",
     imgPosition: "object-left",
   },
   {
