@@ -7,25 +7,25 @@ export const categories = [
   {
     name: "XUPING ЗОЛОТО (18K)",
     imgSrc: Gold,
-    link: "/category/gold",
+    maping: "gold",
     imgPosition: "",
   },
   {
     name: "XUPING СРІБЛО",
     imgSrc: Everything,
-    link: "/category/silver",
+    maping: "silver",
     imgPosition: "object-bottom",
   },
   {
     name: "XUPING SWAROVSKI",
     imgSrc: Swarowski,
-    link: "/category/swarowski",
+    maping: "swarowski",
     imgPosition: "object-left",
   },
   {
     name: "СИМВОЛІКА УКРАЇНИ",
     imgSrc: Gold2,
-    link: "/category/ukraine-symbols",
+    maping: "ukraine-symbols",
     imgPosition: "",
   },
 ];
