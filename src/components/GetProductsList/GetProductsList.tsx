@@ -7,6 +7,7 @@ import ProductsList from "../ProductsList";
 import { Product } from "@prisma/client";
 import { Spinner } from "@nextui-org/spinner";
 import { Pagination } from "@nextui-org/pagination";
+import Headings from "../UI/Headings";
 
 type Props = {
   category: string;
@@ -29,6 +30,10 @@ function GetProductsList({ category, subcategory, page }: Props) {
 
   if (isLoading) return <Spinner label="Завантаження..." size="lg" />;
   if (errorMessage || !products) return <div>{errorMessage?.message}</div>;
+  if (products.length === 0)
+    return (
+      <Headings level={2}>Товари в цій категорії відсутні, на жаль</Headings>
+    );
 
   return (
     <>

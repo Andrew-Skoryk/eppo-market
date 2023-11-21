@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 
 export async function GET(_req: NextRequest, { params }: { params: { params: string[] } }) {
   const [category, subcategory, pageStr] = params.params;
-  const limit = 10;
+  const limit = 20;
 
   const page = pageStr === undefined ? parseInt(pageStr, 10) : 1;
   const offset = (page - 1) * limit;
