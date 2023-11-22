@@ -24,7 +24,7 @@ function CategoryPage({ params }: { params: { slug: string[] } }) {
   }
 
   return (
-    <section className="flex flex-col p-4 items-center space-y-4">
+    <section className="flex flex-col items-center space-y-4">
       <GetProductsList
         category={category}
         subcategory={subcategory}

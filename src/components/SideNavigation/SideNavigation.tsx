@@ -23,14 +23,18 @@ function SideNavigation() {
       key={activePath}
       defaultExpandedKeys={[activePath]}
       isCompact
-      variant="bordered"
+      variant="splitted"
     >
       {categories.map(category => (
         <AccordionItem
           key={category.maping}
           aria-label={category.name}
           title={category.name}
-          className="font-semibold text-lime-800"
+          classNames={{
+            base: "text-lime-800 font-medium",
+            title:
+              "text-lime-800 font-semibold hover:text-amber-600 transition-colors",
+          }}
         >
           <div className="flex flex-col">
             {subcategories.map(subcategory => (
