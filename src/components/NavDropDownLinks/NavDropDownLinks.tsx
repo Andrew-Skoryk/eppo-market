@@ -1,16 +1,18 @@
 "use client";
 
+import { useRouter, usePathname } from "next/navigation";
+
+import { categories } from "@/configs/categories";
+import { cn } from "@/lib/utils";
+
 import {
   Dropdown,
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
-} from "@nextui-org/dropdown";
-import { Button } from "@nextui-org/button";
-import { Divider } from "@nextui-org/divider";
-import { useRouter, usePathname } from "next/navigation";
-
-import { cn } from "@/lib/utils";
+  Button,
+  Divider,
+} from "@nextui-org/react";
 
 function NavDropDownLinks() {
   const router = useRouter();
@@ -20,7 +22,7 @@ function NavDropDownLinks() {
     router.push(`/category/${key}/earrings`);
   };
 
-  const isActive = path.slice(0, 9) === "/category";
+  const isActive = path.split("/")[1] === "category";
 
   const buttonBaseClasses =
     "hover:bg-yellow-200 transition-colors duration-300 active:bg-yellow-500 bg-amber-50 font-semibold px-4 h-min py-1.5 text-lime-800";
@@ -44,6 +46,7 @@ function NavDropDownLinks() {
           Категорії
         </Button>
       </DropdownTrigger>
+
       <DropdownMenu
         aria-label="Категорії"
         onAction={handleAction}
@@ -53,19 +56,12 @@ function NavDropDownLinks() {
           base: "transition-color",
         }}
       >
-        <DropdownItem key="gold">
-          Xuping Золото
-          <Divider className="mt-2" />
-        </DropdownItem>
-        <DropdownItem key="silver">
-          Xuping Срібло
-          <Divider className="mt-2" />
-        </DropdownItem>
-        <DropdownItem key="swarovski">
-          Xuping Swarovski
-          <Divider className="mt-2" />
-        </DropdownItem>
-        <DropdownItem key="ukraine-symbols">Символіка України</DropdownItem>
+        {categories.map(category => (
+          <DropdownItem key={category.maping} className="text-lime-800">
+            {category.name}
+            <Divider className="mt-1" />
+          </DropdownItem>
+        ))}
       </DropdownMenu>
     </Dropdown>
   );

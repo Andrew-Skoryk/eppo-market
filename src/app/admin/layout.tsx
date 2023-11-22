@@ -5,12 +5,12 @@ type Props = {
   children: React.ReactNode;
 };
 
-const AdminPanel = ({ children }: Props) => {
+function AdminPanel({ children }: Props) {
   return (
     <>
       <Headings level={1}>Admin Panel</Headings>
 
-      <div className="grid grid-cols-5 gap-4">
+      <div className="grid grid-cols-5">
         <aside className="col-span-1 p-4 bg-white rounded">
           <Headings level={2} className="text-justify">
             Панель керування

@@ -42,7 +42,7 @@ const UserPanel = () => {
             size="sm"
             shape="rectangle"
             isInvisible={!totalItemsInCart}
-            disableOutline
+            showOutline={false}
           >
             <ShoppingBasket
               size={30}
