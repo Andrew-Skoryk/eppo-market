@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { cache } from 'react';
 import { db } from "@/lib/db";
 
-async function GET(_req:NextRequest, { params }: { params: { params: string[] } }) {
+export async function GET(_req:NextRequest, { params }: { params: { params: string[] } }) {
   const [category, subcategory, pageStr] = params.params;
   const limit = 1;
 
@@ -33,4 +32,3 @@ async function GET(_req:NextRequest, { params }: { params: { params: string[] } 
     return NextResponse.json({ error }, {status: 500})
   }
 }
-export default cache(GET);
