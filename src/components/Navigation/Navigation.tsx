@@ -6,9 +6,6 @@ function Navigation() {
     <nav>
       <ul className="flex space-x-4 items-center">
         <li>
-          <NavLink href="/">Головна</NavLink>
-        </li>
-        <li>
           <NavDropDownLinks />
         </li>
         <li>

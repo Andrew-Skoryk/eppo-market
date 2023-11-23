@@ -16,11 +16,9 @@ const NavLink = ({ href, children }: PropsWithChildren<Props>) => {
 
   useEffect(() => {
     const linkPathname = new URL(href, location.href).pathname;
-    let activePathname = "";
+    const activePathname = new URL(path, location.href).pathname;
 
-    activePathname = new URL(path, location.href).pathname;
-
-    setIsActive(linkPathname === activePathname);
+    setIsActive(activePathname.startsWith(linkPathname));
   }, [href, path]);
 
   const whatUserPanel = href === "/sign-in" ? "Профіль" : "Корзина";
