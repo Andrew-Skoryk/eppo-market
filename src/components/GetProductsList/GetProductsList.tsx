@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import axios, { AxiosError } from "axios";
 import { useQuery } from "react-query";
 
@@ -12,10 +13,20 @@ import Headings from "../UI/Headings";
 type Props = {
   category: string;
   subcategory: string;
-  page: string;
+  page: number;
+  totalPages: number;
+  categoryMaping: string;
+  subcategoryMaping: string;
 };
 
-function GetProductsList({ category, subcategory, page }: Props) {
+function GetProductsList({
+  category,
+  subcategory,
+  page,
+  totalPages,
+  categoryMaping,
+  subcategoryMaping,
+}: Props) {
   const {
     data: products,
     isLoading,
@@ -25,6 +36,11 @@ function GetProductsList({ category, subcategory, page }: Props) {
       .get(`/api/products/${category}/${subcategory}/${page}`)
       .then(res => res.data.products),
   );
+  const router = useRouter();
+
+  const handlePageChange = (newPage: number) => {
+    router.push(`/category/${categoryMaping}/${subcategoryMaping}/${newPage}`);
+  };
 
   const errorMessage = error as AxiosError;
 
@@ -40,8 +56,9 @@ function GetProductsList({ category, subcategory, page }: Props) {
       <ProductsList products={products} />
 
       <Pagination
-        total={10}
-        initialPage={1}
+        total={totalPages}
+        initialPage={+page || 1}
+        onChange={handlePageChange}
         showControls
         variant="faded"
         size="lg"

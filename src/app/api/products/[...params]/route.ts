@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 
-export async function GET(_req: NextRequest, { params }: { params: { params: string[] } }) {
+export async function GET(_req:NextRequest, { params }: { params: { params: string[] } }) {
   const [category, subcategory, pageStr] = params.params;
-  const limit = 20;
+  const limit = 1;
 
-  const page = pageStr === undefined ? parseInt(pageStr, 10) : 1;
+  const page = parseInt(pageStr, 10);
   const offset = (page - 1) * limit;
 
   try {
