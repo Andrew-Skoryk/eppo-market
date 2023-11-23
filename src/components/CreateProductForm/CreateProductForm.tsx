@@ -61,6 +61,11 @@ function CreateProductForm() {
       return;
     }
 
+    if (data.subcategory === "Кольца" && !data.sizes) {
+      alert("Вкажіть розміри Колець!");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("file", selectedFile);
 
@@ -201,6 +206,7 @@ function CreateProductForm() {
                     setValue("sizes", filteredValues.join(","));
                   }
                 }}
+                orientation="horizontal"
               >
                 {Array.from({ length: 14 }, (_, idx) => idx + 12).map(size => (
                   <Checkbox key={size} value={size.toString()}>

@@ -1,5 +1,5 @@
-import { cache } from 'react'
-import { db } from './db'
+import { cache } from 'react';
+import { db } from './db';
  
 export const revalidate = 3600 // revalidate the data at most every hour
  
