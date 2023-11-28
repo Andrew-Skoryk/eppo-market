@@ -65,6 +65,11 @@ model OrderItem {
   @@index([orderId])
 }
 
+model Settings {
+  name  String @id
+  value Int
+}
+
 enum OrderStatusesDB {
   new
   inProgress
