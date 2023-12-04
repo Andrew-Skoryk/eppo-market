@@ -1,9 +1,11 @@
-import { MINIMUM_ORDER_AMOUNT } from "../../configs/config";
+type Props = {
+  minOrderAmount: number | undefined;
+};
 
-const MinValueOrderBlock = () => {
+const MinValueOrderBlock = async ({ minOrderAmount }: Props) => {
   return (
     <p className="p-2 text-lg text-orange-600 bg-amber-50">
-      Зверніть увагу: мінімальна сума замовлення {MINIMUM_ORDER_AMOUNT}грн.
+      Зверніть увагу: мінімальна сума замовлення {minOrderAmount}грн.
     </p>
   );
 };

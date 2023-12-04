@@ -53,7 +53,7 @@ function QuantityController<T extends FieldValues>({
                 onChange(e.target.value);
               }
             }}
-            className={cn("w-14 p-2 border rounded-md text-center", {
+            className={cn("w-16 p-1 border rounded-md text-center", {
               "border-red-500": error,
             })}
           />

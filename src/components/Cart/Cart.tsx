@@ -10,19 +10,22 @@ import {
 import { loadCartItems } from "../../redux/slices/cartSlice";
 import { AppDispatch } from "../../redux/store";
 import { getMoneyFormat } from "@/lib/utils";
-import { MINIMUM_ORDER_AMOUNT } from "../../configs/config";
 
 import ProductCardInCart from "../ProductCardInCart";
 import MinValueOrderBlock from "../MinValueOrderComp/MinValueOrderComp";
 import Headings from "../UI/Headings";
 import ButtonLink from "../UI/ButtonLink";
 
-function Cart() {
+type Props = {
+  minOrderAmount: number | undefined;
+};
+
+function Cart({ minOrderAmount = 0 }: Props) {
   const dispatch: AppDispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
   const totalPrice = useSelector(selectCartTotalPrice);
 
-  const isEnoughPrice = MINIMUM_ORDER_AMOUNT <= totalPrice;
+  const isEnoughPrice = minOrderAmount <= totalPrice;
 
   useEffect(() => {
     dispatch(loadCartItems());
@@ -50,7 +53,7 @@ function Cart() {
         <p className="text-2xl">{getMoneyFormat(totalPrice)}</p>
       </div>
 
-      {!isEnoughPrice && <MinValueOrderBlock />}
+      {!isEnoughPrice && <MinValueOrderBlock minOrderAmount={minOrderAmount} />}
 
       <ButtonLink
         href="/checkout"
