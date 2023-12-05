@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { db } from "@/lib/db";
 import { z } from "zod";
 
@@ -28,6 +29,7 @@ export async function changeMinOrder(_prevState: any, formData: FormData) {
       }
     })
 
+    revalidateTag("settings");
     return data;
   } catch (error) {
     return {

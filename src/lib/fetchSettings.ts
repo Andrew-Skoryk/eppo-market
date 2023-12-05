@@ -1,15 +1,14 @@
-import "server-only";
-import { cache } from 'react';
+import { unstable_cache as cache } from 'next/cache';;
 import { db } from './db';
 
-export const fetchSettings = cache(async (name: string) => {
+async function fetchData(name: string) {
   const data = await db.settings.findUnique({
     where: {
       name: name,
-    }
+    },
   });
 
-  console.log("Testing caching!");
-
   return data?.value;
-});
+}
+
+export const fetchSettings = cache(fetchData, ['settings'], { tags: ["settings"]});
