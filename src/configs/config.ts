@@ -1,1 +1,0 @@
-export const MINIMUM_ORDER_AMOUNT = 800;

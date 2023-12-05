@@ -2,22 +2,33 @@
 
 import { useFormState, useFormStatus } from "react-dom";
 
-import { changeMinOrder } from "./actions";
-
 import { Input, Button, Tooltip } from "@nextui-org/react";
+
+type Props = {
+  label: {
+    name: string;
+    value: string;
+  };
+  action: (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    _prevState: any,
+    formData: FormData,
+  ) => Promise<{ name: string; value: number } | { message: string }>;
+  defaultValue: number | undefined;
+};
 
 const initialState = {
   message: null,
 };
 
-function ExchangeRateEditor() {
-  const [state, formAction] = useFormState(changeMinOrder, initialState);
+function AdminSettingsEditor({ label, action, defaultValue }: Props) {
+  const [state, formAction] = useFormState(action, initialState);
   const { pending } = useFormStatus();
 
   return (
     <form action={formAction} className="flex flex-col items-center gap-4">
-      <label htmlFor="rate" className="text-xl">
-        Курс магазину
+      <label htmlFor={label.name} className="text-xl">
+        {label.value}
       </label>
 
       <Tooltip
@@ -29,11 +40,12 @@ function ExchangeRateEditor() {
       >
         <Input
           type="number"
-          id="rate"
-          name="rate"
+          id={label.name}
+          name={label.name}
           required
           color="secondary"
           className="w-60"
+          defaultValue={defaultValue?.toString()}
         />
       </Tooltip>
 
@@ -54,4 +66,4 @@ function ExchangeRateEditor() {
   );
 }
 
-export default ExchangeRateEditor;
+export default AdminSettingsEditor;
