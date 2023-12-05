@@ -152,7 +152,13 @@ function ProductCard({
           </Button>
         </CardFooter>
       </form>
-      <Toaster position="bottom-center" />
+
+      <Toaster
+        position="bottom-center"
+        containerStyle={{
+          bottom: "75px",
+        }}
+      />
     </Card>
   );
 }
