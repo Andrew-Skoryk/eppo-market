@@ -10,14 +10,14 @@ const initialState = {
   message: null,
 };
 
-function MinOrderAmountEditor() {
+function ExchangeRateEditor() {
   const [state, formAction] = useFormState(changeMinOrder, initialState);
   const { pending } = useFormStatus();
 
   return (
     <form action={formAction} className="flex flex-col items-center gap-4">
-      <label htmlFor="price" className="text-xl">
-        Мінімальна сума замовлення
+      <label htmlFor="rate" className="text-xl">
+        Курс магазину
       </label>
 
       <Tooltip
@@ -29,8 +29,8 @@ function MinOrderAmountEditor() {
       >
         <Input
           type="number"
-          id="price"
-          name="price"
+          id="rate"
+          name="rate"
           required
           color="secondary"
           className="w-60"
@@ -54,4 +54,4 @@ function MinOrderAmountEditor() {
   );
 }
 
-export default MinOrderAmountEditor;
+export default ExchangeRateEditor;

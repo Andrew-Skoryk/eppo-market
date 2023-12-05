@@ -7,25 +7,25 @@ import { z } from "zod";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function changeMinOrder(_prevState: any, formData: FormData) {
   const schema = z.object({
-    price: z.number()
-      .min(1, "Вкажіть мінімальну суму замовлення!")
+    rate: z.number()
+      .min(1, "Вкажіть правильний курс!")
   });
 
   const parse = schema.safeParse({
-    price: Number(formData.get("price"))
+    rate: Number(formData.get("rate"))
   });
 
    if (!parse.success) {
-    return { message: "Помилка при зміні мінімальної сумми замовлення" }
+    return { message: "Помилка при зміні курсу!" }
    }
 
   try {
     const data = await db.settings.update({
       where: {
-        name: "minOrderAmount"
+        name: "exchangeRate"
       },
       data: {
-        value: parse.data.price
+        value: parse.data.rate
       }
     })
 
@@ -33,7 +33,7 @@ export async function changeMinOrder(_prevState: any, formData: FormData) {
     return data;
   } catch (error) {
     return {
-      message: "Серверна помилка при зміні мінімальної сумми замовлення!"
+      message: "Серверна помилка при зміні курсу!"
     }
   }
 }

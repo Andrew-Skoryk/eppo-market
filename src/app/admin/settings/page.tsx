@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import Headings from "../../../components/UI/Headings";
 import MinOrderAmountEditor from "../../../components/MinOrderAmountEditor";
+import ExchangeRateEditor from "../../../components/ExchangeRateEditor";
 
 export const metadata: Metadata = {
   title: "Загальні налаштування - Eppo",
@@ -11,10 +12,11 @@ export const metadata: Metadata = {
 
 function AdminSettings() {
   return (
-    <div className="">
+    <div className="flex flex-col gap-16">
       <Headings level={2}>Загальні налаштування магазину</Headings>
 
       <MinOrderAmountEditor />
+      <ExchangeRateEditor />
     </div>
   );
 }
