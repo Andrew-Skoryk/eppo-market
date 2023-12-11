@@ -9,7 +9,7 @@ export const revalidate = 3600 * 24;
 
 export const metadata: Metadata = {
   title: "Кошик - Eppo",
-  description: "Сторінка для керуканням кошиком на eppo.com.ua",
+  description: "Сторінка для керуванням кошиком на eppo.com.ua",
 };
 
 async function CartPage() {

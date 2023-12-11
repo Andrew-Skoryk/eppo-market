@@ -49,7 +49,7 @@ function Cart({ minOrderAmount = 0 }: Props) {
       </div>
 
       <div className="p-1.5 bg-amber-100 rounded-md text-lg flex justify-between w-full text-center shadow-lg">
-        <p>До сплати:</p>
+        <p>Разом:</p>
         <p className="text-2xl">{getMoneyFormat(totalPrice)}</p>
       </div>
 
