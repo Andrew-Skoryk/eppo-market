@@ -56,7 +56,7 @@ function ProductCard({
         subcategory,
         article,
         sizes,
-        cartSizes: sizes
+        ringSizes: sizes
           ? [{ size: data.size, quantity: data.quantity }]
           : undefined,
         quantity: sizes ? undefined : data.quantity,

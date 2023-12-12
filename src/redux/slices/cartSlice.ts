@@ -30,19 +30,19 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
   addItem: (state, action: PayloadAction<CartItem>) => {
-    const { id, photo, price, category, subcategory, article, sizes, cartSizes, quantity } = action.payload;
+    const { id, photo, price, category, subcategory, article, ringSizes, quantity } = action.payload;
     const existingItem = state.items.find(i => i.id === id);
 
 
     if (existingItem) {
-      if (cartSizes) {
-        cartSizes.forEach(cartSize => {
-          const existingSizeDetail = existingItem.cartSizes?.find(detail => detail.size === cartSize.size);
+      if (ringSizes) {
+        ringSizes.forEach(cartSize => {
+          const existingSizeDetail = existingItem.ringSizes?.find(detail => detail.size === cartSize.size);
           if (existingSizeDetail) {
             existingSizeDetail.quantity = Number(existingSizeDetail.quantity) + Number(cartSize.quantity);
           } else {
-            if (!existingItem.cartSizes) existingItem.cartSizes = [];
-            existingItem.cartSizes.push(cartSize);
+            if (!existingItem.ringSizes) existingItem.ringSizes = [];
+            existingItem.ringSizes.push(cartSize);
           }
         });
       } else if (quantity) {
@@ -56,8 +56,7 @@ const cartSlice = createSlice({
         category,
         subcategory,
         article,
-        sizes,
-        cartSizes: cartSizes || [],
+        ringSizes: ringSizes || [],
         quantity: quantity || 0,
       });
     }
@@ -74,8 +73,8 @@ const cartSlice = createSlice({
       const { id, size } = action.payload;
       const item = state.items.find(i => i.id === id);
 
-      if (item && item.cartSizes) {
-        item.cartSizes = item.cartSizes.filter(detail => detail.size !== size);
+      if (item && item.ringSizes) {
+        item.ringSizes = item.ringSizes.filter(detail => detail.size !== size);
       }
 
       localStorage.setItem('cartItems', JSON.stringify(state.items));
@@ -86,8 +85,8 @@ const cartSlice = createSlice({
       const item = state.items.find(i => i.id === id);
 
       if (item) {
-        if (size !== undefined && item.cartSizes) {
-          item.cartSizes = item.cartSizes.map(detail =>
+        if (size !== undefined && item.ringSizes) {
+          item.ringSizes = item.ringSizes.map(detail =>
             +detail.size === size ? { ...detail, quantity: quantity } : detail
           );
           

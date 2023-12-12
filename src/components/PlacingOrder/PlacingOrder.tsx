@@ -1,24 +1,23 @@
 "use client";
 
 import { useFormState, useFormStatus } from "react-dom";
-import Headings from "../UI/Headings";
-import { Select, SelectItem, Input } from "@nextui-org/react";
+import { handlePlacingOrder } from "./actions";
+
 import { paymentsType } from "@/configs/paymentsType";
 import { ukraineRegionsList } from "@/configs/ukraineRegionsList";
+
+import { Select, SelectItem, Input } from "@nextui-org/react";
 
 const initialState = {
   message: null,
 };
 
 function PlacingOrder() {
-  // const [state, formAction] = useFormState(action, initialState);
+  const [state, formAction] = useFormState(handlePlacingOrder, initialState);
   const { pending } = useFormStatus();
 
   return (
-    <form
-      // action={formAction}
-      className="flex flex-col gap-10"
-    >
+    <form action={formAction} className="flex flex-col gap-10">
       <fieldset className="flex gap-4">
         <legend className="mb-3 text-xl font-semibold">
           Ваші контактні дані

@@ -31,8 +31,8 @@ function ProductCardInCart({ item }: Props) {
   const { control, handleSubmit, setValue } = useForm<FormInput>();
 
   const calculateTotalPrice = () => {
-    if (item.cartSizes && item.cartSizes.length > 0) {
-      return item.cartSizes.reduce(
+    if (item.ringSizes && item.ringSizes.length > 0) {
+      return item.ringSizes.reduce(
         (total, cartSize) => total + cartSize.quantity * item.price,
         0,
       );
@@ -62,7 +62,7 @@ function ProductCardInCart({ item }: Props) {
 
   const handleRemoveSize = useCallback(
     (size: number) => {
-      if (item.cartSizes?.length === 1) {
+      if (item.ringSizes?.length === 1) {
         handleRemoveItem();
         return;
       }
@@ -71,7 +71,7 @@ function ProductCardInCart({ item }: Props) {
       dispatch(removeSizeFromItem({ id: item.id, size }));
       setTimeout(() => setIsRemoving(false), 200);
     },
-    [dispatch, handleRemoveItem, item.cartSizes?.length, item.id],
+    [dispatch, handleRemoveItem, item.ringSizes?.length, item.id],
   );
 
   const onSubmit = (data: FormInput) => {
@@ -162,7 +162,7 @@ function ProductCardInCart({ item }: Props) {
           />
         ) : (
           <div>
-            {item.cartSizes!.map(cartSize => (
+            {item.ringSizes!.map(cartSize => (
               <div
                 key={cartSize.size}
                 className="flex items-center gap-2 justify-between w-full"

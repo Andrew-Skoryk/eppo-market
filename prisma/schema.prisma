@@ -18,51 +18,23 @@ model Product {
   sizes       String
 }
 
-model Category {
-  id   String @id @default(uuid())
-  name String
-}
-
-model Subcategory {
-  id   String @id @default(uuid())
-  name String
-}
-
-model Address {
-  id         String  @id @default(uuid())
-  userId     String
-  phone      String
-  firstName  String
-  secondName String
-  postOffice Int
-  city       String
-  orders     Order[]
-}
-
 model Order {
-  id             String          @id @default(uuid())
-  useId          String
-  phone          String
-  firstName      String
-  secondName     String
-  typeOfDelivery typesOfDelivery
-  status         OrderStatusesDB
-  addressId      String
-  address        Address         @relation(fields: [addressId], references: [id])
-  orderItems     OrderItem[]
-  createdAt      DateTime        @default(now())
-
-  @@index([addressId])
-}
-
-model OrderItem {
-  orderId   String
-  productId String
-  quantity  Int
-  Order     Order  @relation(fields: [orderId], references: [id])
-
-  @@id([orderId, productId])
-  @@index([orderId])
+  id                   Int           @id @default(autoincrement())
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+  status               OrderStatuses
+  phone                String
+  name                 String
+  region               String
+  city                 String
+  postOfficeNumber     String
+  paymentType          String
+  recipientLastName    String
+  recipientFirstName   String
+  recipientSurnameName String?
+  recipientPhone       String
+  items                Json
+  userId               String?
 }
 
 model Settings {
@@ -70,7 +42,7 @@ model Settings {
   value Int
 }
 
-enum OrderStatusesDB {
+enum OrderStatuses {
   new
   inProgress
   done

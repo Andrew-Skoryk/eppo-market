@@ -1,6 +1,6 @@
 import { Product } from "@prisma/client";
 
-export interface CartItem extends Product {
+export interface CartItem extends Omit<Product, 'sizes'> {
   quantity?: number;
-  cartSizes?: Array<{ size: number; quantity: number }>;
+  ringSizes?: Array<{ size: number; quantity: number }>;
 }
