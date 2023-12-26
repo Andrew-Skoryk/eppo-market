@@ -17,6 +17,7 @@ import {
   SelectItem,
 } from "@nextui-org/react";
 import { CartItem } from "@/types/CartItem";
+import OrderProductCard from "../OrderProductCard";
 
 type Props = {
   order: Order;
@@ -102,9 +103,7 @@ const OrderCard = ({ order }: Props) => {
         <p className="font-medium">Товари:</p>
         <ul className="pl-5 list-decimal list-inside">
           {products.map(product => (
-            <li key={product.id} className="text-gray-600">
-              {product.id}
-            </li>
+            <OrderProductCard key={product.id} item={product} />
           ))}
         </ul>
       </CardBody>
