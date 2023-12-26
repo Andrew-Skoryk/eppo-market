@@ -11,4 +11,4 @@ async function fetchData(name: string) {
   return data?.value;
 }
 
-export const fetchSettings = cache(fetchData, ['settings'], { tags: ["settings"]});
+export const fetchSettings = cache(fetchData, ["settings"], { tags: ["settings"]});

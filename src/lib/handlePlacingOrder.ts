@@ -1,6 +1,7 @@
 "server-only";
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { OrderFormData } from '@/components/PlacingOrder/PlacingOrder';
 import { db } from './db';
 import { OrderStatuses } from '@prisma/client';
@@ -30,5 +31,6 @@ export async function handlePlacingOrder(formData: OrderFormData, products? : Ca
 
   const order = await db.order.create({ data: orderData });
 
+  revalidateTag("orders");
   return order;
 }
