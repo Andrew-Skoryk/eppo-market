@@ -7,7 +7,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 import { useDispatch, useSelector } from "react-redux";
-import { selectCartItems } from "@/redux/selectors/cartSelectors";
+import {
+  selectCartItems,
+  selectCartTotalPrice,
+} from "@/redux/selectors/cartSelectors";
 import { loadCartItems } from "../../redux/slices/cartSlice";
 import { AppDispatch } from "../../redux/store";
 import { handlePlacingOrder } from "@/lib/handlePlacingOrder";
@@ -25,7 +28,7 @@ import {
 
 const schema = z.object({
   phone: z.string().min(1, "Вкажіть Ваш мобільний телефон"),
-  name: z.string().optional(),
+  name: z.string().min(1, "Вкажіть Вашe ім'я"),
   region: z.string().min(1, "Оберіть область"),
   city: z.string().min(3, "Вкажіть місто"),
   postOfficeNumber: z.string().min(1, "Вкажіть номер відділення"),
@@ -49,6 +52,7 @@ function PlacingOrder() {
   });
   const dispatch: AppDispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
+  const totalPrice = useSelector(selectCartTotalPrice);
 
   useEffect(() => {
     dispatch(loadCartItems());
@@ -59,7 +63,7 @@ function PlacingOrder() {
 
   const onSubmit = (data: OrderFormData) => {
     try {
-      handlePlacingOrder(data, cartItems, userId);
+      handlePlacingOrder(data, cartItems, totalPrice, userId);
     } catch (error) {
       console.log(error);
     }

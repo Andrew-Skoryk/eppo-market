@@ -10,12 +10,11 @@ import {
   TableCell,
   Chip,
 } from "@nextui-org/react";
-import { ordersTest } from "./ordersTest";
 import { useRouter } from "next/navigation";
-import { Order } from "@/types/Order";
 import { getMoneyFormat } from "@/lib/utils";
 import { statusColorMap } from "@/styles/statusColorMap";
 import { OrderStatusesEnum } from "@/types/OrderStatusesEnum";
+import { Order } from "@prisma/client";
 
 const columns = [
   {
@@ -27,7 +26,7 @@ const columns = [
     label: "СТАТУС",
   },
   {
-    key: "userName",
+    key: "name",
     label: "ІМ'Я",
   },
   {
@@ -35,16 +34,16 @@ const columns = [
     label: "СУМА",
   },
   {
-    key: "address",
+    key: "city",
     label: "МІСТО",
   },
   {
-    key: "date",
+    key: "createdAt",
     label: "ДАТА",
   },
 ];
 
-function OrdersTable() {
+function OrdersTable({ orders }: { orders: Order[] }) {
   const router = useRouter();
 
   const handleAction = (key: React.Key) => {
@@ -54,12 +53,16 @@ function OrdersTable() {
   const renderCell = useCallback((order: Order, columnKey: keyof Order) => {
     const cellValue = order[columnKey];
 
+    if (cellValue === null || cellValue === undefined) {
+      return "—";
+    }
+
     switch (columnKey) {
       case "totalSum":
         return getMoneyFormat(+cellValue);
 
-      case "address":
-        return order.address.city;
+      case "city":
+        return order.city;
 
       case "status":
         return (
@@ -72,16 +75,22 @@ function OrdersTable() {
           </Chip>
         );
 
+      case "createdAt":
+        const date = new Date(cellValue as string);
+        const formattedDate = date.toLocaleDateString("uk-UA", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+          timeZone: "Europe/Kiev",
+        });
+
+        return formattedDate;
+
       default:
-        if (typeof cellValue === "string" || typeof cellValue === "number") {
-          return cellValue;
-        } else {
-          console.error(
-            `Invalid cell value for column ${columnKey}:`,
-            cellValue,
-          );
-          return null;
-        }
+        return String(cellValue);
     }
   }, []);
 
@@ -100,10 +109,10 @@ function OrdersTable() {
       </TableHeader>
 
       <TableBody emptyContent={"Немає даних для відображення."}>
-        {ordersTest.map(order => (
+        {orders.map(order => (
           <TableRow key={order.id}>
             {columnKey => (
-              <TableCell>
+              <TableCell className="text-left">
                 {renderCell(order, columnKey as keyof Order)}
               </TableCell>
             )}

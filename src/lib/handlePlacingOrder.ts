@@ -7,7 +7,7 @@ import { db } from './db';
 import { OrderStatuses } from '@prisma/client';
 import { CartItem } from '@/types/CartItem';
 
-export async function handlePlacingOrder(formData: OrderFormData, products? : CartItem[], userId?: string) {
+export async function handlePlacingOrder(formData: OrderFormData,  products: CartItem[],totalSum: number, userId?: string) {
   const { phone, name, region, city, postOfficeNumber, paymentType, recipientLastName, recipientFirstName, recipientSurnameName, recipientPhone, comment } = formData;
 
   const items = JSON.stringify(products);
@@ -24,7 +24,8 @@ export async function handlePlacingOrder(formData: OrderFormData, products? : Ca
     recipientFirstName,
     recipientSurnameName,
     recipientPhone,
-    items, 
+    items,
+    totalSum,
     comment,
     userId,
   };

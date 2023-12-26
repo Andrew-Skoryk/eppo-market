@@ -24,7 +24,7 @@ model Order {
   updatedAt            DateTime      @updatedAt
   status               OrderStatuses
   phone                String
-  name                 String?
+  name                 String
   region               String
   city                 String
   postOfficeNumber     String
@@ -34,6 +34,7 @@ model Order {
   recipientSurnameName String?
   recipientPhone       String
   items                Json
+  totalSum             Int
   userId               String?
   comment              String?
 }
