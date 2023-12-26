@@ -20,6 +20,7 @@ function OrderProductCard({ item }: { item: CartItem }) {
 
   const totalPrice = calculateTotalPrice();
   const isRing = item.subcategory === "Кольца";
+
   return (
     <div className="flex items-center justify-between p-4 m-2 space-x-6 transition-colors bg-gray-100 border rounded-md shadow-lg hover:bg-gray-200">
       <div className="flex items-center flex-grow space-x-4">

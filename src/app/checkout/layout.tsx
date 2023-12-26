@@ -1,6 +1,7 @@
-import Headings from "../../components/UI/Headings";
-import Cart from "@/components/Cart";
 import type { Metadata } from "next";
+
+import Headings from "../../components/UI/Headings";
+import OrderProductsList from "@/components/OrderProductsList";
 
 export const metadata: Metadata = {
   title: "Оформлення замовлення - Eppo",
@@ -16,11 +17,11 @@ function AdminPanel({ children }: Props) {
     <div className="flex flex-col w-full gap-10">
       <Headings level={1}>Оформлення замовлення</Headings>
 
-      <div className="grid grid-cols-5 gap-12">
-        <div className="col-span-3">{children}</div>
+      <div className="grid grid-cols-7 gap-12">
+        <div className="col-span-4">{children}</div>
 
-        <div className="col-span-2">
-          <Cart minOrderAmount={800} />
+        <div className="col-span-3">
+          <OrderProductsList />
         </div>
       </div>
     </div>
