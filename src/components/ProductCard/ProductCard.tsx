@@ -120,7 +120,7 @@ function ProductCard({
                     isInvalid={!!error}
                   >
                     {sizeOptions.map(size => (
-                      <SelectItem key={size} value={size}>
+                      <SelectItem key={size} value={size} aria-label={size}>
                         {size}
                       </SelectItem>
                     ))}
