@@ -1,6 +1,13 @@
 "use client";
 
 import { useCallback } from "react";
+import { useRouter } from "next/navigation";
+
+import { formatDate, getMoneyFormat } from "@/lib/utils";
+import { OrderStatusesEnum } from "@/types/OrderStatusesEnum";
+import { OrderSubset } from "@/types/OrderSubset";
+import { statusColorMap } from "@/styles/statusColorMap";
+
 import {
   Table,
   TableHeader,
@@ -10,11 +17,6 @@ import {
   TableCell,
   Chip,
 } from "@nextui-org/react";
-import { useRouter } from "next/navigation";
-import { getMoneyFormat } from "@/lib/utils";
-import { statusColorMap } from "@/styles/statusColorMap";
-import { OrderStatusesEnum } from "@/types/OrderStatusesEnum";
-import { Order } from "@prisma/client";
 
 const columns = [
   {
@@ -43,56 +45,48 @@ const columns = [
   },
 ];
 
-function OrdersTable({ orders }: { orders: Order[] }) {
+function OrdersTable({ orders }: { orders: OrderSubset[] }) {
   const router = useRouter();
 
   const handleAction = (key: React.Key) => {
     router.push(`./orders/${key}`);
   };
 
-  const renderCell = useCallback((order: Order, columnKey: keyof Order) => {
-    const cellValue = order[columnKey];
+  const renderCell = useCallback(
+    (order: OrderSubset, columnKey: keyof OrderSubset) => {
+      const cellValue = order[columnKey];
 
-    if (cellValue === null || cellValue === undefined) {
-      return "—";
-    }
+      if (cellValue === null || cellValue === undefined) {
+        return "—";
+      }
 
-    switch (columnKey) {
-      case "totalSum":
-        return getMoneyFormat(+cellValue);
+      switch (columnKey) {
+        case "totalSum":
+          return getMoneyFormat(+cellValue);
 
-      case "city":
-        return order.city;
+        case "city":
+          return order.city;
 
-      case "status":
-        return (
-          <Chip
-            className="capitalize"
-            color={statusColorMap[order.status]}
-            variant="shadow"
-          >
-            {OrderStatusesEnum[order.status]}
-          </Chip>
-        );
+        case "status":
+          return (
+            <Chip
+              className="capitalize"
+              color={statusColorMap[order.status]}
+              variant="shadow"
+            >
+              {OrderStatusesEnum[order.status]}
+            </Chip>
+          );
 
-      case "createdAt":
-        const date = new Date(cellValue as string);
-        const formattedDate = date.toLocaleDateString("uk-UA", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false,
-          timeZone: "Europe/Kiev",
-        });
+        case "createdAt":
+          return formatDate(cellValue as Date);
 
-        return formattedDate;
-
-      default:
-        return String(cellValue);
-    }
-  }, []);
+        default:
+          return String(cellValue);
+      }
+    },
+    [],
+  );
 
   return (
     <Table
@@ -113,7 +107,7 @@ function OrdersTable({ orders }: { orders: Order[] }) {
           <TableRow key={order.id}>
             {columnKey => (
               <TableCell className="text-left">
-                {renderCell(order, columnKey as keyof Order)}
+                {renderCell(order, columnKey as keyof OrderSubset)}
               </TableCell>
             )}
           </TableRow>

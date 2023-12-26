@@ -1,11 +1,11 @@
-import { ordersTest } from "@/components/OrdersTable/ordersTest";
 import OrderCard from "@/components/OrderCard";
 import ButtonLink from "@/components/UI/ButtonLink";
+import { findOrder } from "@/lib/findOrder";
 
-function OrderAdminDetailsPage({ params }: { params: { slug: string } }) {
-  const askedOrder = ordersTest.find(order => order.id === +params.slug);
+async function OrderAdminDetailsPage({ params }: { params: { slug: string } }) {
+  const order = await findOrder(+params.slug);
 
-  if (!askedOrder) {
+  if (!order) {
     return (
       <p className="text-center">
         Ой! Щось пішло не так... Неможливо відкрити замовлення!
@@ -21,7 +21,7 @@ function OrderAdminDetailsPage({ params }: { params: { slug: string } }) {
         Роздрукувати Замовлення
       </ButtonLink>
 
-      <OrderCard order={askedOrder} />
+      <OrderCard order={order} />
     </section>
   );
 }

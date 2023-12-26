@@ -1,6 +1,12 @@
 "use client";
 
 import React from "react";
+
+import { formatDate, getMoneyFormat } from "@/lib/utils";
+import { statusColorMap } from "@/styles/statusColorMap";
+import { OrderStatusesEnum } from "@/types/OrderStatusesEnum";
+import { Order, OrderStatuses } from "@prisma/client";
+
 import {
   Card,
   CardHeader,
@@ -10,11 +16,7 @@ import {
   Select,
   SelectItem,
 } from "@nextui-org/react";
-import { Order } from "@/types/Order";
-import { getMoneyFormat } from "@/lib/utils";
-import { statusColorMap } from "@/styles/statusColorMap";
-import { OrderStatuses } from "@/types/OrderStatuses";
-import { OrderStatusesEnum } from "@/types/OrderStatusesEnum";
+import { CartItem } from "@/types/CartItem";
 
 type Props = {
   order: Order;
@@ -29,6 +31,8 @@ const OrderCard = ({ order }: Props) => {
     setValue(e.target.value as OrderStatuses);
   };
 
+  const products: CartItem[] = JSON.parse(order.items as string);
+
   return (
     <Card
       shadow="md"
@@ -40,10 +44,10 @@ const OrderCard = ({ order }: Props) => {
         <div>
           <p className="text-xl font-semibold">
             Замовлення #{order.id} від
-            <span className="text-amber-400"> {order.userName}</span>
+            <span className="text-amber-400"> {order.name}</span>
           </p>
           <p className="mt-1 text-sm underline underline-offset-2">
-            Телефон: {order.phoneNumber}
+            Телефон: {order.phone}
           </p>
         </div>
 
@@ -83,21 +87,23 @@ const OrderCard = ({ order }: Props) => {
       </CardHeader>
 
       <CardBody className="p-4 bg-white">
-        <p className="mb-2">Замовник: {order.userName}</p>
-        <p className="mb-2">Дата: {order.date}</p>
+        <p className="mb-2">Замовник: {order.name}</p>
+        <p className="mb-2">Дата: {formatDate(order.createdAt)}</p>
         <p className="mb-2 font-medium">Адреса доставки:</p>
         <div className="pl-5 mb-2">
-          <p>Ім&apos;я отримувача: {order.address.name}</p>
-          <p>Телефон отримувача: {order.address.receiverPhoneNumber}</p>
-          <p>Місто: {order.address.city}</p>
-          <p>Служба доставки: {order.address.delivery}</p>
-          <p>Номер відділення: {order.address.postOfficeNumber}</p>
+          <p>
+            Ім&apos;я отримувача:{" "}
+            {`${order.recipientLastName} ${order.recipientFirstName} ${order.recipientSurnameName}`}
+          </p>
+          <p>Телефон отримувача: {order.recipientPhone}</p>
+          <p>Місто: {order.city}</p>
+          <p>Номер відділення: {order.postOfficeNumber}</p>
         </div>
         <p className="font-medium">Товари:</p>
         <ul className="pl-5 list-decimal list-inside">
-          {order.itemsId.map(itemId => (
-            <li key={itemId} className="text-gray-600">
-              {itemId}
+          {products.map(product => (
+            <li key={product.id} className="text-gray-600">
+              {product.id}
             </li>
           ))}
         </ul>

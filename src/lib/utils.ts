@@ -28,3 +28,17 @@ export function getMoneyFormat(input: number) {
 
   return formatted;
 }
+
+export function formatDate(date: Date) {
+  const formattedDate = date.toLocaleDateString("uk-UA", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+    timeZone: "Europe/Kiev",
+  });
+  
+  return formattedDate;
+}
