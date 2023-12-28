@@ -26,6 +26,7 @@ import {
   Textarea,
 } from "@nextui-org/react";
 import toast, { Toaster } from "react-hot-toast";
+import { redirect } from "next/navigation";
 
 const schema = z.object({
   phone: z.string().min(1, "Вкажіть Ваш мобільний телефон"),
@@ -62,9 +63,10 @@ function PlacingOrder() {
   const { user } = useUser();
   const userId = user?.id;
 
-  const onSubmit = (data: OrderFormData) => {
+  const onSubmit = async (data: OrderFormData) => {
     try {
-      handlePlacingOrder(data, cartItems, totalPrice, userId);
+      await handlePlacingOrder(data, cartItems, totalPrice, userId);
+      redirect("/thank-you");
     } catch (error) {
       toast.error("Помилка при створенні замовлення");
     }
