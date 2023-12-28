@@ -25,6 +25,7 @@ import {
   Tooltip,
   Textarea,
 } from "@nextui-org/react";
+import toast, { Toaster } from "react-hot-toast";
 
 const schema = z.object({
   phone: z.string().min(1, "Вкажіть Ваш мобільний телефон"),
@@ -65,7 +66,7 @@ function PlacingOrder() {
     try {
       handlePlacingOrder(data, cartItems, totalPrice, userId);
     } catch (error) {
-      console.log(error);
+      toast.error("Помилка при створенні замовлення");
     }
   };
 
@@ -293,6 +294,13 @@ function PlacingOrder() {
       >
         Замовлення підтверджую
       </button>
+
+      <Toaster
+        position="bottom-center"
+        containerStyle={{
+          bottom: "75px",
+        }}
+      />
     </form>
   );
 }

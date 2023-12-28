@@ -23,8 +23,8 @@ function OrderProductsList() {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col gap-3">
-      <div>
+    <div className="flex flex-col gap-3 ">
+      <div className="overflow-y-auto h-[850px]">
         {orderItems.map(item => (
           <OrderProductCard key={item.id} item={item} />
         ))}

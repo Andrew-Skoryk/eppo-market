@@ -20,7 +20,7 @@ function AdminPanel({ children }: Props) {
       <div className="grid grid-cols-7 gap-6">
         <div className="col-span-4">{children}</div>
 
-        <div className="col-span-3 overflow-y-auto h-[850px]">
+        <div className="col-span-3">
           <OrderProductsList />
         </div>
       </div>
