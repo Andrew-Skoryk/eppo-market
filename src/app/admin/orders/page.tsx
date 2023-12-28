@@ -1,5 +1,5 @@
 import { Pagination } from "@nextui-org/react";
-import OrdersTable from "@/components/OrdersTable/OrdersTable";
+import OrdersTable from "@/components/OrdersTable";
 import { fetchOrders } from "@/lib/fetchOrders";
 
 async function AdminOrders() {

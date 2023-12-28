@@ -106,7 +106,7 @@ function OrdersTable({ orders }: { orders: OrderSubset[] }) {
         {orders.map(order => (
           <TableRow key={order.id}>
             {columnKey => (
-              <TableCell className="flex text-left">
+              <TableCell className="text-left">
                 {renderCell(order, columnKey as keyof OrderSubset)}
               </TableCell>
             )}

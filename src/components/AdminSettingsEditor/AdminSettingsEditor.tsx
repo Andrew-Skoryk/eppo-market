@@ -3,6 +3,8 @@
 import { useFormState, useFormStatus } from "react-dom";
 
 import { Input, Button, Tooltip } from "@nextui-org/react";
+import { useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 type Props = {
   label: {
@@ -13,17 +15,28 @@ type Props = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     _prevState: any,
     formData: FormData,
-  ) => Promise<{ name: string; value: number } | { message: string }>;
+  ) => Promise<
+    | { message: string; status?: undefined }
+    | { status: string; message?: undefined }
+  >;
+
   defaultValue: number | undefined;
 };
 
 const initialState = {
   message: null,
+  status: "idle",
 };
 
 function AdminSettingsEditor({ label, action, defaultValue }: Props) {
   const [state, formAction] = useFormState(action, initialState);
   const { pending } = useFormStatus();
+
+  useEffect(() => {
+    if (state.status === "success") {
+      toast.success("Данні успішно змінено");
+    }
+  }, [state.status]);
 
   return (
     <form action={formAction} className="flex flex-col items-center gap-4">
@@ -62,6 +75,13 @@ function AdminSettingsEditor({ label, action, defaultValue }: Props) {
       <p aria-live="polite" className="sr-only" role="status">
         {state?.message}
       </p>
+
+      <Toaster
+        position="bottom-center"
+        containerStyle={{
+          bottom: "75px",
+        }}
+      />
     </form>
   );
 }

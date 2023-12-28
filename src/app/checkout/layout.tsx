@@ -17,10 +17,10 @@ function AdminPanel({ children }: Props) {
     <div className="flex flex-col w-full gap-10">
       <Headings level={1}>Оформлення замовлення</Headings>
 
-      <div className="grid grid-cols-7 gap-12">
+      <div className="grid grid-cols-7 gap-6">
         <div className="col-span-4">{children}</div>
 
-        <div className="col-span-3">
+        <div className="col-span-3 overflow-y-auto h-[850px]">
           <OrderProductsList />
         </div>
       </div>

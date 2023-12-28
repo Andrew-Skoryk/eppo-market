@@ -20,7 +20,7 @@ export async function changeMinOrder(_prevState: any, formData: FormData) {
    }
 
   try {
-    const data = await db.settings.update({
+    await db.settings.update({
       where: {
         name: "minOrderAmount"
       },
@@ -30,7 +30,10 @@ export async function changeMinOrder(_prevState: any, formData: FormData) {
     })
 
     revalidateTag("settings");
-    return data;
+
+    return {
+      status: "success"
+    };
   } catch (error) {
     return {
       message: "Серверна помилка при зміні мінімальної сумми замовлення!"
@@ -54,7 +57,7 @@ export async function changeExchangeRate(_prevState: any, formData: FormData) {
    }
 
   try {
-    const data = await db.settings.update({
+    await db.settings.update({
       where: {
         name: "exchangeRate"
       },
@@ -64,7 +67,10 @@ export async function changeExchangeRate(_prevState: any, formData: FormData) {
     })
 
     revalidateTag("settings");
-    return data;
+
+    return {
+      status: "success"
+    };
   } catch (error) {
     return {
       message: "Серверна помилка при зміні курсу!"
