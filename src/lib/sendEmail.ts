@@ -10,6 +10,6 @@ export async function sendEmail(order: Order) {
     from: "eppo.sales.api@resend.dev",
     to: "eppo.sales@gmail.com",
     subject: "Нове замовлення!",
-    html: `<h1>Вітаю! У вас нове замовлення на суму ${order.totalSum} від ${order.name}!</h1>`,
+    html: `<h1>Вітаю! У вас нове замовлення на суму ${order.totalSum} грн від ${order.name}!</h1>`,
   });
 };
