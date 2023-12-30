@@ -27,8 +27,7 @@ export async function POST(req: NextRequest) {
         use_filename: true,
         folder: "announcement",
         unique_filename: false,
-        height: 1600,
-        width: 1600,
+        width: 1200,
         crop: "scale",
         format: "webp",
       },);

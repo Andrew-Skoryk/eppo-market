@@ -6,16 +6,14 @@ type Props = {
 
 function AnnouncementBlock({ url }: Props) {
   return (
-    <div>
-      <NextUIImage
-        title="Анонс"
-        src={url}
-        alt="Анонс"
-        width={700}
-        loading="lazy"
-        className="z-0"
-      />
-    </div>
+    <NextUIImage
+      title="Анонс"
+      src={url}
+      alt="Анонс"
+      width={800}
+      loading="lazy"
+      className="z-0"
+    />
   );
 }
 
