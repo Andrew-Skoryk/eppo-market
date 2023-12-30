@@ -9,6 +9,7 @@ const navigationItems = [
   { path: "/admin/orders", label: "Замовлення" },
   { path: "/admin/category", label: "Керування категоріями" },
   { path: "/admin/settings", label: "Налаштування" },
+  { path: "/admin/announcement", label: "Анонси/Новини" },
 ];
 
 const AdminNavigation = () => {

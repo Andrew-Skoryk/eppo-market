@@ -1,8 +1,21 @@
+import type { Metadata } from "next";
+
+import Headings from "@/components/UI/Headings";
+import CreateAnnouncementForm from "@/components/CreateAnnouncementForm";
+
+export const metadata: Metadata = {
+  title: "Анонси - Eppo",
+  description: "Ця сторінка містить інтерфейс керування анонсами та новинами",
+};
+
 function Announcement() {
+
   return (
-    <div>
-      <h1>Announcement</h1>
-    </div>
+    <section className="flex flex-col gap-8">
+      <Headings level={2}>Анонси сайту</Headings>
+
+      <CreateAnnouncementForm />
+    </section>
   );
 }
 

@@ -23,11 +23,27 @@ function ImageUploader({ onFileSelect }: Props) {
   };
 
   return (
-    <div className="self-start space-y-3">
+    <div className="flex flex-col items-center self-start space-y-3">
       {imageSrc && (
-        <Image src={imageSrc} alt="Image preview" width={400} height={200} />
+        <Image
+          src={imageSrc}
+          alt="Попередній перегляд зображення"
+          width={400}
+          height={200}
+        />
       )}
-      <input type="file" onChange={handleImageChange} />
+      <label htmlFor="file-upload" className="cursor-pointer">
+        <span className="p-2 text-blue-700 transition-colors bg-blue-100 rounded-md hover:text-blue-800 hover:bg-blue-200">
+          Завантажити зображення
+        </span>
+
+        <input
+          id="file-upload"
+          type="file"
+          onChange={handleImageChange}
+          className="hidden"
+        />
+      </label>
     </div>
   );
 }

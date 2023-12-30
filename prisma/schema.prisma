@@ -44,6 +44,12 @@ model Settings {
   value Int
 }
 
+model Announcement {
+  name   String  @id
+  url    String
+  status Boolean
+}
+
 enum OrderStatuses {
   new
   inProgress

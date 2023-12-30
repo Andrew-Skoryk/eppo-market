@@ -19,6 +19,7 @@ import {
 } from "@nextui-org/react";
 import Headings from "../UI/Headings";
 import ImageUploader from "../ImageUploader";
+import toast, { Toaster } from "react-hot-toast";
 
 import { categories } from "@/configs/categories";
 import { subcategories } from "@/configs/subcategories";
@@ -57,12 +58,12 @@ function CreateProductForm() {
 
   const onSubmit: SubmitHandler<clientProduct> = async data => {
     if (!selectedFile) {
-      alert("Будь ласка, виберіть фото для товару.");
+      toast.error("Будь ласка, виберіть фото для товару.");
       return;
     }
 
     if (data.subcategory === "Кольца" && !data.sizes) {
-      alert("Вкажіть розміри Колець!");
+      toast.error("Вкажіть розміри Колець!");
       return;
     }
 
@@ -74,16 +75,16 @@ function CreateProductForm() {
       const photoUrl = uploadResponse.data.url;
 
       if (!photoUrl) {
-        alert("Помилка при завантаженні фото.");
+        toast.error("Помилка при завантаженні фото");
         return;
       }
 
       data.photo = photoUrl;
 
       await createProductMutation.mutateAsync(data);
-      alert("Товар успішно додано!");
+      toast.success("Товар успішно додано!");
     } catch (error) {
-      alert("Помилка при додаванні товару. Будь ласка, спробуйте ще раз.");
+      toast.error("Помилка: " + error);
     }
   };
 
@@ -225,6 +226,13 @@ function CreateProductForm() {
       >
         Додати товар
       </Button>
+
+      <Toaster
+        position="bottom-center"
+        containerStyle={{
+          bottom: "75px",
+        }}
+      />
     </form>
   );
 }
