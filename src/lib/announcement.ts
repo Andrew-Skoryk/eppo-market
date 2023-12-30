@@ -4,15 +4,16 @@
 import { unstable_cache as cache, revalidateTag } from 'next/cache';
 import { db } from './db';
 
+import { Announcement } from '@prisma/client';
+
 export async function fetchAnnouncement() {
    const data = await db.announcement.findUnique({
     where: {
       name: "announcement",
-      status: true,
     },
-  });
+  }) as Announcement;
 
-  return data?.url;
+  return { url: data.url, status: data.status };
 }
 
 export const fetchSettings = cache(fetchAnnouncement, ["announcement"], { tags: ["announcement"]});

@@ -21,7 +21,8 @@ async function Home() {
   return (
     <div className="flex flex-col items-center justify-center h-full space-y-8">
       <MinValueOrderBlock minOrderAmount={minOrderAmount} />
-      {announcement && <AnnouncementBlock url={announcement} />}
+
+      {announcement.status && <AnnouncementBlock url={announcement.url!} />}
 
       <MainCategoriesBlock />
     </div>
