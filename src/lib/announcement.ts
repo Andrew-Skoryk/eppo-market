@@ -1,7 +1,21 @@
 "server-only";
 "use server";
 
+import { unstable_cache as cache, revalidateTag } from 'next/cache';
 import { db } from './db';
+
+export async function fetchAnnouncement() {
+   const data = await db.announcement.findUnique({
+    where: {
+      name: "announcement",
+      status: true,
+    },
+  });
+
+  return data?.url;
+}
+
+export const fetchSettings = cache(fetchAnnouncement, ["announcement"], { tags: ["announcement"]});
 
 export async function saveAnnouncement(url: string) {
   await db.announcement.update({
@@ -13,6 +27,7 @@ export async function saveAnnouncement(url: string) {
     }
   });
 
+  revalidateTag("announcement");
 }
 
 export async function changeAnnouncementStatus(status: boolean) {
@@ -24,4 +39,6 @@ export async function changeAnnouncementStatus(status: boolean) {
       status,
     }
   });
+
+  revalidateTag("announcement");
 }

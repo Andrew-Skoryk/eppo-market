@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 
 import { fetchSettings } from "@/lib/fetchSettings";
+import { fetchAnnouncement } from "@/lib/announcement";
 
 import MinValueOrderBlock from "../components/MinValueOrderComp";
 import MainCategoriesBlock from "../components/MainCategoriesBlock";
+import AnnouncementBlock from "@/components/AnnouncementBlock";
 
 export const revalidate = 3600 * 24;
 
@@ -14,10 +16,12 @@ export const metadata: Metadata = {
 
 async function Home() {
   const minOrderAmount = await fetchSettings("minOrderAmount");
+  const announcement = await fetchAnnouncement();
 
   return (
     <div className="flex flex-col items-center justify-center h-full space-y-8">
       <MinValueOrderBlock minOrderAmount={minOrderAmount} />
+      {announcement && <AnnouncementBlock url={announcement} />}
 
       <MainCategoriesBlock />
     </div>
