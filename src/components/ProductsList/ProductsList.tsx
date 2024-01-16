@@ -3,6 +3,7 @@ import ProductCard from "../ProductCard";
 
 type Props = {
   products: Product[];
+  additionalFunctionality?: boolean;
 };
 
 function ProductsList({ products }: Props) {

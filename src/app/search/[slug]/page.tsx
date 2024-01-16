@@ -25,7 +25,7 @@ async function SearchPage({ params }: { params: { slug: string } }) {
 
   return (
     <section>
-      <ProductsList products={products}/>
+      <ProductsList products={products} additionalFunctionality />
     </section>
   );
 }

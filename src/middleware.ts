@@ -1,15 +1,14 @@
 import { authMiddleware } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
+import { checkIfAdmin } from "./lib/checkIfAdmin";
 
 export default authMiddleware({
   publicRoutes: ["/"],
   
   afterAuth(auth, req) {
-    const adminUserIds = ["user_2WM6F3J3pj6OnfKpxKW4ktGOXuE", "adminUserID2"];
-
     const isAdminRoute = req.nextUrl.pathname.startsWith("/admin");
 
-    if(isAdminRoute && (!auth.userId || !adminUserIds.includes(auth.userId))) {
+    if(isAdminRoute && (!auth.userId || !checkIfAdmin(auth.userId))) {
       return NextResponse.redirect("https://eppo-market.vercel.app/404");
     }
   }
