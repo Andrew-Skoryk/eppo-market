@@ -1,4 +1,4 @@
-import { unstable_cache as cache } from 'next/cache';;
+import { unstable_cache as cache } from 'next/cache';
 import { db } from './db';
 
 export async function fetchOrders() {
