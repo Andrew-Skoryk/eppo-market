@@ -1,6 +1,7 @@
-import OrderCard from "@/components/OrderCard";
-import ButtonLink from "@/components/UI/ButtonLink";
 import { findOrder } from "@/lib/findOrder";
+
+import OrderCard from "@/components/OrderCard";
+import PrintOrderButton from "@/components/PrintOrderButton";
 
 async function OrderAdminDetailsPage({ params }: { params: { slug: string } }) {
   const order = await findOrder(+params.slug);
@@ -17,10 +18,7 @@ async function OrderAdminDetailsPage({ params }: { params: { slug: string } }) {
 
   return (
     <section className="flex flex-col space-y-4">
-      <ButtonLink className="self-end py-6 text-lg font-semibold">
-        Роздрукувати Замовлення
-      </ButtonLink>
-
+      <PrintOrderButton order={order} />
       <OrderCard order={order} />
     </section>
   );
