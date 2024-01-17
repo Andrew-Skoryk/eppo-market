@@ -5,10 +5,10 @@ import { Button } from "@nextui-org/react";
 
 function AdminManageButtons({ id }: { id: string }) {
   return (
-    <div className="flex flex-row gap-4">
-      <Button onClick={() => deleteProduct(id)}>Видалити</Button>
+    <div className="flex flex-row gap-2">
+      <Button onClick={() => deleteProduct(id)} color="danger" size="sm">Видалити</Button>
 
-      <Button>Редагувати</Button>
+      <Button color="secondary" size="sm">Редагувати</Button>
     </div>
   );
 }

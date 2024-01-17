@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { db } from "@/lib/db";
 
-import ProductsList from "@/components/ProductsList";
 import Headings from "@/components/UI/Headings";
+import DisplaySearchResult from "@/components/DisplaySearchResult";
 
 export const metadata: Metadata = {
   title: "Пошук товару - Eppo",
@@ -24,9 +24,7 @@ async function SearchPage({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <section>
-      <ProductsList products={products} additionalFunctionality />
-    </section>
+   <DisplaySearchResult products={products} />
   );
 }
 
