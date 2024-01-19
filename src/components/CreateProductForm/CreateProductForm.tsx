@@ -45,7 +45,7 @@ type Props = {
 function CreateProductForm({ initialProduct }: Props) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const createProductMutation = useCreateProduct();
-  const { handleSubmit, control, setValue, watch, formState } =
+  const { handleSubmit, control, setValue, watch, formState, reset } =
     useForm<clientProduct>({
       resolver: zodResolver(productSchema),
       defaultValues: initialProduct || {
@@ -92,6 +92,7 @@ function CreateProductForm({ initialProduct }: Props) {
       if (initialProduct) {
         await updateProduct(initialProduct.id, productData);
         toast.success("Товар створено!");
+        reset();
       } else {
         await createProductMutation.mutateAsync(productData);
         toast.success("Товар оновлено!");
