@@ -8,9 +8,14 @@ import AdminManageButtons from "../AdminManageButtons";
 type Props = {
   products: Product[];
   additionalFunctionality: boolean;
+  exchangeRate: number;
 };
 
-function DisplaySearchResult({ products, additionalFunctionality }: Props) {
+function DisplaySearchResult({
+  products,
+  additionalFunctionality,
+  exchangeRate,
+}: Props) {
   return (
     <section className="grid grid-cols-1 gap-3 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
       {products.map(product => (
@@ -19,7 +24,7 @@ function DisplaySearchResult({ products, additionalFunctionality }: Props) {
             key={product.id}
             id={product.id}
             photo={product.photo}
-            price={product.price}
+            price={product.price * exchangeRate}
             category={product.category}
             subcategory={product.subcategory}
             article={product.article}

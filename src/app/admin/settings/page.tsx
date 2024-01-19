@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { fetchSettings } from "@/lib/fetchSettings";
+import { fetchMinOrderAmount, fetchExchangeRate } from "@/lib/fetchSettings";
 
 import Headings from "../../../components/UI/Headings";
 import AdminSettingsEditor from "../../../components/AdminSettingsEditor";
@@ -13,8 +13,8 @@ export const metadata: Metadata = {
 };
 
 async function AdminSettings() {
-  const minOrderAmount = await fetchSettings("minOrderAmount");
-  const exchangeRate = await fetchSettings("exchangeRate");
+  const minOrderAmount = await fetchMinOrderAmount();
+  const exchangeRate = await fetchExchangeRate();
 
   return (
     <div className="flex flex-col gap-16">

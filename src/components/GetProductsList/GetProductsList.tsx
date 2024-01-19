@@ -17,6 +17,7 @@ type Props = {
   totalPages: number;
   categoryMaping: string;
   subcategoryMaping: string;
+  exchangeRate: number;
 };
 
 function GetProductsList({
@@ -26,6 +27,7 @@ function GetProductsList({
   totalPages,
   categoryMaping,
   subcategoryMaping,
+  exchangeRate,
 }: Props) {
   const {
     data: products,
@@ -53,7 +55,7 @@ function GetProductsList({
 
   return (
     <>
-      <ProductsList products={products} />
+      <ProductsList products={products} exchangeRate={exchangeRate} />
 
       <Pagination
         total={totalPages}

@@ -1,14 +1,26 @@
 import { unstable_cache as cache } from 'next/cache';;
 import { db } from './db';
 
-async function fetchData(name: string) {
+async function fetchMinOrderAmountData() {
   const data = await db.settings.findUnique({
     where: {
-      name: name,
+      name: "minOrderAmount",
     },
   });
 
   return data?.value;
 }
 
-export const fetchSettings = cache(fetchData, ["settings"], { tags: ["settings"]});
+async function fetchExchangeRateData() {
+  const data = await db.settings.findUnique({
+    where: {
+      name: "exchangeRate",
+    },
+  });
+
+  return data?.value;
+}
+
+export const fetchMinOrderAmount = cache(fetchMinOrderAmountData, ["minOrderAmount"], { tags: ["settings", "minOrderAmount"]});
+
+export const fetchExchangeRate = cache(fetchExchangeRateData, ["exchangeRate"], { tags: ["settings", "exchangeRate"] });

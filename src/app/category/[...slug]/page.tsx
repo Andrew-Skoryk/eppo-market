@@ -4,8 +4,10 @@ import { notFound } from "next/navigation";
 import { categories } from "@/configs/categories";
 import { subcategories } from "@/configs/subcategories";
 import { countItems } from "@/lib/countItems";
+import { fetchExchangeRate } from "@/lib/fetchSettings";
 
 import GetProductsList from "../../../components/GetProductsList";
+import Headings from "../../../components/UI/Headings";
 
 export const metadata: Metadata = {
   title: "Список товарів - Eppo",
@@ -14,6 +16,16 @@ export const metadata: Metadata = {
 
 async function CategoryPage({ params }: { params: { slug: string[] } }) {
   const [categoryMaping, subcategoryMaping, pageMaping] = params.slug;
+  const exchangeRate = await fetchExchangeRate();
+
+  if (!exchangeRate) {
+    return (
+      <>
+        <Headings level={1}>Виникла помилка при завантаженні данних</Headings>
+        <Headings level={2}>Спробуйте повторити запит</Headings>
+      </>
+    );
+  }
 
   const category =
     categories.find(e => e.maping === categoryMaping)?.name || "";
@@ -37,6 +49,7 @@ async function CategoryPage({ params }: { params: { slug: string[] } }) {
         totalPages={totalPages}
         categoryMaping={categoryMaping}
         subcategoryMaping={subcategoryMaping}
+        exchangeRate={exchangeRate}
       />
     </section>
   );

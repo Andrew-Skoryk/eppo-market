@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { fetchSettings } from "@/lib/fetchSettings";
+import { fetchMinOrderAmount } from "@/lib/fetchSettings";
 import { fetchAnnouncement } from "@/lib/announcement";
 
 import MinValueOrderBlock from "../components/MinValueOrderComp";
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 async function Home() {
-  const minOrderAmount = await fetchSettings("minOrderAmount");
+  const minOrderAmount = await fetchMinOrderAmount();
   const announcement = await fetchAnnouncement();
 
   return (

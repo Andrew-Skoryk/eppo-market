@@ -29,7 +29,7 @@ export async function changeMinOrder(_prevState: any, formData: FormData) {
       }
     })
 
-    revalidateTag("settings");
+    revalidateTag("minOrderAmount");
 
     return {
       status: "success"
@@ -66,7 +66,7 @@ export async function changeExchangeRate(_prevState: any, formData: FormData) {
       }
     })
 
-    revalidateTag("settings");
+    revalidateTag("exchangeRate");
 
     return {
       status: "success"
