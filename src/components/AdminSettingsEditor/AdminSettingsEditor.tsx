@@ -24,7 +24,7 @@ type Props = {
 };
 
 const initialState = {
-  message: null,
+  message: undefined,
   status: "idle",
 };
 
