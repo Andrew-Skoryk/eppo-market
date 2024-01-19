@@ -1,3 +1,6 @@
+"server-only";
+"use server";
+
 import { revalidateTag } from 'next/cache';
 import { db } from "./db";
 

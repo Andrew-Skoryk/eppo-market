@@ -8,6 +8,7 @@ import axios from "axios";
 
 import { clientProduct } from "@/types/clietProduct";
 import { useCreateProduct } from "@/hooks/useCreateProduct";
+import { updateProduct } from "@/lib/updateProduct";
 
 import {
   Input,
@@ -23,6 +24,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 import { categories } from "@/configs/categories";
 import { subcategories } from "@/configs/subcategories";
+import { Product } from "@prisma/client";
 
 const productSchema = z.object({
   article: z
@@ -36,13 +38,17 @@ const productSchema = z.object({
   sizes: z.string(),
 });
 
-function CreateProductForm() {
+type Props = {
+  initialProduct?: Product;
+};
+
+function CreateProductForm({ initialProduct }: Props) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const createProductMutation = useCreateProduct();
   const { handleSubmit, control, setValue, watch, formState } =
     useForm<clientProduct>({
       resolver: zodResolver(productSchema),
-      defaultValues: {
+      defaultValues: initialProduct || {
         article: "",
         price: 0,
         photo: "",
@@ -56,35 +62,42 @@ function CreateProductForm() {
 
   const subcategory = watch("subcategory");
 
+  const uploadPhoto = async (file: File): Promise<string> => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const uploadResponse = await axios.post("/api/photo", formData);
+      return uploadResponse.data.url;
+    } catch (error) {
+      throw new Error("Помилка при завантаженні фото");
+    }
+  };
+
   const onSubmit: SubmitHandler<clientProduct> = async data => {
-    if (!selectedFile) {
+    if (!selectedFile && !initialProduct) {
       toast.error("Будь ласка, виберіть фото для товару.");
       return;
     }
 
-    if (data.subcategory === "Кольца" && !data.sizes) {
-      toast.error("Вкажіть розміри Колець!");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("file", selectedFile);
-
     try {
-      const uploadResponse = await axios.post("/api/photo", formData);
-      const photoUrl = uploadResponse.data.url;
+      let photoUrl = initialProduct?.photo || "";
 
-      if (!photoUrl) {
-        toast.error("Помилка при завантаженні фото");
-        return;
+      if (selectedFile) {
+        photoUrl = await uploadPhoto(selectedFile);
       }
 
-      data.photo = photoUrl;
+      const productData = { ...data, photo: photoUrl };
 
-      await createProductMutation.mutateAsync(data);
-      toast.success("Товар успішно додано!");
+      if (initialProduct) {
+        await updateProduct(initialProduct.id, productData);
+        toast.success("Товар створено!");
+      } else {
+        await createProductMutation.mutateAsync(productData);
+        toast.success("Товар оновлено!");
+      }
     } catch (error) {
-      toast.error("Помилка: " + error);
+      toast.error(error instanceof Error ? error.message : "Невідома помилка");
     }
   };
 
@@ -224,7 +237,7 @@ function CreateProductForm() {
         type="submit"
         className="self-center duration-300 border bg-amber-400 text-lime-800 border-amber-500 hover:bg-amber-500"
       >
-        Додати товар
+        Зберегти
       </Button>
 
       <Toaster

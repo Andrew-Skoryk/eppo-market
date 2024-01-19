@@ -26,7 +26,7 @@ function DisplaySearchResult({ products, additionalFunctionality }: Props) {
             sizes={product.sizes}
           />
 
-          {additionalFunctionality && <AdminManageButtons id={product.id} />}
+          {additionalFunctionality && <AdminManageButtons product={product} />}
         </div>
       ))}
     </section>
