@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { fetchSettings } from "@/lib/fetchSettings";
+import { fetchMinOrderAmount } from "@/lib/fetchSettings";
 
 import Headings from "../../components/UI/Headings";
 import Cart from "../../components/Cart";
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 async function CartPage() {
-  const minOrderAmount = await fetchSettings("minOrderAmount");
+  const minOrderAmount = await fetchMinOrderAmount();
 
   return (
     <section className="flex flex-col items-center gap-4">
