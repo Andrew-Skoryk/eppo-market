@@ -6,6 +6,7 @@ import { formatDate, getMoneyFormat } from "@/lib/utils";
 import { statusColorMap } from "@/styles/statusColorMap";
 import { OrderStatusesEnum } from "@/types/OrderStatusesEnum";
 import { Order, OrderStatuses } from "@prisma/client";
+import { updateOrderStatus } from "@/lib/updateOrderStatus";
 
 import {
   Card,
@@ -18,6 +19,7 @@ import {
 } from "@nextui-org/react";
 import { CartItem } from "@/types/CartItem";
 import OrderProductCard from "../OrderProductCard";
+import toast, { Toaster } from "react-hot-toast";
 
 type Props = {
   order: Order;
@@ -28,8 +30,27 @@ const statuses: OrderStatuses[] = ["new", "inProgress", "done"];
 const OrderCard = ({ order }: Props) => {
   const [value, setValue] = React.useState<OrderStatuses>(order.status);
 
-  const handleSelectionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setValue(e.target.value as OrderStatuses);
+  const handleSelectionChange = async (
+    e: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
+    const value = e.target.value as OrderStatuses;
+
+    if (value === order.status || !value) {
+      toast.error("Статус замовлення не потребує змін");
+      return;
+    }
+
+    try {
+      await updateOrderStatus(order.id, value);
+      toast.success("Статус замовлення успішно змінено");
+      setValue(e.target.value as OrderStatuses);
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Помилка при зміні статуса замовлення",
+      );
+    }
   };
 
   const products: CartItem[] = JSON.parse(order.items as string);
@@ -38,7 +59,7 @@ const OrderCard = ({ order }: Props) => {
     <Card
       shadow="md"
       radius="lg"
-      className="z-0 overflow-hidden border border-gray-300 aspect-square"
+      className="z-0 overflow-hidden border border-gray-300"
       fullWidth
     >
       <CardHeader className="flex items-center justify-between p-4 text-white bg-indigo-400">
@@ -114,6 +135,13 @@ const OrderCard = ({ order }: Props) => {
           {getMoneyFormat(order.totalSum)}
         </p>
       </CardFooter>
+
+      <Toaster
+        position="bottom-center"
+        containerStyle={{
+          bottom: "75px",
+        }}
+      />
     </Card>
   );
 };
