@@ -24,10 +24,10 @@ async function fetchOrdersData(page: number) {
   return data;
 }
 
-export const fetchOrders = cache(fetchOrdersData, ["orders"], { tags: ["orders"]});
+export const fetchOrders = cache(fetchOrdersData, ["orders"], { tags: ["orders", "countOrders"]});
 
 async function countOrdersData() {
   return await db.order.count();
 };
 
-export const countOrders = cache(countOrdersData, ["countOrders"], { tags: ["order", "countOrders"] });
+export const countOrders = cache(countOrdersData, ["countOrders"], { tags: ["countOrders"] });

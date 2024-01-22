@@ -34,7 +34,7 @@ export async function handlePlacingOrder(formData: OrderFormData,  products: Car
   const order = await db.order.create({ data: orderData });
 
   sendEmail(order);
-  revalidateTag("orders");
+  revalidateTag("countOrders");
 
   return order;
 }
