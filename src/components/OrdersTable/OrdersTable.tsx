@@ -79,8 +79,8 @@ function OrdersTable({ orders }: { orders: OrderSubset[] }) {
           );
 
         case "createdAt":
-          return formatDate(cellValue as Date);
-
+          const dateValue = new Date(cellValue);
+          return formatDate(dateValue);
         default:
           return String(cellValue);
       }

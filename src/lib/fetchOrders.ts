@@ -1,11 +1,16 @@
 import { unstable_cache as cache } from 'next/cache';
 import { db } from './db';
 
-export async function fetchOrders() {
+async function fetchOrdersData(page: number) {
+  const limit = 1;
+  const offset = (page - 1) * limit;
+
   const data = await db.order.findMany({
     orderBy: {
       createdAt: "desc",
     },
+    take: limit,
+    skip: offset,
     select: {
       id: true,
       status: true,
@@ -19,4 +24,10 @@ export async function fetchOrders() {
   return data;
 }
 
-export const fetchSettings = cache(fetchOrders, ["orders"], { tags: ["orders"]});
+export const fetchOrders = cache(fetchOrdersData, ["orders"], { tags: ["orders"]});
+
+async function countOrdersData() {
+  return await db.order.count();
+};
+
+export const countOrders = cache(countOrdersData, ["countOrders"], { tags: ["order", "countOrders"] });
