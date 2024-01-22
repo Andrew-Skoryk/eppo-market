@@ -23,7 +23,9 @@ async function SearchPage({ params }: { params: { slug: string } }) {
     additionalFunctionality = await checkIfAdmin(user.id);
   }
 
-  if (!exchangeRate) {
+  const query = decodeURIComponent(params.slug).toUpperCase();
+
+  if (!exchangeRate || query.length > 7) {
     return (
       <>
         <Headings level={1}>Виникла помилка при завантаженні данних</Headings>
@@ -32,7 +34,6 @@ async function SearchPage({ params }: { params: { slug: string } }) {
     );
   }
 
-  const query = decodeURIComponent(params.slug).toUpperCase();
   const products = await db.product.findMany({
     where: {
       article: { contains: query },
