@@ -20,7 +20,7 @@ async function UserOrdersPage() {
   const orders = await fetchUserOrders(user.id);
 
   return orders.length === 0 ? (
-    <Headings level={1}>У вас немає замовлень</Headings>
+    <Headings level={1}>У Вас немає замовлень</Headings>
   ) : (
     orders.map(order => <OrderCard key={order.id} order={order} />)
   );

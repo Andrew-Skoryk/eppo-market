@@ -39,6 +39,8 @@ const generatePDF = (order: Order) => {
 
   const products: CartItem[] = JSON.parse(order.items as string);
 
+  const pageHeight = 297;
+  const bottomMargin = 10;
   let yPosition = 75;
 
   products.forEach((product, index) => {
@@ -46,6 +48,11 @@ const generatePDF = (order: Order) => {
       ? product.ringSizes.reduce((total, size) => total + size.quantity, 0)
       : product.quantity;
     const total = product.price * productQuantity!;
+
+    if (yPosition > pageHeight - bottomMargin) {
+      doc.addPage();
+      yPosition = 35; // Початок нової сторінки
+    }
 
     doc.text(`${index + 1}`, 10, yPosition);
     doc.addImage(product.photo, "JPEG", 20, yPosition - 22.5, 45, 45);
