@@ -6,7 +6,7 @@ type Props = {
 
 function AdminPanel({ children }: Props) {
   return (
-    <section className="flex flex-col gap-6">
+    <section className="flex flex-col items-center w-full gap-8">
       <UserProfileBreadcrumbs />
       {children}
     </section>
