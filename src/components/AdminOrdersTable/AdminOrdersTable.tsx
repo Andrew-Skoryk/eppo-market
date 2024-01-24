@@ -7,6 +7,7 @@ import { formatDate, getMoneyFormat } from "@/lib/utils";
 import { OrderStatusesEnum } from "@/types/OrderStatusesEnum";
 import { AdminOrderSubset } from "@/types/AdminOrderSubset";
 import { statusColorMap } from "@/styles/statusColorMap";
+import { OrderPaymentEnum } from "@/types/OrderPaymentEnum";
 
 import {
   Table,
@@ -34,6 +35,10 @@ const columns = [
   {
     key: "totalSum",
     label: "СУМА",
+  },
+  {
+    key: "paymentType",
+    label: "ОПЛАТА",
   },
   {
     key: "city",
@@ -75,9 +80,13 @@ function AdminOrdersTable({ orders }: { orders: AdminOrderSubset[] }) {
             </Chip>
           );
 
+        case "paymentType":
+          return OrderPaymentEnum[cellValue as keyof typeof OrderPaymentEnum];
+
         case "createdAt":
           const dateValue = new Date(cellValue);
           return formatDate(dateValue);
+
         default:
           return String(cellValue);
       }

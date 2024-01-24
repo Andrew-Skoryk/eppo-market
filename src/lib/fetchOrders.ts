@@ -16,6 +16,7 @@ async function fetchOrdersData(page: number) {
       status: true,
       name: true,
       totalSum: true,
+      paymentType: true,
       city: true,
       createdAt: true,
     }
