@@ -1,4 +1,4 @@
-import { countOrders, fetchOrders } from "@/lib/fetchOrders";
+import { countOrders, fetchOrdersSubset } from "@/lib/fetchOrders";
 
 import AdminOrdersTable from "@/components/AdminOrdersTable";
 import AdminOrdersPagination from "@/components/AdminOrdersPagination";
@@ -12,7 +12,7 @@ async function AdminOrders({
 }) {
   const currentPage = Number(searchParams?.page) || 1;
   const totalPages = await countOrders();
-  const orders = await fetchOrders(currentPage);
+  const orders = await fetchOrdersSubset(currentPage);
 
   return (
     <section className="flex flex-col items-center space-y-4">

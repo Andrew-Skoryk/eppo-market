@@ -25,7 +25,7 @@ async function fetchOrdersData(page: number) {
   return data;
 }
 
-export const fetchOrders = cache(fetchOrdersData, ["orders"], { tags: ["orders", "countOrders"]});
+export const fetchOrdersSubset = cache(fetchOrdersData, ["orders"], { tags: ["orders", "countOrders"]});
 
 async function countOrdersData() {
   return await db.order.count();
