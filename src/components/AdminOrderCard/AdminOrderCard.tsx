@@ -3,10 +3,12 @@
 import React from "react";
 
 import { formatDate, getMoneyFormat } from "@/lib/utils";
+import { updateOrderStatus } from "@/lib/updateOrderStatus";
+
 import { statusColorMap } from "@/styles/statusColorMap";
 import { OrderStatusesEnum } from "@/types/OrderStatusesEnum";
 import { Order, OrderStatuses } from "@prisma/client";
-import { updateOrderStatus } from "@/lib/updateOrderStatus";
+import { CartItem } from "@/types/CartItem";
 
 import {
   Card,
@@ -17,7 +19,6 @@ import {
   Select,
   SelectItem,
 } from "@nextui-org/react";
-import { CartItem } from "@/types/CartItem";
 import OrderProductCard from "../OrderProductCard";
 import toast, { Toaster } from "react-hot-toast";
 

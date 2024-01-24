@@ -14,6 +14,7 @@ import {
   TableRow,
   TableCell,
   Chip,
+  Button,
 } from "@nextui-org/react";
 
 import { formatDate, getMoneyFormat } from "@/lib/utils";
@@ -48,6 +49,10 @@ const columns = [
     key: "status",
     label: "СТАТУС",
   },
+  {
+    key: "userId",
+    labe: "ДЕТАЛІ",
+  },
 ];
 
 function UserOrderTable({ orders }: { orders: Order[] }) {
@@ -68,7 +73,7 @@ function UserOrderTable({ orders }: { orders: Order[] }) {
 
         case "totalSum":
           return getMoneyFormat(+cellValue);
-        
+
         case "paymentType":
           return OrderPaymentEnum[cellValue as keyof typeof OrderPaymentEnum];
 
@@ -83,6 +88,9 @@ function UserOrderTable({ orders }: { orders: Order[] }) {
             </Chip>
           );
 
+        case "userId":
+          return <Button size="sm" color="default">Деталі</Button>;
+
         default:
           return String(cellValue);
       }
@@ -91,30 +99,31 @@ function UserOrderTable({ orders }: { orders: Order[] }) {
   );
 
   return (
-    <Table
-      aria-label="Історія замовлень"
-      isStriped
-      isHeaderSticky
-      selectionMode="single"
-      selectionBehavior="replace"
-      color="secondary"
-    >
-      <TableHeader columns={columns}>
-        {column => <TableColumn key={column.key}>{column.label}</TableColumn>}
-      </TableHeader>
+    <>
+      <Table
+        aria-label="Історія замовлень"
+        isHeaderSticky
+        selectionMode="single"
+        selectionBehavior="replace"
+        color="secondary"
+      >
+        <TableHeader columns={columns}>
+          {column => <TableColumn key={column.key}>{column.label}</TableColumn>}
+        </TableHeader>
 
-      <TableBody emptyContent={"У Вас немає замовлень"}>
-        {orders.map((order, index) => (
-          <TableRow key={order.id}>
-            {columnKey => (
-              <TableCell className="text-left">
-                {renderCell(order, columnKey as keyof Order, index)}
-              </TableCell>
-            )}
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+        <TableBody emptyContent={"У Вас немає замовлень"}>
+          {orders.map((order, index) => (
+            <TableRow key={order.id}>
+              {columnKey => (
+                <TableCell className="text-left">
+                  {renderCell(order, columnKey as keyof Order, index)}
+                </TableCell>
+              )}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </>
   );
 }
 
