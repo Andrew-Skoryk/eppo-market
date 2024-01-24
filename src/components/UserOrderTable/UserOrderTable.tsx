@@ -1,11 +1,9 @@
 "use client";
 
 import { useCallback } from "react";
-import { useRouter } from "next/navigation";
 
-import { formatDate, getMoneyFormat } from "@/lib/utils";
+import { Order } from "@prisma/client";
 import { OrderStatusesEnum } from "@/types/OrderStatusesEnum";
-import { AdminOrderSubset } from "@/types/AdminOrderSubset";
 import { statusColorMap } from "@/styles/statusColorMap";
 
 import {
@@ -18,42 +16,43 @@ import {
   Chip,
 } from "@nextui-org/react";
 
+import { formatDate, getMoneyFormat } from "@/lib/utils";
+import { OrderPaymentEnum } from "@/types/OrderPaymentEnum";
+
 const columns = [
   {
     key: "id",
-    label: "НОМЕР",
+    label: "№",
   },
   {
-    key: "status",
-    label: "СТАТУС",
-  },
-  {
-    key: "name",
-    label: "ІМ'Я",
+    key: "createdAt",
+    label: "ДАТА",
   },
   {
     key: "totalSum",
     label: "СУМА",
   },
   {
+    key: "paymentType",
+    label: "ОПЛАТА",
+  },
+  {
     key: "city",
     label: "МІСТО",
   },
   {
-    key: "createdAt",
-    label: "ДАТА",
+    key: "postOfficeNumber",
+    label: "ПОШТА",
+  },
+  {
+    key: "status",
+    label: "СТАТУС",
   },
 ];
 
-function OrdersTable({ orders }: { orders: AdminOrderSubset[] }) {
-  const router = useRouter();
-
-  const handleAction = (key: React.Key) => {
-    router.push(`./orders/${key}`);
-  };
-
+function UserOrderTable({ orders }: { orders: Order[] }) {
   const renderCell = useCallback(
-    (order: AdminOrderSubset, columnKey: keyof AdminOrderSubset) => {
+    (order: Order, columnKey: keyof Order, index: number) => {
       const cellValue = order[columnKey];
 
       if (cellValue === null || cellValue === undefined) {
@@ -61,8 +60,17 @@ function OrdersTable({ orders }: { orders: AdminOrderSubset[] }) {
       }
 
       switch (columnKey) {
+        case "id":
+          return index + 1;
+
+        case "createdAt":
+          return formatDate(cellValue as Date);
+
         case "totalSum":
           return getMoneyFormat(+cellValue);
+        
+        case "paymentType":
+          return OrderPaymentEnum[cellValue as keyof typeof OrderPaymentEnum];
 
         case "status":
           return (
@@ -75,9 +83,6 @@ function OrdersTable({ orders }: { orders: AdminOrderSubset[] }) {
             </Chip>
           );
 
-        case "createdAt":
-          const dateValue = new Date(cellValue);
-          return formatDate(dateValue);
         default:
           return String(cellValue);
       }
@@ -87,24 +92,23 @@ function OrdersTable({ orders }: { orders: AdminOrderSubset[] }) {
 
   return (
     <Table
-      aria-label="Таблиця замовлень магазину"
+      aria-label="Історія замовлень"
       isStriped
       isHeaderSticky
       selectionMode="single"
       selectionBehavior="replace"
       color="secondary"
-      onRowAction={handleAction}
     >
       <TableHeader columns={columns}>
         {column => <TableColumn key={column.key}>{column.label}</TableColumn>}
       </TableHeader>
 
-      <TableBody emptyContent={"Немає даних для відображення."}>
-        {orders.map(order => (
+      <TableBody emptyContent={"У Вас немає замовлень"}>
+        {orders.map((order, index) => (
           <TableRow key={order.id}>
             {columnKey => (
               <TableCell className="text-left">
-                {renderCell(order, columnKey as keyof AdminOrderSubset)}
+                {renderCell(order, columnKey as keyof Order, index)}
               </TableCell>
             )}
           </TableRow>
@@ -114,4 +118,4 @@ function OrdersTable({ orders }: { orders: AdminOrderSubset[] }) {
   );
 }
 
-export default OrdersTable;
+export default UserOrderTable;

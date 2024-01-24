@@ -3,7 +3,7 @@ import { currentUser } from "@clerk/nextjs";
 import { fetchUserOrders } from "@/lib/fetchUserOrders";
 
 import Headings from "@/components/UI/Headings";
-import OrderCard from "@/components/OrderCard";
+import UserOrderTable from "@/components/UserOrderTable";
 
 export const metadata: Metadata = {
   title: "Історія замовлень",
@@ -19,11 +19,7 @@ async function UserOrdersPage() {
 
   const orders = await fetchUserOrders(user.id);
 
-  return orders.length === 0 ? (
-    <Headings level={1}>У Вас немає замовлень</Headings>
-  ) : (
-    orders.map(order => <OrderCard key={order.id} order={order} />)
-  );
+  return <UserOrderTable orders={orders} />
 }
 
 export default UserOrdersPage;
