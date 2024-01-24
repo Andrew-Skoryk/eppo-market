@@ -1,6 +1,6 @@
 import { countOrders, fetchOrders } from "@/lib/fetchOrders";
 
-import OrdersTable from "@/components/OrdersTable";
+import AdminOrdersTable from "@/components/AdminOrdersTable";
 import AdminOrdersPagination from "@/components/AdminOrdersPagination";
 
 async function AdminOrders({
@@ -16,7 +16,7 @@ async function AdminOrders({
 
   return (
     <section className="flex flex-col items-center space-y-4">
-      <OrdersTable orders={orders} />
+      <AdminOrdersTable orders={orders} />
       <AdminOrdersPagination
         totalPages={totalPages}
         currentPage={currentPage}

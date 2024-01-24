@@ -45,7 +45,7 @@ const columns = [
   },
 ];
 
-function OrdersTable({ orders }: { orders: AdminOrderSubset[] }) {
+function AdminOrdersTable({ orders }: { orders: AdminOrderSubset[] }) {
   const router = useRouter();
 
   const handleAction = (key: React.Key) => {
@@ -114,4 +114,4 @@ function OrdersTable({ orders }: { orders: AdminOrderSubset[] }) {
   );
 }
 
-export default OrdersTable;
+export default AdminOrdersTable;
