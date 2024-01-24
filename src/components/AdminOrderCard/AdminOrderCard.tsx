@@ -27,7 +27,7 @@ type Props = {
 
 const statuses: OrderStatuses[] = ["new", "inProgress", "done"];
 
-const OrderCard = ({ order }: Props) => {
+const AdminOrderCard = ({ order }: Props) => {
   const [value, setValue] = React.useState<OrderStatuses>(order.status);
 
   const handleSelectionChange = async (
@@ -146,4 +146,4 @@ const OrderCard = ({ order }: Props) => {
   );
 };
 
-export default OrderCard;
+export default AdminOrderCard;

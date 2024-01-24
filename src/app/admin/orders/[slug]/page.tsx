@@ -1,6 +1,6 @@
 import { findOrder } from "@/lib/findOrder";
 
-import OrderCard from "@/components/OrderCard";
+import AdminOrderCard from "@/components/AdminOrderCard";
 import PrintOrderButton from "@/components/PrintOrderButton";
 
 async function OrderAdminDetailsPage({ params }: { params: { slug: string } }) {
@@ -19,7 +19,7 @@ async function OrderAdminDetailsPage({ params }: { params: { slug: string } }) {
   return (
     <section className="flex flex-col space-y-4">
       <PrintOrderButton order={order} />
-      <OrderCard order={order} />
+      <AdminOrderCard order={order} />
     </section>
   );
 }
