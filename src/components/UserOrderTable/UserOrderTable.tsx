@@ -1,9 +1,12 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
+
+import { formatDate, getMoneyFormat } from "@/lib/utils";
 
 import { Order } from "@prisma/client";
 import { OrderStatusesEnum } from "@/types/OrderStatusesEnum";
+import { OrderPaymentEnum } from "@/types/OrderPaymentEnum";
 import { statusColorMap } from "@/styles/statusColorMap";
 
 import {
@@ -15,10 +18,12 @@ import {
   TableCell,
   Chip,
   Button,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalHeader,
 } from "@nextui-org/react";
-
-import { formatDate, getMoneyFormat } from "@/lib/utils";
-import { OrderPaymentEnum } from "@/types/OrderPaymentEnum";
+import UserOrderCard from "../UserOrderCard";
 
 const columns = [
   {
@@ -56,6 +61,8 @@ const columns = [
 ];
 
 function UserOrderTable({ orders }: { orders: Order[] }) {
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+
   const renderCell = useCallback(
     (order: Order, columnKey: keyof Order, index: number) => {
       const cellValue = order[columnKey];
@@ -89,7 +96,15 @@ function UserOrderTable({ orders }: { orders: Order[] }) {
           );
 
         case "userId":
-          return <Button size="sm" color="default">Деталі</Button>;
+          return (
+            <Button
+              size="sm"
+              color="default"
+              onClick={() => setSelectedOrder(order)}
+            >
+              Деталі
+            </Button>
+          );
 
         default:
           return String(cellValue);
@@ -123,6 +138,21 @@ function UserOrderTable({ orders }: { orders: Order[] }) {
           ))}
         </TableBody>
       </Table>
+
+      {selectedOrder && (
+        <Modal
+          size="3xl"
+          isOpen={!!selectedOrder}
+          onClose={() => setSelectedOrder(null)}
+        >
+          <ModalContent className="max-h-[93vh] overflow-y-auto">
+            <ModalHeader className="self-center text-2xl">{`Деталі замовлення`}</ModalHeader>
+            <ModalBody>
+              <UserOrderCard order={selectedOrder} />
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      )}
     </>
   );
 }

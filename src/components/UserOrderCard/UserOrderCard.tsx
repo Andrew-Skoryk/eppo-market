@@ -29,7 +29,7 @@ const UserOrderCard = ({ order }: Props) => {
     <Card
       shadow="md"
       radius="lg"
-      className="z-0 overflow-hidden border border-gray-300"
+      className="z-0 border border-gray-300"
       fullWidth
     >
       <CardHeader className="flex items-center justify-between p-4 text-white bg-indigo-400">
@@ -42,7 +42,7 @@ const UserOrderCard = ({ order }: Props) => {
             Телефон: {order.phone}
           </p>
 
-          <p className="mb-2 font-medium">Адреса доставки:</p>
+          <p className="mb-2 font-medium">Доставки:</p>
 
           <div className="pl-5 mb-2">
             <p>
@@ -58,13 +58,17 @@ const UserOrderCard = ({ order }: Props) => {
           </div>
         </div>
 
-        <Chip
-          className="capitalize"
-          color={statusColorMap[order.status]}
-          variant="shadow"
-        >
-          {OrderStatusesEnum[order.status]}
-        </Chip>
+        <div className="flex flex-col items-center self-start gap-1 mr-5">
+          <p className="text-lg font-medium tracking-wide">Статус:</p>
+          <Chip
+            size="lg"
+            className="capitalize "
+            color={statusColorMap[order.status]}
+            variant="shadow"
+          >
+            {OrderStatusesEnum[order.status]}
+          </Chip>
+        </div>
       </CardHeader>
 
       <CardBody className="p-4 bg-white">
