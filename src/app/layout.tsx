@@ -8,6 +8,7 @@ import { cn } from "../lib/utils";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Providers from "../Providers";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const bitter = Bitter({ subsets: ["latin", "cyrillic"] });
 
@@ -31,6 +32,7 @@ export default function RootLayout({
               {children}
             </main>
             <Footer />
+            <SpeedInsights />
           </Providers>
         </body>
       </html>

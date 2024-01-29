@@ -23,6 +23,7 @@
     "@reduxjs/toolkit": "^2.1.0",
     "@types/react-redux": "^7.1.27",
     "@types/react-transition-group": "^4.4.7",
+    "@vercel/speed-insights": "^1.0.8",
     "axios": "^1.6.0",
     "cloudinary": "^2.0.0",
     "clsx": "^2.0.0",
