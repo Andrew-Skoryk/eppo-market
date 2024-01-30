@@ -12,44 +12,54 @@ export const metadata: Metadata = {
 
 function ContactsPage() {
   return (
-    <section className="p-2 flex flex-col gap-8">
+    <section className="flex flex-col gap-8 p-2">
       <Headings level={1}>Контакти</Headings>
       <article>
         <address className="not-italic">
           <Headings level={2}>Адреса магазину</Headings>
           <p>
             Інтернет-магазин{" "}
-            <span className="text-amber-700 font-semibold lg:text-lg">
+            <span className="font-semibold text-amber-700 lg:text-lg">
               Eppo
             </span>
           </p>
+
           <p>м. Івано-Франківськ</p>
+
           <StandardInfoBlock>
             <Headings level={2}>Наші контакти</Headings>
+
             <ContactsInfoBlock href="tel:+380682128618">
-              Kyivstar: +38(068) 212-86-18
+              Kyivstar: <span>+38(068) 212-86-18</span>
             </ContactsInfoBlock>
-            <ContactsInfoBlock href="tel:+380931275947">
-              Life: +38(093) 127-59-47
+
+            <ContactsInfoBlock href="tel:+380682516511 ">
+              Kyivstar: +38(068) 251-65-11
             </ContactsInfoBlock>
+
             <ContactsInfoBlock href="tel:+380507237597">
               Vodafone: +38(050) 723-75-97
             </ContactsInfoBlock>
-            <ContactsInfoBlock href="mailto:eppo.market@gmail.com">
-              e-mail: eppo.market@gmail.com
+
+            <ContactsInfoBlock href="mailto:eppo.sales@gmail.com">
+              e-mail: eppo.sales@gmail.com
             </ContactsInfoBlock>
           </StandardInfoBlock>
+
           <StandardInfoBlock>
             <Headings level={2}>Графік роботи</Headings>
-            <p className="flex gap-1 items-center">
+
+            <p className="flex items-center gap-1">
               <Clock4 size={19} />
               Пн-Пт: 9:00 - 16:00
             </p>
-            <p className="flex gap-1 items-center">
+
+            <p className="flex items-center gap-1">
               <Clock2 size={19} />
               Субота: 9:00 - 14:00
             </p>
-            <p className="flex gap-1 items-center">
+
+            <p className="flex items-center gap-1">
               <Hourglass size={19} />
               Неділя: вихідний
             </p>
@@ -60,6 +70,7 @@ function ContactsPage() {
       <article>
         <StandardInfoBlock>
           <Headings level={2}>Як нас знайти</Headings>
+
           <p className="mt-4">
             Наш магазин розташований у місті Івано-Франківськ, але ви завжди
             можете зателефонувати нам або надіслати електронний лист, якщо у вас

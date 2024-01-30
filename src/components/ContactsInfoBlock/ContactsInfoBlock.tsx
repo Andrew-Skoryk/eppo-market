@@ -4,14 +4,15 @@ import Link from "next/link";
 type Props = {
   href: string;
   children: React.ReactNode;
+  footer?: boolean;
 };
 
-function ContactsInfoBlock({ children, href }: Props) {
+function ContactsInfoBlock({ children, href, footer }: Props) {
+  const size = footer ? 14 : 19;
   const isMail = href.split(":")[0] === "mailto" ? true : false;
-  const size = 19;
 
   return (
-    <Link href={href} className="flex gap-1 items-center w-fit">
+    <Link href={href} className="flex items-center gap-1 w-fit">
       {isMail ? <Mail size={size} /> : <Phone size={size} />}
       {children}
     </Link>
