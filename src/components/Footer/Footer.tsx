@@ -14,11 +14,11 @@ const Footer = () => {
 
         <nav className="w-full">
           <ul className="flex justify-around transition-colors duration-300">
-            <li className="mt-3 hover:text-gray-300">
+            <li className="mt-3 hover:text-gray-500">
               <Link href="/delivery">Доставка та Оплата</Link>
             </li>
 
-            <li className="mt-3 hover:text-gray-300">
+            <li className="mt-3 hover:text-gray-500">
               <Link href="/contacts">Контакти</Link>
             </li>
 
