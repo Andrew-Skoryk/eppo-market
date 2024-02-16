@@ -28,7 +28,7 @@ export default function RootLayout({
         <body className="flex flex-col min-h-screen antialiased bg-slate-50">
           <Providers>
             <Header />
-            <main className="container flex-grow py-20 mx-auto max-w-7xl">
+            <main className="container flex-grow pb-20 mx-auto max-w-7xl">
               {children}
             </main>
             <Footer />

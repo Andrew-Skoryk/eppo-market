@@ -8,7 +8,7 @@ const Logo = () => {
       <Image
         src={MainLogo}
         alt="Eppo market Logo"
-        className="w-16 h-16 sm:h-12 sm:w-12"
+        className="lg:w-16 lg:h-16 h-14 w-14"
       />
       <p className="hidden text-sm font-medium md:block text-stone-700">Eppo</p>
     </Link>
